@@ -12,7 +12,7 @@
         "sale",
         "account_payment_sale",
         ],
-    "data": [        
+    "data": [
         ],
-    "installable": True,
+    "installable": False,
 }

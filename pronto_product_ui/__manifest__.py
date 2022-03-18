@@ -12,7 +12,7 @@
         "product",
         "stock",
         ],
-    "data": [        
+    "data": [
         ],
-    "installable": True,
+    "installable": False,
 }
