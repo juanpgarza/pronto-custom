@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        ################# base #################
+     -->
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!-- esto va en el módulo de tipo_cliente -->
+            <!-- <field name="category_id" position="after">
+                <field name="tipo_cliente_id" attrs="{'required': [('customer','=',True)]}"/>
+            </field> -->
+
+            <field name="email" position="attributes">
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
+            <field name="mobile" position="attributes">
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="view_partner_tree_inherit" model="ir.ui.view">
+        <field name="name">res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+
+            <field name="phone" position="after">
+                <field name="mobile" />
+            </field>
+
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="property_product_pricelist"/>
+            </field>
+            <group expand="0">
+                <filter name="property_product_pricelist" context="{'group_by':'property_product_pricelist'}"/>
+            </group>
+        </field>
+    </record>
+
+    <!-- Pendiente -->
+    <record id="base.action_partner_form" model="ir.actions.act_window">
+        <field name="context">{"search_default_customer":1,"default_sale_type":4,"default_property_payment_term_id":1}</field>
+    </record>
+
+    <!--
+        ################# base_location #################
+    -->
+    <record id="view_partner_form_zip_inherit" model="ir.ui.view">
+        <field name="name">res.partner.zip_id.2</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_location.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!--
+                CP obligatorio para los clientes de Argentina
+             -->
+            <field name="zip_id" position="attributes">
+                <!-- <attribute name="attrs">{'required': [('customer','=',True),('country_id','=',10)]}</attribute> -->
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
+            <!-- País obligatorio para los clientes  -->
+            <field name="country_id" position="attributes">
+                <!-- <attribute name="attrs">{'required': [('customer','=',True)]}</attribute> -->
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <!--
+        ################# product #################
+    -->
+     <record id="view_partner_property_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="product.view_partner_property_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Lista de precios requerida cuando es un cliente -->
+            <!-- para esta funcionalidad voy a necesitar el módulo partner_manual_rank -->
+            <!-- https://github.com/OCA/partner-contact/tree/14.0/partner_manual_rank
+                https://github.com/OCA/partner-contact/pull/1186
+            -->
+            <field name="property_product_pricelist" position="attributes">
+                <!-- <attribute name="attrs">{'required': [('customer_rank','=',True)]}</attribute> -->
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+
+    <!--
+        ################# sale_commission #################
+    -->
+    <!-- viene lenta la mig de este repo (quieren refactorizarlo...) -->
+    <!-- <record id="view_partner_form_agent_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.agent</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale_commission.view_partner_form_agent"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='agent_information']" position="attributes">
+                <attribute name="groups">sales_team.group_sale_manager,sales_team.group_sale_salesman</attribute>
+            </xpath>
+        </field>
+    </record> -->
+
+    <!--
+        ################# sale_order_type #################
+    -->
+    <record id="res_partner_sale_type_form_view_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sale_order_type.res_partner_sale_type_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- para esta funcionalidad voy a necesitar el módulo partner_manual_rank -->
+            <field name="sale_type" position="attributes">
+                <!-- <attribute name="attrs">{'required': [('customer_rank','=',True)]}</attribute> -->
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <!--
+        ################# account_financial_risk #################
+    -->
+    <record id="res_partner_view_risk_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.risk</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_financial_risk.res_partner_view_risk"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='financial_risk']" position="attributes">
+                <attribute name="groups">pronto_partner_ui.group_gestionar_riesgo_financiero</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

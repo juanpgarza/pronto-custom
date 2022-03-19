@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_gestionar_riesgo_financiero" model="res.groups">
+        <field name="name">Gestionar riesgo financiero</field>
+        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+    </record>
+
+    <record id="group_ventas_cambiar_tipo_venta_contacto" model="res.groups">
+        <field name="name">Permitir cambiar tipo venta de contacto</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+    </record>
+
+</odoo>
