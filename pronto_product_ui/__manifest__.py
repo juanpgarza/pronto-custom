@@ -4,7 +4,8 @@
 {
     "name": "pronto_product_ui",
     "summary": "Mejoras a la UI solicitadas por el cliente",
-    "version": "12.0.1.0.0",
+    "version": "15.0.1.0.0",
+    "license": "AGPL-3",
     "category": "Product",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -13,6 +14,8 @@
         "stock",
         ],
     "data": [
+        'security/security_data.xml',
+        'views/product_template_views.xml',
         ],
-    "installable": False,
+    "installable": True,
 }
