@@ -11,7 +11,8 @@
     "depends": [
         "purchase",
         ],
-    "data": [        
+    "data": [
+        "views/purchase_order_views.xml",
         ],
     "installable": True,
 }
