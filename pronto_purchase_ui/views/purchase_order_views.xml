@@ -10,7 +10,13 @@
                 <div>
                     <field name="date_planned_reconfirmed"/>    
                 </div>
-            </xpath>            
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
+                <field name="qty_available" />
+                <field name="virtual_available" />
+                <field name="vendor_invoice_price_unit" />
+                <field name="cost_price_unit" />
+            </xpath>
         </field>
     </record>
 
