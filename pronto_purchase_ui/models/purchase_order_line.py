@@ -17,8 +17,6 @@ class PurchaseOrderLine(models.Model):
     @api.depends('order_id.invoice_ids.invoice_line_ids.price_unit')
     def _compute_invoice_price_unit(self):
         self.vendor_invoice_price_unit = self.order_id.invoice_ids.invoice_line_ids.filtered(lambda x: x.purchase_line_id.id == self.id).price_unit 
-
-    @api.one
-    def _compute_invoice_price_unit(self):
         cost_pricelist_id = self.company_id.product_pricelist_cost_id
         self.cost_price_unit = cost_pricelist_id.item_ids.filtered(lambda x: x.product_tmpl_id.id == self.product_id.product_tmpl_id.id).price
+
