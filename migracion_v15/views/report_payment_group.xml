@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="report_payment_group_document" inherit_id="l10n_ar_ux.report_payment_group_document">
+        <!-- <div id="informations" position="after">
+            <h1>JPG</h1>
+        </div> -->
+        <table name="open_table" position="after">
+
+                <t t-foreach="o.with_context(payment_group_id=o.id).matched_move_line_ids" t-as="line">
+                    <!-- <table class="table table-sm o_main_table" name="comprobantes">
+                        <thead>
+                            <tr>
+                                <th><span>Comprobantes Imputados</span></th>
+                                <th class="text-center"><span>Fecha Venc.</span></th>
+                                <th class="text-right"><span>Importe Original</span></th>
+                                <th class="text-right"><span>Importe Imputado</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.with_context(payment_group_id=o.id).matched_move_line_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field='line.move_id.display_name'/></td>
+                                    <td class="text-center">
+                                        <span class="text-nowrap" t-field="line.date_maturity"/>
+                                    </td>
+                                    <td class="text-right o_price_total">
+                                        <span class="text-nowrap" t-out="(o.partner_type == 'supplier' and -1.0 or 1.0) * line.balance" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                    <td class="text-right o_price_total">
+                                        <span class="text-nowrap" t-out="(o.partner_type == 'supplier' and -1.0 or 1.0) * line.payment_group_matched_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table> -->
+
+                    <table class="table table-sm o_main_table" name="detalle_imputacion">
+                        <thead>
+                            <tr>
+                                <th><span>Pagos</span></th>
+                                <th class="text-right"><span>Importe</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                                <t t-foreach="line.matched_debit_ids" t-as="debit_line">
+                                    <tr>
+
+
+                                        <t t-if="debit_line.debit_move_id.move_id.payment_id">
+                                            <td><span t-field='debit_line.debit_move_id.move_id.payment_id.journal_id.display_name'/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <!-- es una NC ? -->
+                                            <td><span t-field='debit_line.debit_move_id.move_id.display_name'/></td>
+                                        </t>
+
+                                        <td class="text-right o_price_total">
+                                            <span class="text-nowrap" t-out="(o.partner_type == 'supplier' and -1.0 or 1.0) * debit_line.credit_amount_currency" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+                        </tbody>
+                    </table>
+                    <br/>
+                </t>
+
+            </table>
+
+    </template>
+
+</odoo>
