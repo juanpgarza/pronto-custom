@@ -47,6 +47,10 @@ def post_init_hook(cr, registry):
                     'group_delivery_invoice_address': True,
                     # sale_ux
                     "update_prices_automatically": True,
+                    "group_stock_adv_location": True,
+                    "group_stock_production_lot": True,
+                    "module_stock_barcode": True,
+                    "group_stock_packaging": True,
                 }
                 )
     newSettings.execute()

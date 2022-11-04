@@ -10,7 +10,7 @@ class StockPickingType(models.Model):
     @api.model
     def asignar_identificador_externo(self):
 
-        ##### xmlrpc_migration.stock_warehouse_11
+        ##### xmlrpc_migration.stock_warehouse_11 # Felix SM 1140
         warehouse_id = self.env.ref('xmlrpc_migration.stock_warehouse_11')
         prefijo = "stock_picking_type_"
         #
