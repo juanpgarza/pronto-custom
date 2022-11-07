@@ -7,6 +7,8 @@ from odoo import models, fields, api
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
+    company_id = fields.Many2one(default=1)
+
     @api.model
     def default_get(self, defaul_fields):
         res = super().default_get(defaul_fields)
@@ -14,7 +16,7 @@ class StockMoveLine(models.Model):
         if not res.get('company_id'):
             res['company_id'] = 1
         if not res.get('product_uom_id'):
-            res['product_uom_id'] = 1 
+            res['product_uom_id'] = 1
         # if not res.get('location_id'):
         #     res['location_id'] = 8
         # if not res.get('location_dest_id'):

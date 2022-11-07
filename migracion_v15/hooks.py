@@ -29,6 +29,7 @@ def post_init_hook(cr, registry):
     newSettings = env['res.config.settings'].create({})
     newSettings.update(
                 {
+                    # sale
                     'group_product_pricelist' : True,
                     'group_sale_pricelist' : True,
                     'product_pricelist_setting': 'advanced',
@@ -47,6 +48,8 @@ def post_init_hook(cr, registry):
                     'group_delivery_invoice_address': True,
                     # sale_ux
                     "update_prices_automatically": True,
+
+                    # stock
                     "group_stock_adv_location": True,
                     "group_stock_production_lot": True,
                     "module_stock_barcode": True,

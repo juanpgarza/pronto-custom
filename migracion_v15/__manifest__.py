@@ -23,8 +23,16 @@
         "stock",
         "l10n_ar",
         "mrp",
-        "web_refresher",
         "website_sale",
+
+        ### OCA ###
+        # web
+        "web_company_color",
+        "web_environment_ribbon",
+        "web_refresher",
+        "web_remember_tree_column_width",
+
+
         ],
     "data": [
 #        'views/report_payment_group.xml',
