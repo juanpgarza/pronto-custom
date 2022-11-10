@@ -7,7 +7,8 @@ from odoo import models, fields, api
 class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
-    company_id = fields.Many2one(default=1)
+    # este campo no existe en v12 y es obligatorio en v15
+    # company_id = fields.Many2one(default=1)
 
     @api.model
     def default_get(self, defaul_fields):
@@ -15,8 +16,8 @@ class StockMoveLine(models.Model):
         # import pdb; pdb.set_trace()
         if not res.get('company_id'):
             res['company_id'] = 1
-        if not res.get('product_uom_id'):
-            res['product_uom_id'] = 1
+        # if not res.get('product_uom_id'):
+        #     res['product_uom_id'] = 1
         # if not res.get('location_id'):
         #     res['location_id'] = 8
         # if not res.get('location_dest_id'):

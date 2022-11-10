@@ -3,7 +3,6 @@
 
 from odoo import models, fields, api
 
-
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
@@ -16,11 +15,25 @@ class StockMove(models.Model):
     #     if not res.get('name'):
     #         res['name'] = "algo"
     #     # if not res.get('location_dest_id'):
-    #     #     res['location_dest_id'] = 5            
+    #     #     res['location_dest_id'] = 5
     #     return res
 
-    def write(self, vals):
-        if 'product_uom' in vals:
-            return True
-        # import pdb; pdb.set_trace()
-        return super().write(vals)
+    def _multi_line_quantity_done_set(self, quantity_done):
+        move_lines = self._get_move_lines()
+        # Bypass the error if we're trying to write the same value.
+        ml_quantity_done = 0
+        for move_line in move_lines:
+            ml_quantity_done += move_line.product_uom_id._compute_quantity(move_line.qty_done, self.product_uom, round=False)
+        # if float_compare(quantity_done, ml_quantity_done, precision_rounding=self.product_uom.rounding) != 0:
+        #     raise UserError(_("Cannot set the done quantity from this stock move, work directly with the move lines."))
+
+    # def write(self, vals):
+    #     if 'product_uom' in vals:
+    #         return True
+    #     # import pdb; pdb.set_trace()
+    #     return super().write(vals)
+
+    # def _action_assign(self):
+    #     import wdb; wdb.set_trace()
+    #     # para que no genere el stock.move.line
+    #     return True

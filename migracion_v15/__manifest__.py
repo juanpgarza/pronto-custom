@@ -11,12 +11,12 @@
     "license": "AGPL-3",
     "depends": [
         "account",
+        "base_automation",
         "mail",
         "product_ux",
         "project",
         "crm",
         "sale_management",
-        "sale_order_type_ux",
         "sale_ux",
         "stock_voucher",
         "sale_stock",
@@ -31,8 +31,16 @@
         "web_environment_ribbon",
         "web_refresher",
         "web_remember_tree_column_width",
+        #  stock-logistics-workflow
+        # "stock_no_negative", INSTALARLO DESPUES DE MIGRAR para que no trabe
+        "stock_picking_back2draft",
+        "stock_picking_purchase_order_link",
+        "stock_picking_sale_order_link",
+        "stock_split_picking",
 
-
+        ### adhoc ###
+        # sale
+        "sale_order_type_ux",
         ],
     "data": [
 #        'views/report_payment_group.xml',
