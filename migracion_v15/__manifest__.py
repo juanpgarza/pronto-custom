@@ -41,6 +41,9 @@
         ### adhoc ###
         # sale
         "sale_order_type_ux",
+
+        # account-payment
+        "account_payment_group",
         ],
     "data": [
 #        'views/report_payment_group.xml',

@@ -5,4 +5,6 @@ from . import stock_picking
 from . import stock_location
 from . import stock_picking_type
 from . import mail_thread
+from . import stock_picking_voucher
+
 
