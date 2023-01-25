@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_cancel_sale_order" model="res.groups">
+        <field name="name">Permiso para cancelar pedido de ventas</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+    </record>
+
+</odoo>
