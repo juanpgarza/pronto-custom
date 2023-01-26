@@ -7,6 +7,8 @@ class StockPicking(models.Model):
     @api.multi
     def action_cancel(self):        
         for rec in self:
-            if not rec.user_has_groups('pronto_stock.group_cancel_picking'):
-                raise ValidationError("No posee permisos suficientes para cancelar el movimiento \n\n")
+            group = "pronto_stock.group_cancel_picking"
+            if not rec.user_has_groups(group):
+                group_id = self.env.ref(group)
+                raise ValidationError("Opción habilitada solo para los miembros del grupo: \n\n'{} / {}'".format(group_id.category_id.name,group_id.name))
         return super(StockPicking, self).action_cancel()
