@@ -13,6 +13,8 @@ class PurchaseOrderLine(models.Model):
     vendor_invoice_price_unit = fields.Float("Precio Unitario Facturado", compute="_compute_invoice_price_unit")
     cost_price_unit = fields.Char("Precio de costo", compute="_compute_cost_price_unit")
 
+    sales_count = fields.Float("Vendido", related='product_id.sales_count')
+
     @api.one
     @api.depends('order_id.invoice_ids.invoice_line_ids.price_unit')
     def _compute_invoice_price_unit(self):
