@@ -6,9 +6,9 @@ class StockPicking(models.Model):
 
     @api.multi
     def action_cancel(self):        
-        for rec in self:
+        for rec in self.filtered(lambda x: x.state != 'cancel'):
             group = "pronto_stock.group_cancel_picking"
             if not rec.user_has_groups(group):
                 group_id = self.env.ref(group)
-                raise ValidationError("Opción habilitada solo para los miembros del grupo: \n\n'{} / {}'".format(group_id.category_id.name,group_id.name))
+                raise ValidationError("Opción habilitada solo para los miembros del grupo: \n\n'{} / {}'".format(group_id.sudo().category_id.name,group_id.name))
         return super(StockPicking, self).action_cancel()
