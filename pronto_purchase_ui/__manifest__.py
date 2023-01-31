@@ -4,7 +4,7 @@
 {
     "name": "pronto_purchase_ui",
     "summary": "Mejoras a la UI solicitadas por el cliente",
-    "version": "12.0.2.0.0",
+    "version": "12.0.2.1.0",
     "category": "Product",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
