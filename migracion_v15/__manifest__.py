@@ -6,7 +6,7 @@
     "summary": "",
     "version": "15.0.1.0.0",
     "category": "",
-    "website": "https://github.com/juanpgarza/zuain-custom",
+    "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
     "license": "AGPL-3",
     "depends": [
@@ -31,8 +31,9 @@
         "web_environment_ribbon",
         "web_refresher",
         "web_remember_tree_column_width",
+
         #  stock-logistics-workflow
-        # "stock_no_negative", INSTALARLO DESPUES DE MIGRAR para que no trabe
+        "stock_no_negative", # INSTALARLO DESPUES DE MIGRAR para que no trabe??
         "stock_picking_back2draft",
         "stock_picking_purchase_order_link",
         "stock_picking_sale_order_link",
@@ -44,6 +45,11 @@
 
         # account-payment
         "account_payment_group",
+
+        ### juanpgarza ###
+        # stock-addons
+        "stock_picking_tag",
+
         ],
     "data": [
 #        'views/report_payment_group.xml',
