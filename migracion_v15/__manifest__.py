@@ -11,23 +11,32 @@
     "license": "AGPL-3",
     "depends": [
         ######################################################
-        ### CORE ###
+        ### CORE CE ###
         ######################################################
         "account",
         "base_automation",
-        "mail",
-        "project",
         "crm",
+        "l10n_ar",
+        "mail",
+        "mrp",
+        "project",
         "sale_management",
         "sale_stock",
         "stock",
-        "l10n_ar",
-        "mrp",
         "website_sale",
 
         ######################################################
         ### OCA ###
         ######################################################
+
+        # partner-contact
+        "base_location",
+
+        # product-atribute
+        "product_code_unique",
+        "product_dimension",
+        "product_pricelist_direct_print",
+
 
         #  stock-logistics-workflow
         "stock_no_negative", # INSTALARLO DESPUES DE MIGRAR para que no trabe??
@@ -35,6 +44,14 @@
         "stock_picking_purchase_order_link",
         "stock_picking_sale_order_link",
         "stock_split_picking",
+
+        # sale-workflow
+        "sale_exception",
+        "sale_order_line_description",
+        "sale_order_type",
+        "sale_product_multi_add",
+        "sale_stock_picking_note",
+        "sale_tier_validation",
 
         # web
         "web_company_color",
