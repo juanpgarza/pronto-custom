@@ -124,10 +124,28 @@
         ### adhoc ###
         ######################################################
         # account-financial-tools
-
+        "account_debt_report",
+        # "account_statement_aeroo_report", Lo necesito?
+        # "account_ux", se auto-instala
 
         # account-payment
         "account_payment_group",
+        "account_withholding",
+        "account_withholding_automatic",
+
+        # odoo-argentina
+        "l10n_ar_account_withholding",
+        "l10n_ar_bank",
+        "l10n_ar_ux",
+
+        # odoo-argentina-ee
+        "account_accountant_ux",
+        "account_tax_settlement",
+        "l10n_ar_account_reports",
+        "l10n_ar_account_tax_settlement",
+        # "l10n_ar_currency_update", se auto-instala
+        "l10n_ar_edi_ux",
+
 
         # product
         "product_ux",
