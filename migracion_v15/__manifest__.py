@@ -10,27 +10,24 @@
     "author": "juanpgarza",
     "license": "AGPL-3",
     "depends": [
+        ######################################################
+        ### CORE ###
+        ######################################################
         "account",
         "base_automation",
         "mail",
-        "product_ux",
         "project",
         "crm",
         "sale_management",
-        "sale_ux",
-        "stock_voucher",
         "sale_stock",
         "stock",
         "l10n_ar",
         "mrp",
         "website_sale",
 
+        ######################################################
         ### OCA ###
-        # web
-        "web_company_color",
-        "web_environment_ribbon",
-        "web_refresher",
-        "web_remember_tree_column_width",
+        ######################################################
 
         #  stock-logistics-workflow
         "stock_no_negative", # INSTALARLO DESPUES DE MIGRAR para que no trabe??
@@ -39,16 +36,37 @@
         "stock_picking_sale_order_link",
         "stock_split_picking",
 
-        ### adhoc ###
-        # sale
-        "sale_order_type_ux",
+        # web
+        "web_company_color",
+        "web_environment_ribbon",
+        "web_refresher",
+        "web_remember_tree_column_width",
 
+        ######################################################
+        ### adhoc ###
+        ######################################################
         # account-payment
         "account_payment_group",
 
+        # product
+        "product_ux",
+
+        # sale
+        "sale_order_type_ux",
+        "sale_ux",
+
+        # stock
+        "stock_voucher",
+
+
+        ######################################################
         ### juanpgarza ###
+        ######################################################
+
         # stock-addons
         "stock_picking_tag",
+        "stock_picking_return_reason",
+        "stock_picking_return_wait_replacement",
 
         ],
     "data": [
