@@ -132,6 +132,7 @@
         "account_payment_group",
         "account_withholding",
         "account_withholding_automatic",
+        "l10n_latam_check",
 
         # odoo-argentina
         "l10n_ar_account_withholding",
@@ -148,13 +149,17 @@
 
 
         # product
+        "product_pricelist",
         "product_ux",
 
         # sale
         "sale_order_type_ux",
+        "sale_order_type_automation",
+        "sale_order_type_invoice_policy",
         "sale_ux",
 
         # stock
+        "stock_ux",
         "stock_voucher",
 
 
