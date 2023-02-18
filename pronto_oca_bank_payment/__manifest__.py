@@ -8,6 +8,7 @@
     "category": "Sales",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
+    "license": "AGPL-3",
     "depends": [
         "sale",
         "account_payment_sale",
