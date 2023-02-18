@@ -15,5 +15,5 @@
             'security/pronto_sale_security.xml',
             # 'views/sale_order_views.xml',
         ],
-    "installable": True,
+    "installable": False,
 }

@@ -14,5 +14,5 @@
     "data": [
             'security/pronto_stock_security.xml',
         ],
-    "installable": True,
+    "installable": False,
 }
