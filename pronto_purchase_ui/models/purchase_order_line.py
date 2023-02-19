@@ -11,13 +11,13 @@ class PurchaseOrderLine(models.Model):
     virtual_available = fields.Float("Cantidad prevista", related='product_id.virtual_available')
 
     vendor_invoice_price_unit = fields.Float("Precio Unitario Facturado", compute="_compute_invoice_price_unit")
-    cost_price_unit = fields.Char("Precio de costo", compute="_compute_cost_price_unit")
+    cost_price_unit = fields.Char("Precio de costo", compute="_compute_invoice_price_unit")
 
     sales_count = fields.Float("Vendido", related='product_id.sales_count')
 
-    @api.one
     @api.depends('order_id.invoice_ids.invoice_line_ids.price_unit')
     def _compute_invoice_price_unit(self):
+        self.vendor_invoice_price_unit = 0
         # los items de una PO pueden estar incluidos en distintas facturas
         for rec in self.order_id.invoice_ids:
             linea_factura = rec.invoice_line_ids.filtered(lambda x: x.purchase_line_id.id == self.id)

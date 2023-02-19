@@ -9,7 +9,6 @@ class PurchaseOrder(models.Model):
 
     date_planned_reconfirmed = fields.Boolean('Fecha prevista re-confirmada')
 
-    @api.multi
     def button_confirm(self):
         for order in self:
             if not order.date_planned_reconfirmed:

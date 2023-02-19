@@ -5,7 +5,7 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='purchase_delivery_invoice']/group[1]/group[1]/div[1]" position="after">
+            <xpath expr="//page[@name='purchase_delivery_invoice']/group[1]/group[1]/field[@name='origin']" position="after">
                 <label for="date_planned_reconfirmed"/>
                 <div>
                     <field name="date_planned_reconfirmed"/>    
