@@ -32,7 +32,7 @@ class ProductTemplate(models.Model):
                 if not values['excluir_calculo_markup']:
                     mensaje_validacion += "- Excluir del cálculo del markup \n"
 
-                if not self.route_ids:
+                if not values['route_ids']:
                     mensaje_validacion += "- Rutas \n"
 
             if mensaje_validacion:
@@ -42,7 +42,6 @@ class ProductTemplate(models.Model):
 
         return res
 
-    @api.multi
     def write(self, values):
         super(ProductTemplate,self).write(values)        
         
