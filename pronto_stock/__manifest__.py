@@ -4,7 +4,7 @@
 {
     "name": "pronto_stock",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "12.0.2.1.0",
+    "version": "15.0.1.0.0",
     "category": "Stock",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -15,5 +15,5 @@
     "data": [
             'security/pronto_stock_security.xml',
         ],
-    "installable": False,
+    "installable": True,
 }

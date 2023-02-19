@@ -4,7 +4,6 @@ from odoo.exceptions import ValidationError
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    @api.multi
     def action_cancel(self):        
         for rec in self.filtered(lambda x: x.state != 'cancel'):
             group = "pronto_stock.group_cancel_picking"
