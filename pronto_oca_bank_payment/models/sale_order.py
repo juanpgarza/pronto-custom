@@ -14,7 +14,6 @@ class SaleOrder(models.Model):
     #         if not rec.payment_mode_id:
     #             raise ValidationError("Debe informar el modo de pago ")
 
-    @api.multi
     def write(self, values):
         # if self.user_has_groups('pronto.group_commitment_date_required'):
         if ('state' in values and self.state != 'done' and values['state'] == 'sale') or 'user_requesting_review' in values:

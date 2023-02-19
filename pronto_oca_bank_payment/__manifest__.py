@@ -4,7 +4,7 @@
 {
     "name": "pronto_oca_bank_payment",
     "summary": "",
-    "version": "12.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Sales",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -15,5 +15,5 @@
         ],
     "data": [        
         ],
-    "installable": False,
+    "installable": True,
 }
