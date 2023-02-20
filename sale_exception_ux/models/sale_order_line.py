@@ -5,7 +5,6 @@ class SaleOrderLine(models.Model):
     _inherit = ['sale.order.line', 'base.exception.method']
     _name = 'sale.order.line'
 
-    @api.multi
     def detect_exceptions(self):
         for rec in self:            
             if rec.qty_invoiced == 0:

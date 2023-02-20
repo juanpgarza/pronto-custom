@@ -9,7 +9,6 @@ from odoo.exceptions import ValidationError
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    @api.multi
     def write(self, values):
         if 'state' in values and values['state'] == 'done':
             if self.picking_type_id.code == 'outgoing' and self.sale_id.main_exception_id:

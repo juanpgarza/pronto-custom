@@ -10,26 +10,6 @@
     failed = True</field>
     <field name="active" eval="True"/>
   </record>
-  <!-- 2 -->
-  <record id="discount_pack_product" model="exception.rule">
-    <field name="name">Descuentos - Producto Pack</field>
-    <field name="description">El descuento de algún producto de tipo Pack excedió el máximo permitido</field>
-    <field name="sequence">12</field>
-    <field name="model">sale.order</field>
-    <field name="code">if not object.check_discount_pack_product():
-    failed = True</field>
-    <field name="active" eval="True"/>
-  </record>
-  <!-- 3 -->
-  <record id="discount_pack_component" model="exception.rule">
-    <field name="name">Descuentos - Producto Pack</field>
-    <field name="description">El descuento de algún producto componente de pack no coincide con el predefinido</field>
-    <field name="sequence">13</field>
-    <field name="model">sale.order</field>
-    <field name="code">if not object.check_discount_pack_component():
-    failed = True</field>
-    <field name="active" eval="True"/>
-  </record>
 
   <!-- 5 -->  
   <record id="price_update" model="exception.rule">

@@ -8,35 +8,11 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     # 1 - Descuentos - Productos simple
-    @api.multi
     def check_discount_simple_product(self):
         self.ensure_one()
         for line in self.order_line:
-            if line.discount > 4 and not line.pack_child_line_ids and not line.pack_parent_line_id and line.qty_invoiced == 0:
+            if line.discount > 4 and line.qty_invoiced == 0:
                 return False           
-        return True
-
-    # 2 - Descuentos - Producto Pack
-    @api.multi
-    def check_discount_pack_product(self):
-        self.ensure_one()
-        for line in self.order_line:
-            if line.discount > 10 and line.pack_child_line_ids and not line.pack_parent_line_id and line.qty_invoiced == 0:
-                return False
-        return True
-
-    # 3 - Descuentos - Componente de Pack
-    @api.multi
-    def check_discount_pack_component(self):
-        self.ensure_one()
-        for line in self.order_line:
-            if line.pack_parent_line_id:
-                # es un componente de un pack
-                descuento_predefinido = line.pack_parent_line_id.product_id.pack_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id).sale_discount 
-                descuento_modificado = line.discount
-
-                if descuento_modificado > descuento_predefinido and line.qty_invoiced == 0:                
-                    return False
         return True
 
     # 4 - Fecha Validez presupuesto
@@ -44,7 +20,6 @@ class SaleOrder(models.Model):
 
     # 5 - Precio correcto actualizado
     # Pendiente
-    @api.multi
     def check_price_update(self):
         self.ensure_one()
         for line in self.order_line:
@@ -70,7 +45,6 @@ class SaleOrder(models.Model):
         return True
     
     # 6 - Cambio tipo de venta
-    @api.multi
     def check_sale_type(self):
         self.ensure_one()
         if self.type_id.id != self.partner_id.sale_type.id:
@@ -82,11 +56,10 @@ class SaleOrder(models.Model):
 
     # 8 - Precio costo mayor a precio de venta
     # 
-    @api.multi
     def check_cost_price(self):
         self.ensure_one()
         if any(self.order_line.filtered(lambda x: x.purchase_price > x.price_unit 
-                                        and not x.pack_parent_line_id and x.product_id.type!='service'
+                                        and x.product_id.type!='service'
                                         and x.qty_invoiced == 0)):
             return False
         return True
@@ -99,7 +72,6 @@ class SaleOrder(models.Model):
 
     unlocked = fields.Boolean("Pedido desbloqueado",default=False,copy=False)
 
-    @api.multi
     def detect_exceptions(self):
         # if self.state == 'draft':
         if self.unlocked:
@@ -128,14 +100,12 @@ class SaleOrder(models.Model):
                 # import pdb; pdb.set_trace()
                 return rec._popup_exceptions()
 
-    @api.multi
     def action_done(self):
         for rec in self:
             if rec.detect_exceptions() and not rec.ignore_exception and rec.unlocked:
                 raise ValidationError('Debe resolver la excepción antes de poder bloquear el pedido')
         return super().action_done()
 
-    @api.multi
     def action_unlock(self):
         for rec in self:
             rec.unlocked = True
@@ -143,7 +113,6 @@ class SaleOrder(models.Model):
         return super().action_unlock()
 
 
-    @api.multi
     def action_invoice_create(self, grouped=False, final=False):
         for rec in self:
             if rec.detect_exceptions() and not rec.ignore_exception and rec.unlocked:
