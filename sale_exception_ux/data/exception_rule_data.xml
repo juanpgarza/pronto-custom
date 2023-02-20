@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+  <!-- 1 -->
+  <record id="discount_simple_product" model="exception.rule">
+    <field name="name">Descuentos - Producto Simple</field>
+    <field name="description">El descuento de algún producto simple excedió el máximo permitido</field>
+    <field name="sequence">11</field>
+    <field name="model">sale.order</field>
+    <field name="code">if not object.check_discount_simple_product():
+    failed = True</field>
+    <field name="active" eval="True"/>
+  </record>
+  <!-- 2 -->
+  <record id="discount_pack_product" model="exception.rule">
+    <field name="name">Descuentos - Producto Pack</field>
+    <field name="description">El descuento de algún producto de tipo Pack excedió el máximo permitido</field>
+    <field name="sequence">12</field>
+    <field name="model">sale.order</field>
+    <field name="code">if not object.check_discount_pack_product():
+    failed = True</field>
+    <field name="active" eval="True"/>
+  </record>
+  <!-- 3 -->
+  <record id="discount_pack_component" model="exception.rule">
+    <field name="name">Descuentos - Producto Pack</field>
+    <field name="description">El descuento de algún producto componente de pack no coincide con el predefinido</field>
+    <field name="sequence">13</field>
+    <field name="model">sale.order</field>
+    <field name="code">if not object.check_discount_pack_component():
+    failed = True</field>
+    <field name="active" eval="True"/>
+  </record>
+
+  <!-- 5 -->  
+  <record id="price_update" model="exception.rule">
+    <field name="name">Precio de venta desactualizado</field>
+    <field name="description">El precio de venta de algún producto está desactualizado</field>
+    <field name="sequence">15</field>
+    <field name="model">sale.order</field>
+    <field name="code">if not object.check_price_update():
+    failed = True</field>
+    <field name="active" eval="True"/>
+  </record>
+
+  <!-- 6 -->  
+  <record id="change_sale_type" model="exception.rule">
+    <field name="name">Cambió tipo de venta</field>
+    <field name="description">Se cambió el tipo de venta por defecto del cliente</field>
+    <field name="sequence">16</field>
+    <field name="model">sale.order</field>
+    <field name="code">if not object.check_sale_type():
+    failed = True</field>
+    <field name="active" eval="True"/>
+  </record>
+
+  <!-- 8 -->  
+  <record id="cost_price" model="exception.rule">
+    <field name="name">Precio costo MAYOR a precio venta</field>
+    <field name="description">El precio de costo de algún producto es mayor al precio de venta</field>
+    <field name="sequence">18</field>
+    <field name="model">sale.order</field>
+    <field name="code">if not object.check_cost_price():
+    failed = True</field>
+    <field name="active" eval="True"/>
+  </record>
+
+</odoo>
