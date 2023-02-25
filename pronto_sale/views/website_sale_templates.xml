@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="sale_order_portal_content_inherit_website_sale" inherit_id="website_sale.sale_order_portal_content_inherit_website_sale">
+        <xpath expr="//section[@id='details']//td[@id='product_name']/*" position="replace">
+            <a t-if="line.product_id.website_published" t-att-href="line.product_id.website_url" t-att-target="_blank">
+                <span t-field="line.name" />
+            </a>
+            <t t-if="not line.product_id.website_published">
+                <span t-field="line.name" />
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
