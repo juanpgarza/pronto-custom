@@ -14,6 +14,8 @@ class ProductTemplate(models.Model):
         rec['excluir_calculo_markup'] = False        
         rec['route_ids'] = False        
         rec['tracking'] = False
+        rec['taxes_id'] = False
+        rec['supplier_taxes_id'] = False
 
         return rec
 
@@ -34,6 +36,12 @@ class ProductTemplate(models.Model):
 
                 if not self.route_ids:
                     mensaje_validacion += "- Rutas \n"
+
+                if not self.taxes_id:
+                    mensaje_validacion += "- Impuestos cliente \n"
+
+                if not self.supplier_taxes_id:
+                    mensaje_validacion += "- Impuestos de proveedor \n"
 
             if mensaje_validacion:
                 raise ValidationError("Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n" + mensaje_validacion)
@@ -60,6 +68,12 @@ class ProductTemplate(models.Model):
 
                         if not rec.route_ids:
                             mensaje_validacion += "- Rutas \n"
+                            
+                        if not self.taxes_id:
+                            mensaje_validacion += "- Impuestos cliente \n"
+
+                        if not self.supplier_taxes_id:
+                            mensaje_validacion += "- Impuestos de proveedor \n"
 
                     if mensaje_validacion:
                         detalle_mensaje = mensaje_validacion
