@@ -5,7 +5,8 @@ from odoo import models, api, fields
 from odoo.exceptions import ValidationError
 
 class PurchaseOrder(models.Model):
-    _inherit = 'purchase.order'
+    _name = "purchase.order"    
+    _inherit = ['purchase.order', 'tier.validation']
 
     date_planned_reconfirmed = fields.Boolean('Fecha prevista re-confirmada')
 
@@ -16,3 +17,10 @@ class PurchaseOrder(models.Model):
                 raise ValidationError("Debe re-confirmar la fecha prevista para poder confirmar el pedido de compra")
 
         return super(PurchaseOrder, self).button_confirm()
+
+    @api.model
+    def _get_under_validation_exceptions(self):
+        res = super(PurchaseOrder,self)._get_under_validation_exceptions()
+        # estos campos no los va a tener en cuenta para la validación
+        res.append('date_planned_reconfirmed')
+        return res
