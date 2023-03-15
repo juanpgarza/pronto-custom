@@ -11,9 +11,11 @@
     "license": "AGPL-3",
     "depends": [
             "stock",
+            "stock_picking_invoice_link",
         ],
     "data": [
             'security/pronto_stock_security.xml',
+            'views/stock_picking_views.xml',
         ],
     "installable": True,
 }
