@@ -15,7 +15,7 @@
         ],
     "data": [
             'security/pronto_stock_security.xml',
-            'views/stock_picking_views.xml',
+            # 'views/stock_picking_views.xml',
         ],
     "installable": True,
 }
