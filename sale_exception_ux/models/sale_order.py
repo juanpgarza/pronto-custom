@@ -11,8 +11,29 @@ class SaleOrder(models.Model):
     def check_discount_simple_product(self):
         self.ensure_one()
         for line in self.order_line:
-            if line.discount > 4 and line.qty_invoiced == 0:
+            if line.discount > 4 and not line.pack_child_line_ids and not line.pack_parent_line_id and line.qty_invoiced == 0:
                 return False           
+        return True
+
+    # 2 - Descuentos - Producto Pack
+    def check_discount_pack_product(self):
+        self.ensure_one()
+        for line in self.order_line:
+            if line.discount > 10 and line.pack_child_line_ids and not line.pack_parent_line_id and line.qty_invoiced == 0:
+                return False
+        return True
+
+    # 3 - Descuentos - Componente de Pack
+    def check_discount_pack_component(self):
+        self.ensure_one()
+        for line in self.order_line:
+            if line.pack_parent_line_id:
+                # es un componente de un pack
+                descuento_predefinido = line.pack_parent_line_id.product_id.pack_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id).sale_discount 
+                descuento_modificado = line.discount
+
+                if descuento_modificado > descuento_predefinido and line.qty_invoiced == 0:                
+                    return False
         return True
 
     # 4 - Fecha Validez presupuesto
@@ -64,6 +85,13 @@ class SaleOrder(models.Model):
             return False
         return True
 
+    # 9 - Producto que no está marcado como vendible
+    #
+    def check_sale_ok(self):
+        self.ensure_one()
+        if any(self.order_line.filtered(lambda x: not x.product_id.sale_ok)):
+            return False
+        return True
 
 class SaleOrder(models.Model):
     _inherit = ['sale.order', 'base.exception']
