@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- <template id="iniciar_sesion_1" inherit_id="website_sale.product_quantity">
+        <xpath expr="//input[@name='add_qty']/.." position="after">
+            <span>OK JPG</span>
+        </xpath>
+    </template> -->
+
+    <template id="products_item" inherit_id="website_sale.products_item">
+        <!-- en /shop
+        -->
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                user_id != website.user_id
+            </attribute>
+        </xpath>
+    </template>
+
+    <template id="iniciar_sesion_2" inherit_id="website_sale.product">
+    <!-- ficha de producto  /shop/product/...      
+    -->
+        <!-- oculta agregar al carrito si el usuario no inició sesión -->
+        <xpath expr="//a[@id='add_to_cart']" position="attributes">
+            <attribute name="t-if">
+                user_id != website.user_id
+            </attribute>
+        </xpath>
+
+        <!-- oculta agregar cantidad si el usuario no inició sesión -->
+        <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+            <attribute name="t-if">
+                user_id != website.user_id
+            </attribute>
+        </xpath>
+
+        <!-- agrega leyenda si el usuario no inició sesión -->
+        <xpath expr="//a[@id='add_to_cart']" position="after">
+            <t t-if="user_id == website.user_id">
+                <p><span><a href="/web/login">Inicie sesión</a> o <a href="/contactus">contacte</a> con pronto para obtener su cuenta. Si usted es un consumidor final puede comprar en <a href="http://tienda.prontodistribuidora.com.ar">http://tienda.prontodistribuidora.com.ar</a></span></p>
+            </t>
+        </xpath>
+
+        <xpath expr="//section[@id='product_detail']/div[hasclass('row')][2]" position="after">
+			<div class="row">
+                <!-- EN v15 src/addons/website_sale/views/templates.xml:714 -->
+                
+				<!-- Tabs -->
+				<div class="col-md-12 col-12">
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+								Descripción
+							</a>
+						</div>
+					</nav>
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+							<p t-field="product.sale_additional_description" class="text-muted" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</xpath>
+
+    </template>
+
+    <!-- ficha de producto:
+        oculta el precio si el usuario no inició sesión
+    -->
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="attributes">
+            <attribute name="t-if">
+                user_id != website.user_id
+            </attribute>
+        </xpath>
+    </template>
+
+    <!-- ficha de producto:
+        oculta el stock disponible si el usuario no inició sesión
+    -->
+    <template id="ocultar_disponibilidad" inherit_id="website_sale_stock.website_sale_stock_product">
+        <xpath expr="//div[hasclass('availability_messages')]" position="attributes">
+            <attribute name="t-if">user_id != website.user_id</attribute>
+        </xpath>
+    </template>
+
+</odoo>
