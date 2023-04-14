@@ -9,10 +9,13 @@
     "author": "juanpgarza",
     "license": "AGPL-3",
     "depends": [
+        "account", # core    
         "account_cashbox", # adhoc
         ],
     "data": [
             'views/account_cashbox_session_views.xml',
+            'views/account_payment_views.xml',
+            'views/account_cashbox_views.xml',
         ],
     "installable": True,
 }

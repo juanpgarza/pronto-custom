@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_account_payment_tree" model="ir.ui.view">
+        <field name="name">account.payment.tree</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="date" position="before">                
+                <field name="cashbox_id"/>
+                <field name="cashbox_session_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_payment_search" model="ir.ui.view">
+        <field name="name">account.payment.search</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search" />
+        <field name="arch" type="xml">
+
+            <filter name="paymentmethodline" position="after">
+                <filter string="Caja"
+                        name="group_cashbox_id"
+                        context="{'group_by': 'cashbox_id'}"/>
+                <filter string="Sesión"
+                        name="group_cashbox_session_id"
+                        context="{'group_by': 'cashbox_session_id'}"/>
+                <filter string="Diario"
+                        name="group_journal_id"
+                        context="{'group_by': 'journal_id'}"/>
+            </filter>
+
+        </field>
+    </record>
+
+    <record id="action_account_cashbox_session_detail" model="ir.actions.act_window">
+        <field name="name">Detalles de sesiones</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_group_cashbox_id': 1, 'search_default_group_cashbox_session_id': 1, 'search_default_group_journal_id': 1}</field>
+        <field name="domain">[('cashbox_session_id','!=',False)]</field>
+        <field name="view_id" ref="view_account_payment_tree"/>
+    </record>
+</odoo>
