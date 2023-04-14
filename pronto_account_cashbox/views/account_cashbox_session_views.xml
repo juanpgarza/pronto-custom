@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_account_cashbox_session_form" model="ir.ui.view">
+        <field name="name">account.cashbox.session.form</field>
+        <field name="model">account.cashbox.session</field>
+        <field name="priority">10</field>
+        <field name="inherit_id" ref="account_cashbox.view_account_cashbox_session_form"/>
+        <field name="arch" type="xml">
+            <field name="user_ids" position="after">
+                <field name="arqueo_inicial_realizado" attrs="{'invisible' : [('state', '!=', 'draft')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
