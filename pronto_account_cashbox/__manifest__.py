@@ -17,6 +17,7 @@
             'views/account_payment_views.xml',
             'views/account_cashbox_views.xml',
             'views/account_cashbox_session_report.xml',
+            'data/pronto_account_cashbox_data.xml',
         ],
     "installable": True,
 }
