@@ -16,6 +16,7 @@
             'views/account_cashbox_session_views.xml',
             'views/account_payment_views.xml',
             'views/account_cashbox_views.xml',
+            'views/account_cashbox_session_report.xml',
         ],
     "installable": True,
 }

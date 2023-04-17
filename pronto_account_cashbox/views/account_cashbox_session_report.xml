@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="cashbox_session_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">                    
+                    <div class="page">
+                        <h2><span t-field="o.cashbox_id.name"/></h2>
+                        <hr/>
+                        <h3>Resumen de sesión: <span t-field="o.name"/></h3>
+                        <hr/>
+                        <div class="row mt32 mb32">
+                            <div class="col-auto mw-100 mb-3">
+                                <strong>Responsable</strong>:<br/>
+                                <span t-field="o.user_ids"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-3">
+                                <strong>Caja</strong>:<br/>
+                                <span t-field="o.cashbox_id"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-3">
+                                <strong>Apertura</strong>:<br/>
+                                <span t-field="o.opening_date"/>
+                            </div>
+                            <div class="col-auto mw-100 mb-3">
+                                <strong>Cierre</strong>:<br/>
+                                <span t-field="o.closing_date"/>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <h4>Resumen</h4>
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>Medio de pago</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Saldo inicial</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Total de transac.</strong>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Saldo final</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="statement">
+                                    <td><span t-field="statement.journal_id"/></td>
+                                    <td class="text-right">
+                                        <span t-field="statement.balance_start"
+                                            t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
+                                    </td>                                                                   
+                                    <td class="text-right">
+                                        <span t-field="statement.amount"
+                                            t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="statement.balance_end_real"
+                                            t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <t t-foreach="o.line_ids" t-as="statement">
+                            <h4 t-if="statement.payment_ids">Medio de pago: <span t-esc="statement.journal_id.name"/></h4>
+
+                            <table class="table table-sm o_main_table" t-if="statement.payment_ids">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Descripción</th>
+                                        <th>Socio</th>                                        
+                                        <th>Pago</th>
+                                        <th class="text-right">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="statement.payment_ids" t-as="line">
+                                        <td><span t-field="line.date"/></td>
+                                        <td><span t-field="line.ref"/></td>
+                                        <td><span t-field="line.partner_id"/></td>
+                                        <td><span t-field="line.name"/></td>
+                                        <td class="text-right">
+                                            <span t-field="line.amount"
+                                                t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_cashbox_session_report" model="ir.actions.report">
+        <field name="name">Resumen de Caja</field>
+        <field name="model">account.cashbox.session</field>
+        <field name="binding_model_id" ref="account_cashbox.model_account_cashbox_session"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pronto_account_cashbox.cashbox_session_report</field>
+        <field name="report_file">pronto_account_cashbox.cashbox_session_report</field>
+        <field name="binding_type">report</field>
+    </record>
+       
+
+</odoo>
