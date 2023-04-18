@@ -9,3 +9,4 @@ Adaptaciones solicitadas por Pronto:
 #. Sesión por defecto en el ingreso de los pagos
 #. Reporte de movimientos de caja
 #. Archivo de datos de configuración de cajas: FSM, PIN, DR
+#. Control saldo inicial informado con saldo última sesión
