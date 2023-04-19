@@ -21,6 +21,7 @@ class AccountCashboxSession(models.Model):
         for session in self:
             if not session.arqueo_inicial_realizado:
                 raise ValidationError("El arqueo inicial está pendiente.")
+            session.closing_date = False
 
     def action_cashbox_expense(self):
         return {
@@ -28,7 +29,31 @@ class AccountCashboxSession(models.Model):
             'name': 'Gastos',
             'view_mode': 'form',
             'res_model': 'account.cashbox.expense.wizard',
-            'target': 'new'  
+            'target': 'new',
+            'context': {
+                'tipo_de_movimiento': 'gasto',}
+        }
+
+    def action_cashbox_recibo(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Cobrar en Efectivo',
+            'view_mode': 'form',
+            'res_model': 'account.cashbox.expense.wizard',
+            'target': 'new',
+            'context': {
+                'tipo_de_movimiento': 'recibo',}
+        }
+
+    def action_cashbox_pago(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Pagar en Efectivo',
+            'view_mode': 'form',
+            'res_model': 'account.cashbox.expense.wizard',
+            'target': 'new',
+            'context': {
+                'tipo_de_movimiento': 'pago',}
         }
 
     @api.depends('cashbox_id')

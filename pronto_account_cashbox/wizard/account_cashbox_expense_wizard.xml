@@ -7,14 +7,15 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <group>                         
+                    <group>                        
                         <field name="cashbox_session_id" invisible="1"/>
                         <field name="session_cash_control_journal_ids" invisible="1"/>
+                        <field name="tipo_de_movimiento" invisible="1"/>
                         <field name="name" required="1" /> 
                         <field name="journal_id" required="1" />                        
                         <field name="unit_amount" required="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                        <field name="product_id" />
-                        <field name="adjunto" filename="file_name"/>
+                        <field name="product_id" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')], 'required': [('tipo_de_movimiento', '==', 'gasto')],}"/>
+                        <field name="adjunto" filename="file_name" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')],}"/>
                         <field name="file_name" invisible="1"/>
                     </group>
                 </group>

@@ -8,6 +8,24 @@
         <field name="inherit_id" ref="account_cashbox.view_account_cashbox_session_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_cashbox_recibo"
+                        class="oe_stat_button"
+                        icon="fa-level-down"
+                        string="Cobrar en Efectivo"
+                        type="object"                        
+                        attrs="{'invisible': [('state', '!=', 'opened')]}"
+                        >
+                </button>
+
+                <button name="action_cashbox_pago"
+                        class="oe_stat_button"
+                        icon="fa-level-down"
+                        string="Pagar en Efectivo"
+                        type="object"                        
+                        attrs="{'invisible': [('state', '!=', 'opened')]}"
+                        >
+                </button>
+
                 <button name="action_cashbox_expense"
                         class="oe_stat_button"
                         icon="fa-level-down"

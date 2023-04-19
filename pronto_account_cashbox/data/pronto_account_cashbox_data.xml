@@ -50,7 +50,13 @@
         </record>
 
         <record model='res.partner' id='proveedor_no_habitual'>
-            <field name='name'>Proveedor No Habitual</field>
+            <field name='name'>Proveedor genérico (Caja)</field>
+            <field name='l10n_latam_identification_type_id' ref='l10n_ar.it_Sigd'/>
+            <field name='l10n_ar_afip_responsibility_type_id' ref="l10n_ar.res_CF"/>
+        </record>
+
+        <record model='res.partner' id='cliente_generico'>
+            <field name='name'>Cliente genérico (Caja)</field>
             <field name='l10n_latam_identification_type_id' ref='l10n_ar.it_Sigd'/>
             <field name='l10n_ar_afip_responsibility_type_id' ref="l10n_ar.res_CF"/>
         </record>

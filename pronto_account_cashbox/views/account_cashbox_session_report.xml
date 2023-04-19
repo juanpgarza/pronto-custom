@@ -88,7 +88,7 @@
                                         <td><span t-field="line.partner_id"/></td>
                                         <td><span t-field="line.name"/></td>
                                         <td class="text-right">
-                                            <span t-field="line.amount"
+                                            <span t-field="line.amount_company_currency_signed"
                                                 t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
                                         </td>
                                     </tr>
