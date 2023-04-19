@@ -10,3 +10,4 @@ Adaptaciones solicitadas por Pronto:
 #. Reporte de movimientos de caja
 #. Archivo de datos de configuración de cajas: FSM, PIN, DR
 #. Control saldo inicial informado con saldo última sesión
+#. Integración con gastos de empleados (hr.expense)

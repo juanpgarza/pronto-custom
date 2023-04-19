@@ -11,6 +11,8 @@
     "depends": [
         "account", # core    
         "account_cashbox", # adhoc
+        "account_payment_group", # adhoc
+        "hr_expense", # core
         ],
     "data": [
             'views/account_cashbox_session_views.xml',
@@ -18,6 +20,9 @@
             'views/account_cashbox_views.xml',
             'views/account_cashbox_session_report.xml',
             'data/pronto_account_cashbox_data.xml',
+            'wizard/account_cashbox_expense_wizard.xml',
+            'security/ir.model.access.csv',
+            'views/hr_expense_views.xml',
         ],
     "installable": True,
 }

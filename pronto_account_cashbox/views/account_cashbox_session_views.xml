@@ -7,6 +7,17 @@
         <field name="priority">10</field>
         <field name="inherit_id" ref="account_cashbox.view_account_cashbox_session_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_cashbox_expense"
+                        class="oe_stat_button"
+                        icon="fa-level-down"
+                        string="Gasto en efectivo"
+                        type="object"                        
+                        attrs="{'invisible': [('state', '!=', 'opened')]}"
+                        >
+                </button>
+            </xpath>
+            
             <field name="user_ids" position="after">
                 <field name="arqueo_inicial_realizado" attrs="{'invisible' : [('state', '!=', 'draft')]}"/>
             </field>
