@@ -23,7 +23,10 @@ class ProductTemplate(models.Model):
         if not values['tracking']:
             # este campo es obligatorio a nivel de base de datos
             # hay que informarlo aunque no se marque el producto como vendible
-            raise ValidationError("Debe informar el campo Seguimiento (Inventario/Trazabilidad)")
+            if values['detailed_type'] == 'product':
+                raise ValidationError("Debe informar el campo Seguimiento (Inventario/Trazabilidad)")
+            else:
+                values['tracking'] = 'none'
 
         if not self.user_has_groups('pronto.group_no_exigir_campos_producto_vendible'):
             mensaje_validacion = ""
