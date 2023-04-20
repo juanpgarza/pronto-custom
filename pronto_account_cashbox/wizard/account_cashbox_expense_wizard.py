@@ -16,8 +16,13 @@ class AccountCashboxExpenseWizard(models.TransientModel):
     def _default_journal_id(self):
         # que siempre ponga por default un diario en ARS
         # los diarios que no tienen informada la moneda son en ARS
-        return self.env['account.cashbox.session'].browse(self._context.get('active_id', False)).session_cash_control_journal_ids.filtered(lambda x: not x.currency_id)[0]
-    
+        diario_efectivo_ars = self.env['account.cashbox.session'].browse(self._context.get('active_id', False)).session_cash_control_journal_ids.filtered(lambda x: not x.currency_id)
+        # import pdb; pdb.set_trace()
+        if diario_efectivo_ars:
+            return diario_efectivo_ars[0]
+        else:
+            return False
+
     journal_id = fields.Many2one('account.journal',string='Diario',domain="[('id','in',session_cash_control_journal_ids)]",default=_default_journal_id)
 
     name = fields.Char(string='Descripción')
@@ -27,6 +32,9 @@ class AccountCashboxExpenseWizard(models.TransientModel):
 
     adjunto = fields.Binary("Comprobante")
     file_name = fields.Char("File Name")
+
+    reason_id_in = fields.Many2one(comodel_name="account.cashbox.payment.reason", string= 'Motivo de movimiento (Ingreso)', domain="[('in_reason','=', True)]")
+    reason_id_out = fields.Many2one(comodel_name="account.cashbox.payment.reason", string= 'Motivo de movimiento (Salida)', domain="[('out_reason','=', True)]")
 
     @api.model
     def default_get(self, field_names):
@@ -59,6 +67,7 @@ class AccountCashboxExpenseWizard(models.TransientModel):
             'payment_method_line_id': self.journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
             'cashbox_session_id': self.cashbox_session_id.id,
             'ref': self.name,
+            'reason_id': self.reason_id_in.id or self.reason_id_out.id,
         }
         payment = self.env['account.payment'].create(vals)
         payment.action_post()

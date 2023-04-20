@@ -7,6 +7,14 @@
         <field name="priority">10</field>
         <field name="inherit_id" ref="account_cashbox.view_account_cashbox_session_form"/>
         <field name="arch" type="xml">
+            <button name="action_import_payments" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+
+            <button name="action_session_payments" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_cashbox_recibo"
                         class="oe_stat_button"

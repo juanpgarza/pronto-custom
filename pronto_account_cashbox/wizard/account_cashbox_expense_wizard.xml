@@ -14,6 +14,8 @@
                         <field name="name" required="1" /> 
                         <field name="journal_id" required="1" />                        
                         <field name="unit_amount" required="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="reason_id_in" context="{'default_in_reason': True}" attrs="{'invisible': ['|',('tipo_de_movimiento', '==', 'gasto'),('tipo_de_movimiento', '==', 'pago')],}"/>
+                        <field name="reason_id_out" context="{'default_out_reason': True}" attrs="{'invisible': ['|',('tipo_de_movimiento', '==', 'gasto'),('tipo_de_movimiento', '==', 'recibo')],}"/>
                         <field name="product_id" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')], 'required': [('tipo_de_movimiento', '==', 'gasto')],}"/>
                         <field name="adjunto" filename="file_name" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')],}"/>
                         <field name="file_name" invisible="1"/>

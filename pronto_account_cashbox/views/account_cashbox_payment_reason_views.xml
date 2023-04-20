@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account_cashbox_payment_reason_view_form" model="ir.ui.view">
+        <field name="name">account.cashbox.payment.reason.form.view</field>
+        <field name="model">account.cashbox.payment.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="id" invisible="1"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="in_reason"/>
+                            <field name="out_reason"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>    
+
+    <record id="account_cashbox_payment_reason_view_tree" model="ir.ui.view">
+        <field name="name">account.cashbox.payment.reason.tree.view</field>
+        <field name="model">account.cashbox.payment.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" invisible="1"/>
+                <field name="name"/>
+                <field name="in_reason"/>
+                <field name="out_reason"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_cashbox_payment_reason_action" model="ir.actions.act_window">
+        <field name="name">Motivos de movimientos de caja</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.cashbox.payment.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_account_cashbox_payment_reason"
+        name="Motivos de movimientos de caja"
+        parent="account.root_payment_menu"
+        action="account_cashbox_payment_reason_action"
+        sequence="100"/>
+
+</odoo>

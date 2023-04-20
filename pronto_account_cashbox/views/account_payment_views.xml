@@ -7,8 +7,9 @@
         <field name="inherit_id" ref="account.view_account_payment_tree"/>
         <field name="arch" type="xml">
             <field name="date" position="before">                
-                <field name="cashbox_id"/>
+                <field name="cashbox_id" string="Caja"/>
                 <field name="cashbox_session_id"/>
+                <field name="reason_id"/>
             </field>
         </field>
     </record>

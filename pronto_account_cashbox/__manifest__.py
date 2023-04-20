@@ -23,6 +23,7 @@
             'wizard/account_cashbox_expense_wizard.xml',
             'security/ir.model.access.csv',
             'views/hr_expense_views.xml',
+            'views/account_cashbox_payment_reason_views.xml',
         ],
     "installable": True,
 }

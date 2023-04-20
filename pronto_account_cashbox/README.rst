@@ -12,3 +12,4 @@ Adaptaciones solicitadas por Pronto:
 #. Control saldo inicial informado con saldo última sesión
 #. Integración con gastos de empleados (hr.expense)
 #. Integración con Cobros y Pagos
+#. Motivos de Recibos y Pagos desde caja

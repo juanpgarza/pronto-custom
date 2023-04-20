@@ -9,6 +9,8 @@ class AccountPayment(models.Model):
         store=True,
     )
 
+    reason_id = fields.Many2one(comodel_name="account.cashbox.payment.reason", string= 'Motivo de movimiento')
+
     def _default_session(self):
         # para que le seleccione automáticamente una sesión.
         # porque para la mayoría de los usuarios solo va a existir una sesión activa
