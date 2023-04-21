@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account_cashbox_transfer_view_form" model="ir.ui.view">
+        <field name="name">account.cashbox.transfer.form.view</field>
+        <field name="model">account.cashbox.transfer</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false" edit="false">
+            <header>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,received" nolabel="1" />
+            </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="origin_cashbox_id"/>
+                            <field name="origin_cashbox_session_id"/>
+                            <field name="origin_payment_id" readonly="1"/>
+                            <label for="amount"/>
+                            <div name="amount_div" class="o_row">
+                                <field name="amount" />
+                                <field name="currency_id" groups="base.group_multi_currency"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="destination_cashbox_id"/>
+                            <field name="destination_cashbox_session_id"/>
+                            <field name="destination_payment_id"/>
+                        </group>                        
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>    
+
+    <record id="account_cashbox_transfer_view_tree" model="ir.ui.view">
+        <field name="name">account.cashbox.transfer.tree.view</field>
+        <field name="model">account.cashbox.transfer</field>
+        <field name="arch" type="xml">
+            <tree>                
+                <field name="id" invisible="1"/>
+                <field name="state"/>
+                <field name="origin_cashbox_id"/>
+                <field name="origin_cashbox_session_id"/>
+                <field name="origin_payment_id"/>
+                <field name="amount" />
+                <field name="destination_cashbox_id"/>
+                <field name="destination_cashbox_session_id"/>
+                <field name="destination_payment_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_cashbox_transfer_action" model="ir.actions.act_window">
+        <field name="name">Transferencias entre cajas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.cashbox.transfer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_account_cashbox_transfer"
+        name="Transferencias entre cajas"
+        parent="account.root_payment_menu"
+        action="account_cashbox_transfer_action"
+        sequence="100"/>
+
+</odoo>

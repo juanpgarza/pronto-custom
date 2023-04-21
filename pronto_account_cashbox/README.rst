@@ -13,3 +13,4 @@ Adaptaciones solicitadas por Pronto:
 #. Integración con gastos de empleados (hr.expense)
 #. Integración con Cobros y Pagos
 #. Motivos de Recibos y Pagos desde caja
+#. Transferencias de efectivo entre cajas

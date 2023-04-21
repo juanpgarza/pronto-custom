@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <odoo>
 
+    <record id="account_cashbox_view_form" model="ir.ui.view">
+        <field name="name">account.cashbox.form</field>
+        <field name="model">account.cashbox</field>
+        <field name="inherit_id" ref="account_cashbox.account_cashbox_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="after">
+                <widget
+                    name="web_ribbon"
+                    title="Archived"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('active', '=', True)]}"
+                />
+            </xpath>
+            <xpath expr="//sheet">
+                <field name="active" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_account_cashbox_kanban" model="ir.ui.view">
         <field name="name">account.cashbox.kanban</field>
         <field name="model">account.cashbox</field>

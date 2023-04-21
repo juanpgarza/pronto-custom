@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="recibir_transferencia" model="ir.ui.view">
+        <field name="name">Recibir Transferencia</field>
+        <field name="model">account.cashbox.transfer.receive.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="cashbox_id" invisible="1"/>
+                    <field name="cashbox_session_id" invisible="1"/>
+                    <field name="session_cash_control_journal_ids" invisible="1"/>
+                    <!-- <field name="name" required="1" />  -->
+                    <field name="journal_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="cashbox_transfer_id" required="1" options="{'no_create': True, 'no_open': False}" />                    
+                </group>
+                <footer>
+                    <button type="object" name="do_transfer_receive"
+                    string="Aceptar" class="oe_highlight" />
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_cashbox_transfer_receive_wizard" model="ir.actions.act_window">
+        <field name="name">Recibir Transferencia</field>
+        <field name="res_model">account.cashbox.transfer.receive.wizard</field>
+        <field name="binding_model_id" ref="model_account_cashbox_session" />
+        <!-- <field name="groups_id" eval="[(4, ref('product.group_sale_pricelist'))]" /> -->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

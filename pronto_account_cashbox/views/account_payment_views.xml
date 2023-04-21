@@ -20,16 +20,21 @@
         <field name="inherit_id" ref="account.view_account_payment_search" />
         <field name="arch" type="xml">
 
-            <filter name="paymentmethodline" position="after">
+            <filter name="date" position="after">
+                <separator/>
+                <filter string="Transf. entre cajas" name="cashbox_transfer" domain="[('cashbox_transfer_id', '!=', False)]"/>
+            </filter>
+
+            <filter name="company" position="after">
                 <filter string="Caja"
                         name="group_cashbox_id"
                         context="{'group_by': 'cashbox_id'}"/>
                 <filter string="Sesión"
                         name="group_cashbox_session_id"
                         context="{'group_by': 'cashbox_session_id'}"/>
-                <filter string="Diario"
-                        name="group_journal_id"
-                        context="{'group_by': 'journal_id'}"/>
+                <filter string="Transf. entre cajas"
+                        name="group_cashbox_transfer_id"
+                        context="{'group_by': 'cashbox_transfer_id'}"/>
             </filter>
 
         </field>

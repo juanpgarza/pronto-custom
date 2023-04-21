@@ -16,6 +16,29 @@ class AccountCashboxSession(models.Model):
         compute='_compute_session_journal_ids'
     )
 
+    transfer_in_ids = fields.One2many('account.cashbox.transfer', 'destination_cashbox_session_id')
+    transfer_in_count = fields.Integer(
+        string="Transferencias Recibidas", compute="_compute_transfers"
+    )
+
+    transfer_out_ids = fields.One2many('account.cashbox.transfer', 'origin_cashbox_session_id')
+    transfer_out_count = fields.Integer(
+        string="Transferencias Enviadas", compute="_compute_transfers"
+    )
+
+    transfer_in_pending_ids = fields.One2many('account.cashbox.transfer', related='cashbox_id.transfer_in_pending_ids')
+    transfer_in_pending_count = fields.Integer(
+        string="Transf. Pendientes", related='cashbox_id.transfer_in_pending_count'
+    )
+
+    @api.depends("transfer_in_ids", "transfer_out_ids")
+    def _compute_transfers(self):
+        for session in self:
+            session.transfer_in_count = len(session.transfer_in_ids)
+            session.transfer_out_count = len(session.transfer_out_ids)
+            # if session.transfer_out_count > 0:
+            #     import pdb; pdb.set_trace()
+
     def action_account_cashbox_session_open(self):
         super(AccountCashboxSession,self).action_account_cashbox_session_open()
         for session in self:
@@ -56,6 +79,44 @@ class AccountCashboxSession(models.Model):
                 'tipo_de_movimiento': 'pago',}
         }
 
+    def action_session_transfers_out(self):
+        view = self.env.ref('pronto_account_cashbox.account_cashbox_transfer_view_tree')
+        return {
+            'name': self.name,
+            'view_mode': 'tree,form',
+            'res_model': 'account.cashbox.transfer',
+            'domain': [('origin_cashbox_session_id', '=', self.id)],
+            # 'view_id': view.id,
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+            # 'context': {'search_default_state_posted':True},
+        }
+
+    def action_session_transfers_in(self):
+        view = self.env.ref('pronto_account_cashbox.account_cashbox_transfer_view_tree')
+        return {
+            'name': self.name,
+            'view_mode': 'tree,form',
+            'res_model': 'account.cashbox.transfer',
+            'domain': [('destination_cashbox_session_id', '=', self.id)],
+            # 'view_id': view.id,
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+            # 'context': {'search_default_state_posted':True},
+        }
+
+    def action_session_transfers_pending(self):
+        view = self.env.ref('pronto_account_cashbox.account_cashbox_transfer_view_tree')
+        return {
+            'name': self.name,
+            'view_mode': 'tree,form',
+            'res_model': 'account.cashbox.transfer',
+            'domain': [('destination_cashbox_id', '=', self.cashbox_id.id),('state','=','sent')],
+            # 'view_id': view.id,
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+            # 'context': {'search_default_state_posted':True},
+        }
     @api.depends('cashbox_id')
     def _compute_session_journal_ids(self):
         for rec in self:

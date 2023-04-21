@@ -24,6 +24,9 @@
             'security/ir.model.access.csv',
             'views/hr_expense_views.xml',
             'views/account_cashbox_payment_reason_views.xml',
+            'wizard/account_cashbox_transfer_wizard.xml',
+            'views/account_cashbox_transfer_views.xml',
+            'wizard/account_cashbox_transfer_receive_wizard.xml',
         ],
     "installable": True,
 }

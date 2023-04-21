@@ -27,7 +27,7 @@
 
                 <button name="action_cashbox_pago"
                         class="oe_stat_button"
-                        icon="fa-level-down"
+                        icon="fa-level-up"
                         string="Pagar en Efectivo"
                         type="object"                        
                         attrs="{'invisible': [('state', '!=', 'opened')]}"
@@ -36,12 +36,44 @@
 
                 <button name="action_cashbox_expense"
                         class="oe_stat_button"
-                        icon="fa-level-down"
+                        icon="fa-user"
                         string="Gasto en efectivo"
                         type="object"                        
                         attrs="{'invisible': [('state', '!=', 'opened')]}"
                         >
                 </button>
+
+                <button 
+                    name="action_session_transfers_out" 
+                    type="object" 
+                    class="oe_stat_button" 
+                    icon="fa-arrow-up"
+                    attrs="{'invisible': [('transfer_out_count', '=', 0)]}"
+                >
+                    <field name="transfer_out_count" widget="statinfo" string="Transf. Enviadas" />
+                </button>
+
+                <button 
+                    name="action_session_transfers_in" 
+                    type="object" 
+                    class="oe_stat_button" 
+                    icon="fa-arrow-down"
+                    attrs="{'invisible': [('transfer_in_count', '=', 0)]}"
+                >
+                    <field name="transfer_in_count" widget="statinfo" string="Transf. Recibidas" />
+                </button>
+
+                <button 
+                    name="action_session_transfers_pending" 
+                    type="object" 
+                    class="oe_stat_button" 
+                    icon="fa-money"
+                    attrs="{'invisible': [('transfer_in_pending_count', '=', 0)]}"
+                    decoration-danger="transfer_in_pending_count > 0"
+                >
+                    <field name="transfer_in_pending_count" widget="statinfo" decoration-danger="transfer_in_pending_count > 0" string="Transf. Pendientes" />
+                </button>
+               
             </xpath>
             
             <field name="user_ids" position="after">
