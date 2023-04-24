@@ -13,11 +13,11 @@ class AccountCashboxTransfer(models.Model):
     _rec_name = 'name'
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    name = fields.Char(related='origin_payment_id.name')
+    name = fields.Char(related='origin_payment_id.name', string="Número")
 
     state = fields.Selection(
         TRANSFER_STATE, required=True, readonly=False,
-        index=True, copy=False, default='draft')
+        index=True, copy=False, default='draft', string="Estado")
 
     # origin_cashbox_id = fields.Many2one('account.cashbox', required=True, states={'draft': [('readonly', False)]}, readonly=True)
     origin_cashbox_id = fields.Many2one(

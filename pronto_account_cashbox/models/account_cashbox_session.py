@@ -122,3 +122,17 @@ class AccountCashboxSession(models.Model):
         for rec in self:
             rec.session_journal_ids = rec.cashbox_id.journal_ids.filtered(lambda x: x in rec.line_ids.mapped('journal_id'))
             rec.session_cash_control_journal_ids = rec.session_journal_ids.filtered(lambda x: x in rec.cashbox_id.cash_control_journal_ids)
+
+    def action_session_payments(self):        
+        action = super(AccountCashboxSession,self).action_session_payments()
+        search_default_journal_id = self.env.context.get('search_default_journal_id', False)
+        if search_default_journal_id:
+            domain = [('cashbox_session_id', '=', self.id),('journal_id', '=', search_default_journal_id)]
+            search_default_journal = False
+        else:
+            domain =  [('cashbox_session_id', '=', self.id)]
+            search_default_journal = True
+
+        action["domain"] = domain
+        action["context"]["search_default_journal"] = search_default_journal
+        return action

@@ -10,6 +10,10 @@
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,received" nolabel="1" />
             </header>
                 <sheet>
+                    <div class="oe_title">
+                        <h1 attrs="{'invisible': [('state', '!=', 'draft')]}"><span>Draft</span></h1>
+                        <h1 attrs="{'invisible': [('state', '=', 'draft')]}"><field name="name" readonly="1"/></h1>
+                    </div>
                     <group>
                         <group>
                             <field name="origin_cashbox_id"/>
@@ -44,6 +48,7 @@
             <tree>                
                 <field name="id" invisible="1"/>
                 <field name="state"/>
+                <field name="name"/>
                 <field name="origin_cashbox_id"/>
                 <field name="origin_cashbox_session_id"/>
                 <field name="origin_payment_id"/>
