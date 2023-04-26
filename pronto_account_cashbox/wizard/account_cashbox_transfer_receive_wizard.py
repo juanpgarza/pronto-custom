@@ -46,6 +46,8 @@ class AccountCashboxTransferReceiveWizard(models.TransientModel):
 
         paired_payment_id.cashbox_session_id = self.cashbox_session_id
         
+        paired_payment_id.ref = 'Transf. Interna - Recibida'
+
         self.cashbox_transfer_id.destination_payment_id = paired_payment_id
 
         self.cashbox_transfer_id.write({

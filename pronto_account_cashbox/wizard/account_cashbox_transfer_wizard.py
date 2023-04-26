@@ -60,7 +60,7 @@ class AccountCashboxTransferWizard(models.TransientModel):
             'partner_id': self.journal_id.company_id.partner_id.id,
             'payment_method_line_id': self.journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
             'cashbox_session_id': self.cashbox_session_id.id,
-            # 'ref': self.name,
+            'ref': 'Transf. Interna - Enviada',
             'destination_journal_id': self.destination_cashbox_id.cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)[0].id,
         }
         payment = self.env['account.payment'].create(payment_vals)

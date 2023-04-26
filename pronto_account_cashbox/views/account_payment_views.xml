@@ -29,6 +29,7 @@
             <field name="date" position="before">                
                 <field name="cashbox_id" string="Caja" optional="hide"/>
                 <field name="cashbox_session_id" optional="hide"/>
+                <field name="ref" optional="hide"/>
                 <field name="reason_id" optional="hide"/>
                 <field name="cashbox_transfer_id" optional="hide"/>
             </field>

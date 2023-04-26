@@ -72,6 +72,16 @@ class AccountCashboxExpenseWizard(models.TransientModel):
         payment = self.env['account.payment'].create(vals)
         payment.action_post()
 
+        # le cambio el talonario a uno en clima (clima_base.receiptbook_clima_fsm)
+        clima_enable = 'en_clima' in self.env['account.move']._fields
+        if clima_enable:
+            if payment_type == 'inbound':
+                payment.payment_group_id.receiptbook_id = self.env.ref('clima_base.receiptbook_clima_fsm')
+            payment.payment_group_id.en_clima = True
+            # no me alcanza con cambiar el talonario. Tengo que cambiar la marca en el payment group y en el account move
+            # esto lo tengo que cambiar!! cuando le saco la marca a un payment, los asientos asociados se debería cambiar automáticamente!!
+            payment.payment_group_id.move_line_ids.move_id.write({'en_clima': True})
+
         if self.tipo_de_movimiento == 'gasto':
             vals0 = {
                 'name': self.name,

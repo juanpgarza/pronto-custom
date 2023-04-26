@@ -17,10 +17,12 @@ class AccountCashbox(models.Model):
     )
 
     transfer_in_pending_count_2 = fields.Integer(
-        string="Transf. Pendientes", compute="_compute_transfers_2"
+        string="Transf. Pendientes 2", compute="_compute_transfers_2"
     )
 
     current_session_id_state = fields.Char("Estado", compute='_compute_current_session_id_state', store=True)
+
+    current_session_user = fields.Char("Usuario", compute='_compute_current_session_user')
 
     def toggle_active(self):
         # Agregar validaciones!!
@@ -38,6 +40,13 @@ class AccountCashbox(models.Model):
         for rec in self:
             transferencias_pendientes = self.env['account.cashbox.transfer'].search([('state','=','sent'), ('destination_cashbox_id', '=', rec.id)])
             rec.transfer_in_pending_count_2 = len(transferencias_pendientes)
+
+    def _compute_current_session_user(self):
+        for rec in self:
+            if rec.current_session_id.user_ids:
+                rec.current_session_user = rec.current_session_id.user_ids[0].name
+            else:
+                rec.current_session_user = ""
 
     @api.depends("current_session_id","current_session_id.state")
     def _compute_current_session_id_state(self):
