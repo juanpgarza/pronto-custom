@@ -40,7 +40,7 @@ class AccountCashboxTransferReceiveWizard(models.TransientModel):
         
         origin_payment_id = self.cashbox_transfer_id.origin_payment_id
 
-        origin_payment_id.with_context(recibiendo_transferencia=True)._create_paired_internal_transfer_payment()
+        origin_payment_id._create_paired_internal_transfer_payment()
 
         paired_payment_id = origin_payment_id.paired_internal_transfer_payment_id
 
@@ -54,4 +54,7 @@ class AccountCashboxTransferReceiveWizard(models.TransientModel):
             'destination_payment_id': paired_payment_id.id,
             'state': 'received',
         })
+
+        self.env['account.cashbox.session.line.transaction']._create_from_payment(paired_payment_id)
+        
         return

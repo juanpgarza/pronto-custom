@@ -16,15 +16,24 @@
             </button>
 
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_session_payments" type="object" class="oe_stat_button" icon="fa-money">
-                    <span>Movimientos</span>
+                <button name="%(action_account_cashbox_session_transaction)d" 
+                        type="action" 
+                        class="oe_stat_button" 
+                        icon="fa-money"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                        >
+                    <span>Detalle de sesión</span>
                 </button>
+                <!-- <button name="action_session_payments" type="object" class="oe_stat_button" icon="fa-money" invisible="1">
+                    <span>Movimientos</span>
+                </button> -->
                 <button name="action_cashbox_recibo"
                         class="oe_stat_button"
                         icon="fa-level-down"
                         string="Cobrar en Efectivo"
                         type="object"                        
                         attrs="{'invisible': [('state', '!=', 'opened')]}"
+                        invisible="1"
                         >
                 </button>
 
@@ -32,6 +41,16 @@
                         class="oe_stat_button"
                         icon="fa-level-up"
                         string="Pagar en Efectivo"
+                        type="object"                        
+                        attrs="{'invisible': [('state', '!=', 'opened')]}"
+                        invisible="1"
+                        >
+                </button>
+
+                <button name="action_cashbox_move"
+                        class="oe_stat_button"
+                        icon="fa-level-up"
+                        string="Operaciones Varias"
                         type="object"                        
                         attrs="{'invisible': [('state', '!=', 'opened')]}"
                         >
@@ -43,6 +62,7 @@
                         string="Gasto en efectivo"
                         type="object"                        
                         attrs="{'invisible': [('state', '!=', 'opened')]}"
+                        invisible="1"
                         >
                 </button>
 
@@ -82,6 +102,29 @@
             <field name="user_ids" position="after">
                 <field name="arqueo_inicial_realizado" attrs="{'invisible' : [('state', '!=', 'draft')]}"/>
             </field>
+
+            <!-- esto no me funciona! -->
+            <!-- <xpath expr="//tree/button[@name='action_session_payments']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath> -->
+
+            <xpath expr="//tree/field[@name='amount']" position="after">
+                <button name="%(action_account_cashbox_session_line_transaction)d" 
+                        type="action" 
+                        title="Detalle de sesión" 
+                        icon="fa-search"                        
+                        ></button>
+            </xpath>
+
+            <xpath expr="//tree/field[@name='balance_end_real']" position="after">
+                <button name="%(action_account_cashbox_bank_transfer_wizard)d" 
+                        type="action" 
+                        title="Depósito/Extracción" 
+                        icon="fa-money"         
+                        attrs="{'invisible': [('require_cash_control', '=', False)]}"               
+                        ></button>
+            </xpath>
+
         </field>
     </record>
 

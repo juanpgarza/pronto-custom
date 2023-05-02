@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account_cashbox_session_line_transaction_tree" model="ir.ui.view">
+        <field name="name">account.cashbox.session.line.transaction.tree.view</field>
+        <field name="model">account.cashbox.session.line.transaction</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- <field name="ref" optional="hide"/>                -->
+                <field name="transaction_reason"/>
+                <!-- <field name="amount" optional="hide"/> -->
+                <field name="amount_signed"/>
+                <field name="payment_id"/>
+                <field name="account_id" optional="show"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'posted'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_cashbox_session_line_transaction_search" model="ir.ui.view">
+        <field name="name">account.cashbox.session.line.transaction.search</field>
+        <field name="model">account.cashbox.session.line.transaction</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="Diario"
+                        name="group_journal_id"
+                        context="{'group_by': 'journal_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_cashbox_session_transaction" model="ir.actions.act_window">
+        <field name="name">Detalle de sesión</field>
+        <field name="res_model">account.cashbox.session.line.transaction</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_group_journal_id': 1}</field>
+        <field name="domain">[('cashbox_session_id','in',active_ids),('state','=','posted')]</field>
+        <!-- <field name="view_id" ref="view_account_payment_tree"/> -->
+    </record>
+
+    <record id="action_account_cashbox_session_line_transaction" model="ir.actions.act_window">
+        <field name="name">Detalle de sesión</field>
+        <field name="res_model">account.cashbox.session.line.transaction</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain">[('session_line_id','in',active_ids),('state','=','posted')]</field>
+        <!-- <field name="view_id" ref="view_account_payment_tree"/> -->
+    </record>
+
+</odoo>

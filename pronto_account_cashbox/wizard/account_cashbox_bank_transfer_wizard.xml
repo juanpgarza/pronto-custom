@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="deposito_extraccion_bancaria" model="ir.ui.view">
+        <field name="name">Depósito / Extracción</field>
+        <field name="model">account.cashbox.bank.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="session_line_id" invisible="1" />
+                        <field name="transaction_type" required="1" />
+                        <field name="cash_journal_id" readonly="1" />
+                        <field name="bank_journal_id" required="1"/>
+                        <field name="amount" required="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group>
+                        
+                    </group>
+                </group>
+                <footer>
+                    <button type="object" name="do_transfer"
+                    string="Aceptar" class="oe_highlight" />
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_cashbox_bank_transfer_wizard" model="ir.actions.act_window">
+        <field name="name">Depósito / Extracción</field>
+        <field name="res_model">account.cashbox.bank.transfer.wizard</field>
+        <field name="binding_model_id" ref="model_account_cashbox_session_line" />
+        <!-- <field name="groups_id" eval="[(4, ref('product.group_sale_pricelist'))]" /> -->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

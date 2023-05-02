@@ -117,6 +117,30 @@ class AccountCashboxSession(models.Model):
             'type': 'ir.actions.act_window',
             # 'context': {'search_default_state_posted':True},
         }
+
+    def action_cashbox_move(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Operaciones varias',
+            'view_mode': 'form',
+            'res_model': 'account.cashbox.move.wizard',
+            'target': 'new',
+            # 'context': {
+            #     'tipo_de_movimiento': 'recibo',}
+        }
+
+    def action_session_transactions(self):
+        # view = self.env.ref('account.view_account_payment_tree')
+        return {
+            'name': self.name,
+            'view_mode': 'tree',
+            'res_model': 'account.payment',
+            'domain': [('cashbox_session_id', '=', self.id)],
+            # 'view_id': view.id,
+            'type': 'ir.actions.act_window',
+            'context': {'search_default_state_posted':True},
+        }
+    
     @api.depends('cashbox_id')
     def _compute_session_journal_ids(self):
         for rec in self:

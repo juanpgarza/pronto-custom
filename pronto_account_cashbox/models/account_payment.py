@@ -27,13 +27,18 @@ class AccountPayment(models.Model):
     cashbox_session_id = fields.Many2one(default=_default_session)
 
     def _create_paired_internal_transfer_payment(self):
-        recibiendo_transferencia = self.env.context.get('recibiendo_transferencia', False)
-        for payment in self:
-            # cuando el payment se genera desde una transferencia de caja
-            # el paired payment se genera al recibir la transferencia en la caja destino
-            if not payment.cashbox_transfer_id:
-                super(AccountPayment, self)._create_paired_internal_transfer_payment()
-            else:
-                if recibiendo_transferencia:
-                    # si pasa por acá es porque estoy llamando al método desde el wizard recibir transferencia
-                    super(AccountPayment, self)._create_paired_internal_transfer_payment()
+        # en la transferencias entre caja, necesito que generar el paired payment a mano
+        create_paired_payment = self.env.context.get('create_paired_payment', True)
+        if create_paired_payment:
+            super(AccountPayment, self)._create_paired_internal_transfer_payment()
+
+    def action_post(self):
+        res = super().action_post()
+
+        for rec in self:
+            if rec.cashbox_session_id:               
+                self.env['account.cashbox.session.line.transaction']._create_from_payment(rec)
+                
+        return res
+
+        

@@ -63,7 +63,7 @@ class AccountCashboxTransferWizard(models.TransientModel):
             'ref': 'Transf. Interna - Enviada',
             'destination_journal_id': self.destination_cashbox_id.cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)[0].id,
         }
-        payment = self.env['account.payment'].create(payment_vals)
+        payment = self.env['account.payment'].with_context(create_paired_payment=False).create(payment_vals)
 
         transfer_vals = {
             'state': 'sent',

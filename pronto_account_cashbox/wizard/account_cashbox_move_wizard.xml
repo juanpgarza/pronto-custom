@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="operaciones_varias" model="ir.ui.view">
+        <field name="name">Operaciones Varias</field>
+        <field name="model">account.cashbox.move.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>                        
+                        <field name="cashbox_session_id" invisible="1"/>
+                        <field name="session_cash_control_journal_ids" invisible="1"/>
+                        <!-- <field name="tipo_de_movimiento" invisible="1"/> -->
+                        <field name="name" required="0" /> 
+                        <field name="journal_id" required="1" />
+                        <field name="transaction_type" required="1" />
+                        <field name="amount"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="reason_id_in" context="{'default_in_reason': True}" attrs="{'invisible': [('transaction_type','==','outbound')]}"/>
+                        <field name="reason_id_out" context="{'default_out_reason': True}" attrs="{'invisible': [('transaction_type','==','inbound')]}"/>
+                        <!-- <field name="product_id" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')], 'required': [('tipo_de_movimiento', '==', 'gasto')],}"/>
+                        <field name="adjunto" filename="file_name" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')],}"/>
+                        <field name="file_name" invisible="1"/> -->
+                    </group>
+                </group>
+                <footer>
+                    <button type="object" name="do_cash_out"
+                    string="Aceptar" class="oe_highlight" />
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -69,24 +69,26 @@
 
 
                         <t t-foreach="o.line_ids" t-as="statement">
-                            <h4 t-if="statement.payment_ids">Medio de pago: <span t-esc="statement.journal_id.name"/></h4>
+                            <h4 t-if="statement.transaction_ids">Medio de pago: <span t-esc="statement.journal_id.name"/></h4>
 
-                            <table class="table table-sm o_main_table" t-if="statement.payment_ids">
+                            <table class="table table-sm o_main_table" t-if="statement.transaction_ids">
                                 <thead>
                                     <tr>
-                                        <th>Fecha</th>
+                                        <!-- <th>Fecha</th>
                                         <th>Descripción</th>
                                         <th>Socio</th>                                        
-                                        <th>Pago</th>
+                                        <th>Pago</th> -->
+                                        <th>Motivo</th>
                                         <th class="text-right">Importe</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr t-foreach="statement.payment_ids" t-as="line">
-                                        <td><span t-field="line.date"/></td>
+                                    <tr t-foreach="statement.transaction_ids" t-as="line">
+                                        <!-- <td><span t-field="line.date"/></td>
                                         <td><span t-field="line.ref"/></td>
                                         <td><span t-field="line.partner_id"/></td>
-                                        <td><span t-field="line.name"/></td>
+                                        <td><span t-field="line.name"/></td> -->
+                                        <td><span t-field="line.transaction_reason"/></td>
                                         <td class="text-right">
                                             <span t-field="line.amount_signed"
                                                 t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
