@@ -14,7 +14,9 @@ class AccountCashboxBankTransferWizard(models.TransientModel):
 
     cash_journal_id = fields.Many2one('account.journal',string='Diario Efectivo',related='session_line_id.journal_id')
 
-    bank_journal_id = fields.Many2one('account.journal',string='Diario Banco',domain=[('type','=','bank')])
+    
+    session_bank_control_journal_ids = fields.Many2many('account.journal', related='session_line_id.cashbox_session_id.session_bank_control_journal_ids')
+    bank_journal_id = fields.Many2one('account.journal',string='Diario Banco',domain="[('id','in',session_bank_control_journal_ids)]",)
 
     amount = fields.Monetary(string='Importe', currency_field='currency_id', required=True)
     currency_id = fields.Many2one('res.currency', compute="_compute_currency")
@@ -35,21 +37,32 @@ class AccountCashboxBankTransferWizard(models.TransientModel):
         if self.amount == 0:
             raise UserError('El importe no puede ser cero.')
 
+        payment_vals = {
+            'amount': self.amount,
+            'payment_type': self.transaction_type,
+            # 'partner_type': partner_type,
+            'journal_id': self.cash_journal_id.id,
+            'partner_id': self.cash_journal_id.company_id.partner_id.id,
+            'payment_method_line_id': self.cash_journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
+            'cashbox_session_id': self.session_line_id.cashbox_session_id.id,
+            # 'ref': 'Depósito desde Caja',
+            'destination_journal_id': self.bank_journal_id.id,
+        }
+
         if self.transaction_type == 'outbound':
             # DEPOSITO
-            payment_vals = {
-                'amount': self.amount,
-                'payment_type': self.transaction_type,
-                # 'partner_type': partner_type,
-                'journal_id': self.cash_journal_id.id,
-                'partner_id': self.cash_journal_id.company_id.partner_id.id,
-                'payment_method_line_id': self.cash_journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
-                'cashbox_session_id': self.session_line_id.cashbox_session_id.id,
-                'ref': 'Depósito desde Caja',
-                'destination_journal_id': self.bank_journal_id.id,
-            }
+            payment_vals["ref"] = 'Depósito desde Caja'
+            
         else:
             # EXTRACCION
-            return True
+            payment_vals["ref"] = 'Extracción a Caja'
         
-        payment = self.env['account.payment'].create(payment_vals)            
+        payment = self.env['account.payment'].create(payment_vals)
+        payment.action_post()
+
+        # tengo que corregir la sesion que le pone el paired payment
+        paired_payment_id = payment.paired_internal_transfer_payment_id
+        paired_payment_id.cashbox_session_id = self.session_line_id.cashbox_session_id
+
+        # creo la transacción para el paired payment (el payment del diario banco)
+        self.env['account.cashbox.session.line.transaction']._create_from_payment(paired_payment_id)

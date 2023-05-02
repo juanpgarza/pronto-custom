@@ -16,6 +16,11 @@ class AccountCashboxSession(models.Model):
         compute='_compute_session_journal_ids'
     )
 
+    session_bank_control_journal_ids = fields.Many2many(
+        comodel_name='account.journal',
+        compute='_compute_session_journal_ids'
+    )
+
     transfer_in_ids = fields.One2many('account.cashbox.transfer', 'destination_cashbox_session_id')
     transfer_in_count = fields.Integer(
         string="Transferencias Recibidas", compute="_compute_transfers"
@@ -129,6 +134,15 @@ class AccountCashboxSession(models.Model):
             #     'tipo_de_movimiento': 'recibo',}
         }
 
+    def action_cashbox_vendor_bill(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Cargar Compra',
+            'view_mode': 'form',
+            'res_model': 'account.cashbox.vendor.bill.wizard',
+            'target': 'new',
+        }
+
     def action_session_transactions(self):
         # view = self.env.ref('account.view_account_payment_tree')
         return {
@@ -141,11 +155,12 @@ class AccountCashboxSession(models.Model):
             'context': {'search_default_state_posted':True},
         }
     
-    @api.depends('cashbox_id')
+    @api.depends('cashbox_id','cashbox_id.journal_ids','cashbox_id.cash_control_journal_ids')
     def _compute_session_journal_ids(self):
         for rec in self:
             rec.session_journal_ids = rec.cashbox_id.journal_ids.filtered(lambda x: x in rec.line_ids.mapped('journal_id'))
             rec.session_cash_control_journal_ids = rec.session_journal_ids.filtered(lambda x: x in rec.cashbox_id.cash_control_journal_ids)
+            rec.session_bank_control_journal_ids = rec.session_journal_ids.filtered(lambda x: x.type == 'bank')
 
     def action_session_payments(self):        
         action = super(AccountCashboxSession,self).action_session_payments()

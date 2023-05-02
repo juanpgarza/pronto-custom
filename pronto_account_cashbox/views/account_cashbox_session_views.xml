@@ -47,14 +47,14 @@
                         >
                 </button>
 
-                <button name="action_cashbox_move"
+                <!-- <button name="action_cashbox_move"
                         class="oe_stat_button"
                         icon="fa-level-up"
                         string="Operaciones Varias"
                         type="object"                        
                         attrs="{'invisible': [('state', '!=', 'opened')]}"
                         >
-                </button>
+                </button> -->
 
                 <button name="action_cashbox_expense"
                         class="oe_stat_button"

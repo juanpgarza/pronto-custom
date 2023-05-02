@@ -45,6 +45,9 @@ class AccountCashboxMoveWizard(models.TransientModel):
     reason_id_in = fields.Many2one(comodel_name="account.cashbox.payment.reason", string= 'Motivo del Ingreso', domain="[('in_reason','=', True)]")
     reason_id_out = fields.Many2one(comodel_name="account.cashbox.payment.reason", string= 'Motivo de Egreso', domain="[('out_reason','=', True)]")
 
+    adjunto = fields.Binary("Comprobante")
+    file_name = fields.Char("File Name")
+
     # def _compute_reason_id(self):
     #     if self.transaction_type == '':
     #         self.
@@ -96,3 +99,18 @@ class AccountCashboxMoveWizard(models.TransientModel):
         }
 
         self.env['account.cashbox.session.line.transaction'].create(vals)
+
+        if self.adjunto:
+            nombre_adjunto = self.file_name
+            IrAttachment = self.env['ir.attachment']
+
+            data_attach2 = {
+                'name': nombre_adjunto,
+                'datas': self.adjunto,
+                'type': 'binary',
+                'datas_fname': nombre_adjunto,
+                'description': nombre_adjunto,
+                'res_model': "account.cashbox.session",
+                'res_id': self.cashbox_session_id.id,
+            }
+            new_attachment2 = IrAttachment.create(data_attach2)

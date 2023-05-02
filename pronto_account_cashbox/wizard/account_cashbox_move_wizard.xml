@@ -11,7 +11,7 @@
                         <field name="cashbox_session_id" invisible="1"/>
                         <field name="session_cash_control_journal_ids" invisible="1"/>
                         <!-- <field name="tipo_de_movimiento" invisible="1"/> -->
-                        <field name="name" required="0" /> 
+                        <field name="name" required="1" /> 
                         <field name="journal_id" required="1" />
                         <field name="transaction_type" required="1" />
                         <field name="amount"/>
@@ -21,6 +21,8 @@
                         <!-- <field name="product_id" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')], 'required': [('tipo_de_movimiento', '==', 'gasto')],}"/>
                         <field name="adjunto" filename="file_name" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')],}"/>
                         <field name="file_name" invisible="1"/> -->
+                        <field name="adjunto" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
                     </group>
                 </group>
                 <footer>
@@ -30,6 +32,15 @@
                 </footer>
             </form>
         </field>
+    </record>
+
+    <record id="action_action_cashbox_move_wizard" model="ir.actions.act_window">
+        <field name="name">Egresos / Ingresos Varios</field>
+        <field name="res_model">account.cashbox.move.wizard</field>
+        <field name="binding_model_id" ref="model_account_cashbox_session" />
+        <!-- <field name="groups_id" eval="[(4, ref('product.group_sale_pricelist'))]" /> -->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
     </record>
 
 </odoo>
