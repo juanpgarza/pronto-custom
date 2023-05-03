@@ -56,7 +56,7 @@ class AccountCashboxSessionLineTransaction(models.Model):
     transaction_group = fields.Selection([
                         ('recibo', 'Recibo'),
                         ('orden_pago', 'Orden de Pago'),
-                        ('factura_proveedor', 'Generada desde caja'),
+                        ('factura_proveedor', 'Factura de compra'),
                         ('asiento_contable_directo', 'Asiento Directo'),
                         ('operacion_bancaria', 'Extracción/Depósito Bancario'),
                         ('transferencia_entre_cajas', 'Transferencia entre cajas'),
@@ -129,9 +129,6 @@ class AccountCashboxSessionLineTransaction(models.Model):
             # es un pago. y puede ser:
             # Todo menos un 'asiento_contable_directo'
                 if transaction.payment_id.payment_group_id:                
-                    # tiene una factura de proveedor asociada (me falta agregar el campo)
-                    # transaction.transaction_group = 'factura_proveedor'
-
                     transaction.partner_id = transaction.payment_id.payment_group_id.partner_id
                     if transaction.transaction_type == 'inbound':
                     # tiene un payment group y es inbound
@@ -174,8 +171,14 @@ class AccountCashboxSessionLineTransaction(models.Model):
 
             else:
                 if transaction.move_id:
-                    transaction.transaction_group = 'asiento_contable_directo'
-                    transaction.partner_id = False
-                    transaction.transaction_group_detail = transaction.transaction_reason.name
+                    if transaction.move_id.move_type == 'entry':
+                        transaction.transaction_group = 'asiento_contable_directo'
+                        transaction.partner_id = False
+                        transaction.transaction_group_detail = transaction.transaction_reason.name
+                    else:
+                        if transaction.move_id.move_type == 'in_invoice':
+                            transaction.transaction_group = 'factura_proveedor'
+                            transaction.partner_id = transaction.move_id.partner_id
+                            transaction.transaction_group_detail = 'Factura de compra de {}'.format(transaction.partner_id.name)
                 else:
                     raise ValidationError("Transacción sin clasificar!!")

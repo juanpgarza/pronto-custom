@@ -30,6 +30,7 @@
             'views/account_cashbox_transfer_views.xml',
             'wizard/account_cashbox_transfer_receive_wizard.xml',
             'wizard/account_cashbox_move_wizard.xml',
+            'wizard/account_cashbox_supplier_bill_wizard.xml',
         ],
     "installable": True,
 }

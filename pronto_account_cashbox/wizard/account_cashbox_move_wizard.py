@@ -108,7 +108,6 @@ class AccountCashboxMoveWizard(models.TransientModel):
                 'name': nombre_adjunto,
                 'datas': self.adjunto,
                 'type': 'binary',
-                'datas_fname': nombre_adjunto,
                 'description': nombre_adjunto,
                 'res_model': "account.cashbox.session",
                 'res_id': self.cashbox_session_id.id,

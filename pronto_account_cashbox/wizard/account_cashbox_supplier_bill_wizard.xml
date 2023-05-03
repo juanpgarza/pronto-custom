@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="cashbox_supplier_bill_wizard" model="ir.ui.view">
+        <field name="name">Factura de compra</field>
+        <field name="model">account.cashbox.supplier.bill.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>                        
+                        <field name="cashbox_session_id" invisible="1"/>
+                        <field name="session_cash_control_journal_ids" invisible="1"/>
+                        <field name="l10n_latam_available_document_type_ids" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="journal_id" required="1" />
+                        <field name="purchase_journal_id" required="1" />
+                        
+                        <field name="invoice_date" required="1" />
+                        <field name="partner_id" required="1" />
+                        <field name="l10n_latam_document_type_id" required="1" />
+                        <field name="l10n_latam_document_number" required="1" />
+
+                        <field name="product_id" required="1" />
+                        <field name="price_unit" required="1" />                        
+
+                        <field name="price_total" readonly="1" force_save="1"/>
+                        <field name="adjunto" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button type="object" name="do_cash_out"
+                    string="Aceptar" class="oe_highlight" />
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_action_cashbox_supplier_bill_wizard" model="ir.actions.act_window">
+        <field name="name">Factura de compra</field>
+        <field name="res_model">account.cashbox.supplier.bill.wizard</field>
+        <field name="binding_model_id" ref="model_account_cashbox_session" />
+        <!-- <field name="groups_id" eval="[(4, ref('product.group_sale_pricelist'))]" /> -->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
