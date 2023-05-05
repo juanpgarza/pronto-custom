@@ -11,7 +11,6 @@
                         <field name="cashbox_session_id" invisible="1"/>
                         <field name="session_cash_control_journal_ids" invisible="1"/>
                         <!-- <field name="tipo_de_movimiento" invisible="1"/> -->
-                        <field name="name" required="1" /> 
                         <field name="journal_id" required="1" />
                         <field name="transaction_type" required="1" />
                         <field name="amount"/>
@@ -23,6 +22,7 @@
                         <field name="file_name" invisible="1"/> -->
                         <field name="adjunto" filename="file_name"/>
                         <field name="file_name" invisible="1"/>
+                        <field name="ref"/>
                     </group>
                 </group>
                 <footer>

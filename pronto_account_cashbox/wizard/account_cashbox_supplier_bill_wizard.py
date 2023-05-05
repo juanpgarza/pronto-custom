@@ -66,6 +66,8 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
     adjunto = fields.Binary("Comprobante")
     file_name = fields.Char("File Name")
 
+    ref = fields.Char(string='Referencia')
+
     @api.depends('purchase_journal_id', 'partner_id')
     def _compute_l10n_latam_available_document_types(self):
         self.l10n_latam_available_document_type_ids = False
@@ -140,6 +142,7 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
             'pay_now_journal_id': self.journal_id.id,
             'l10n_latam_document_type_id': self.l10n_latam_document_type_id.id,
             'l10n_latam_document_number': self.l10n_latam_document_number,
+            'ref': self.ref,
             # 'invoice_cash_rounding_id': self.cash_rounding_b.id,
             # 'invoice_payment_term_id': self.pay_terms_a.id,
             'invoice_line_ids': [

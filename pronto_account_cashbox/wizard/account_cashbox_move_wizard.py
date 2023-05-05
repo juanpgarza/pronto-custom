@@ -30,7 +30,6 @@ class AccountCashboxMoveWizard(models.TransientModel):
 
     journal_id = fields.Many2one('account.journal',string='Diario',domain="[('id','in',session_cash_control_journal_ids)]",default=_default_journal_id)
 
-    name = fields.Char(string='Descripción')
     amount = fields.Monetary(string='Importe', currency_field='currency_id', required=True)
 
     # reason_id = fields.Many2one(comodel_name="account.cashbox.payment.reason", string= 'Motivo', domain="[('id','in',session_cash_control_journal_ids)]")
@@ -48,6 +47,8 @@ class AccountCashboxMoveWizard(models.TransientModel):
     adjunto = fields.Binary("Comprobante")
     file_name = fields.Char("File Name")
 
+    ref = fields.Char(string='Referencia')
+    
     # def _compute_reason_id(self):
     #     if self.transaction_type == '':
     #         self.
@@ -84,7 +85,8 @@ class AccountCashboxMoveWizard(models.TransientModel):
             'journal_id': 3,
             # 'date': fields.Date.from_string('2019-01-01'),
             # 'line_ids': [(0, 0, {'debit': self.amount,      'credit': 0.0,      'account_id': reason_id.account_id.id}),(0, 0, {'debit': 0.0,       'credit': self.amount,    'account_id': self.journal_id.default_account_id.id}),],
-            'line_ids': line_ids
+            'line_ids': line_ids,
+            'ref': self.ref,
         })
         move_id.action_post()
 

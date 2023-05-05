@@ -26,6 +26,7 @@
                         <field name="price_total" readonly="1" force_save="1"/>
                         <field name="adjunto" filename="file_name"/>
                         <field name="file_name" invisible="1"/>
+                        <field name="ref"/>
                     </group>
                 </group>
                 <footer>

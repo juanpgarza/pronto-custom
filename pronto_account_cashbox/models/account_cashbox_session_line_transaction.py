@@ -19,8 +19,13 @@ class AccountCashboxSessionLineTransaction(models.Model):
         ('cancelled', 'Cancelado'),
     ], string='Estado', compute="_compute_state", store=True)
 
-    name = fields.Char('Descripción')
-
+    # name = fields.Char('Descripción')
+    
+    ref = fields.Char(
+                string='Referencia',
+                compute='_compute_ref',
+                store=True,)
+    
     session_line_id = fields.Many2one("account.cashbox.session.line", string="Línea de sesión")
 
     cashbox_session_id = fields.Many2one(
@@ -182,3 +187,12 @@ class AccountCashboxSessionLineTransaction(models.Model):
                             transaction.transaction_group_detail = 'Factura de compra de {}'.format(transaction.partner_id.name)
                 else:
                     raise ValidationError("Transacción sin clasificar!!")
+
+    @api.depends('payment_id.ref', 'move_id.ref')
+    def _compute_ref(self):
+        # Por ahora solo en asientos directos y factura de prov
+        for transaction in self:
+            if transaction.transaction_group in ('asiento_contable_directo','factura_proveedor'):
+                transaction.ref = transaction.move_id.ref
+            else:
+                transaction.ref = False

@@ -18,6 +18,7 @@
                         <group>
                             <field name="transaction_group" />
                             <field name="transaction_group_detail" />
+                            <field name="ref"/>
                             <field name="partner_id" />
                             <field name="journal_id" />
                             <field name="transaction_reason"/>
@@ -52,6 +53,7 @@
                 <field name="id" optional="hide"/>
                 <field name="transaction_group" optional="show"/>
                 <field name="transaction_group_detail" optional="show"/>
+                <field name="ref" optional="show"/>
                 <field name="partner_id"/>
                 <field name="journal_id"/>
                 <field name="transaction_reason"/>
