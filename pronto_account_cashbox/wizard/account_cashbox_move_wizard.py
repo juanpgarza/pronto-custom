@@ -48,10 +48,20 @@ class AccountCashboxMoveWizard(models.TransientModel):
     file_name = fields.Char("File Name")
 
     ref = fields.Char(string='Referencia')
-    
+
+    en_clima = fields.Boolean("En clima")
+
     # def _compute_reason_id(self):
     #     if self.transaction_type == '':
     #         self.
+
+    @api.onchange('reason_id_in', 'reason_id_in')
+    def _onchange_price_total(self):
+        if self.transaction_type == 'outbound':
+            self.en_clima = self.reason_id_out.en_clima
+        else:
+            self.en_clima = self.reason_id_in.en_clima
+
     @api.depends('journal_id')
     def _compute_curency(self):
         for rec in self:
@@ -89,6 +99,10 @@ class AccountCashboxMoveWizard(models.TransientModel):
             'ref': self.ref,
         })
         move_id.action_post()
+
+        clima_enable = 'en_clima' in self.env['account.move']._fields
+        if clima_enable:
+            move_id.en_clima = self.en_clima
 
         # Registro la transacción
         vals = {

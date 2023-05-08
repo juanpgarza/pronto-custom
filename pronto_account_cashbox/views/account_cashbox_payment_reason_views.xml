@@ -17,6 +17,7 @@
                             <field name="in_reason"/>
                             <field name="out_reason"/>
                             <field name="account_id" required="1"/>
+                            <field name="en_clima"/>
                         </group>
                     </group>
                 </sheet>
@@ -33,7 +34,8 @@
                 <field name="name"/>
                 <field name="in_reason"/>
                 <field name="out_reason"/>
-                <field name="account_id"/>                
+                <field name="account_id"/>
+                <field name="en_clima"/>                
             </tree>
         </field>
     </record>

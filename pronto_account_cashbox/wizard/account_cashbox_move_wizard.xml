@@ -23,6 +23,7 @@
                         <field name="adjunto" filename="file_name"/>
                         <field name="file_name" invisible="1"/>
                         <field name="ref"/>
+                        <field name="en_clima"/>
                     </group>
                 </group>
                 <footer>
