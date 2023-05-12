@@ -22,4 +22,6 @@ class PurchaseOrder(models.Model):
         res = super(PurchaseOrder,self)._get_under_validation_exceptions()
         # estos campos no los va a tener en cuenta para la validación
         res.append('date_planned_reconfirmed')
+        res.append('notes')
+        res.append('internal_notes')
         return res
