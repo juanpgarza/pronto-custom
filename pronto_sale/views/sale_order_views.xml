@@ -6,9 +6,14 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_cancel']" position="attributes">
+            <!-- <xpath expr="//button[@name='action_cancel']" position="attributes">
                 <attribute name="groups">pronto_sale.group_cancel_sale_order</attribute>
-            </xpath>
+            </xpath> -->
+
+            <field name="user_id" position="attributes">
+                <attribute name="attrs">{'required': True}</attribute>
+            </field>
+
         </field>
     </record>
 
