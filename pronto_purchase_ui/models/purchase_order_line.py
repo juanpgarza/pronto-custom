@@ -24,6 +24,10 @@ class PurchaseOrderLine(models.Model):
                 linea_factura = invoice.invoice_line_ids.filtered(lambda x: x.purchase_line_id.id == rec.id)
                 if linea_factura:
                     rec.vendor_invoice_price_unit = linea_factura.price_unit
-            cost_pricelist_id = rec.company_id.product_pricelist_cost_id        
-            rec.cost_price_unit = cost_pricelist_id.item_ids.filtered(lambda x: x.product_tmpl_id.id == rec.product_id.product_tmpl_id.id)[0].price
+            cost_pricelist_id = rec.company_id.product_pricelist_cost_id
+            cost_price_unit = cost_pricelist_id.item_ids.filtered(lambda x: x.product_tmpl_id.id == rec.product_id.product_tmpl_id.id)       
+            if cost_price_unit:
+                rec.cost_price_unit = cost_price_unit[0].price
+            else:
+                rec.cost_price_unit = 0
 
