@@ -4,18 +4,19 @@
 {
     "name": "pronto_stock",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.1.0.0",
+    "version": "15.0.2.0.0",
     "category": "Stock",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
     "license": "AGPL-3",
     "depends": [
             "stock",
+            "sale_stock", # CORE. por el campo sale_id de stock.picking
             "stock_picking_invoice_link",
         ],
     "data": [
             'security/pronto_stock_security.xml',
-            # 'views/stock_picking_views.xml',
+            'views/stock_picking_views.xml',
         ],
     "installable": True,
 }
