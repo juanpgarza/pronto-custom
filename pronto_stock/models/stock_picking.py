@@ -22,3 +22,9 @@ class StockPicking(models.Model):
         for rec in self:
             # facturas asociadas con el pedido relacionado con la entrega
             rec.sale_invoice_ids = rec.sale_id.mapped('order_line.invoice_lines.move_id').filtered(lambda x: x.move_type == 'out_invoice')
+
+    # src/addons/stock/models/stock_picking.py:420
+    # con esto evito que se oculte el tipo de operación EN TODAS LAS SITUACIONES
+    def _compute_hide_pickign_type(self):
+        super(StockPicking,self)._compute_hide_pickign_type()
+        self.hide_picking_type = False
