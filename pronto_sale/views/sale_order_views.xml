@@ -10,6 +10,10 @@
                 <attribute name="groups">pronto_sale.group_cancel_sale_order</attribute>
             </xpath> -->
 
+            <xpath expr="//button[@name='update_prices']" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'in', ['sale', 'done','cancel'])]}</attribute>
+            </xpath>
+
             <field name="user_id" position="attributes">
                 <attribute name="attrs">{'required': True}</attribute>
             </field>
