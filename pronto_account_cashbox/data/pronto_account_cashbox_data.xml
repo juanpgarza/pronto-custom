@@ -4,7 +4,7 @@
         <record id="sequence_account_cashbox_caja_fsm" model="ir.sequence">
             <field name="name">Caja FSM</field>
             <field name="code">account_cashbox_fsm_sequence</field>
-            <field name="prefix">caja FSM-</field>
+            <field name="prefix">caja FSM/%(year)s/%(month)s/%(day)s/</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
@@ -20,7 +20,7 @@
         <record id="sequence_account_cashbox_caja_pin" model="ir.sequence">
             <field name="name">Caja PIN</field>
             <field name="code">account_cashbox_pin_sequence</field>
-            <field name="prefix">caja PIN-</field>
+            <field name="prefix">caja PIN/%(year)s/%(month)s/%(day)s/</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
@@ -28,7 +28,7 @@
         <record id="account_cashbox_caja_pin" model="account.cashbox">
             <field name="name">Caja PIN</field>
             <field name="sequence_id" ref="sequence_account_cashbox_caja_pin" />
-            <field name="journal_ids" eval="[(6, 0, [ref('_pronto.diario-efectivo-sma'),ref('__export__.account_journal_33_e4a71692'),ref('__export__.account_journal_35_5461aa85'),ref('__export__.account_journal_36_8d9a42c4'),ref('__export__.account_journal_37_8a324e66'),ref('__export__.account_journal_51_5bb0dfe9'),ref('_pronto.diario-amex'),ref('_pronto.diario-banco-bpn'),ref('_pronto.diario-cabal'),ref('_pronto.diario-cheques-de-tercero'),ref('_pronto.diario-confiable'),ref('_pronto.diario-diners'),ref('_pronto.diario-dolares-sma'),ref('_pronto.diario-maestro'),ref('_pronto.diario-master'),ref('_pronto.diario-naranja'),ref('_pronto.diario-pyme-nacion'),ref('_pronto.diario-retenciones'),ref('_pronto.diario-visa-credito'),ref('_pronto.diario-visa-debito'),ref('__export__.account_journal_47_0b099126'),ref('__export__.account_journal_53_d55138e0'),])]"/>
+            <field name="journal_ids" eval="[(6, 0, [ref('_pronto.diario-efectivo-sma'),ref('__export__.account_journal_33_e4a71692'),ref('__export__.account_journal_35_5461aa85'),ref('__export__.account_journal_36_8d9a42c4'),ref('__export__.account_journal_37_8a324e66'),ref('__export__.account_journal_51_5bb0dfe9'),ref('_pronto.diario-amex'),ref('_pronto.diario-banco-bpn'),ref('_pronto.diario-cabal'),ref('_pronto.diario-cheques-de-tercero'),ref('_pronto.diario-confiable'),ref('_pronto.diario-diners'),ref('_pronto.diario-dolares-sma'),ref('_pronto.diario-maestro'),ref('_pronto.diario-master'),ref('_pronto.diario-naranja'),ref('_pronto.diario-pyme-nacion'),ref('_pronto.diario-retenciones'),ref('_pronto.diario-visa-credito'),ref('_pronto.diario-visa-debito'),ref('__export__.account_journal_47_0b099126'),ref('__export__.account_journal_53_d55138e0'),ref('__export__.account_journal_54_045362e0'),ref('__export__.account_journal_52_75f44331'),])]"/>
             <field name="allowed_res_users_ids" eval="[(6,0,[ref('base.user_admin'),ref('__export__.res_users_14_2d038871'),])]"/>
             <field name="cash_control_journal_ids" eval="[(6, 0, [ref('_pronto.diario-efectivo-sma'),ref('_pronto.diario-dolares-sma'),])]"/>
         </record>
@@ -36,7 +36,7 @@
         <record id="sequence_account_cashbox_caja_dr" model="ir.sequence">
             <field name="name">Caja Diego Ramirez</field>
             <field name="code">account_cashbox_dr_sequence</field>
-            <field name="prefix">caja Diego Ramirez-</field>
+            <field name="prefix">caja Diego Ramirez/%(year)s/%(month)s/%(day)s/</field>
             <field name="padding">5</field>
             <field name="company_id" eval="False"/>
         </record>
