@@ -13,8 +13,24 @@
                         <!-- <field name="tipo_de_movimiento" invisible="1"/> -->
                         <field name="journal_id" required="1" />
                         <field name="transaction_type" required="1" />
-                        <field name="amount"/>
-                        <field name="currency_id" invisible="1"/>
+                        <!-- <field name="amount"/>
+                        <field name="currency_id" invisible="1"/> -->
+                        <label for="amount"/>
+                        <div name="amount_div" class="o_row">
+                            <field name="amount" />
+                            <field name="currency_id"
+                                    options="{'no_create': True, 'no_open': True}"
+                                    required="1"                                    
+                                    groups="base.group_multi_currency"/>
+                        </div>
+                        <field name="company_currency_id" invisible="1"/>
+                        <field name="other_currency" invisible="1"/>
+                        <field name="force_amount_company_currency" invisible="1"/>
+                        <label for="amount_company_currency" string="(on company currency)" attrs="{'invisible': [('other_currency', '=', False)]}"/>
+                        <div name="amount_company_currency" class="o_row" attrs="{'invisible': [('other_currency', '=', False)]}">
+                            x <field name="exchange_rate"/> = <field name="amount_company_currency"/>
+                        </div>
+
                         <field name="reason_id_in" context="{'default_in_reason': True}" attrs="{'invisible': [('transaction_type','==','outbound')]}"/>
                         <field name="reason_id_out" context="{'default_out_reason': True}" attrs="{'invisible': [('transaction_type','==','inbound')]}"/>
                         <!-- <field name="product_id" attrs="{'invisible': [('tipo_de_movimiento', '!=', 'gasto')], 'required': [('tipo_de_movimiento', '==', 'gasto')],}"/>

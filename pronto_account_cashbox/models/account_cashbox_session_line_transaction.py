@@ -16,7 +16,7 @@ class AccountCashboxSessionLineTransaction(models.Model):
     state = fields.Selection([
         ('draft', 'Borrador'),
         ('posted', 'Publicado'),
-        ('cancelled', 'Cancelado'),
+        ('cancel', 'Cancelado'),
     ], string='Estado', compute="_compute_state", store=True)
 
     # name = fields.Char('Descripción')

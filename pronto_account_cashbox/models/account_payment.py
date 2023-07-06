@@ -35,8 +35,11 @@ class AccountPayment(models.Model):
     def action_post(self):
         res = super().action_post()
 
+        Transaction = self.env['account.cashbox.session.line.transaction']
         for rec in self:
-            if rec.cashbox_session_id:               
+            # por si se canceló y se volvió a publicar
+            transaccion_ya_registrada = Transaction.search([('payment_id', '=', self.id)])
+            if rec.cashbox_session_id and not transaccion_ya_registrada:               
                 self.env['account.cashbox.session.line.transaction']._create_from_payment(rec)
                 
         return res

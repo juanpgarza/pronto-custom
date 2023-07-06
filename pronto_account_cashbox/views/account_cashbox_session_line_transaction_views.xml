@@ -6,9 +6,13 @@
         <field name="model">account.cashbox.session.line.transaction</field>
         <field name="arch" type="xml">
             <form create="false" delete="false" edit="false">
-            <!-- <header>
-                <field name="state" widget="statusbar" statusbar_visible="draft,sent,received" nolabel="1" />
-            </header> -->
+                    <header>
+                        <!-- <button name="action_post" string="Confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}" data-hotkey="v"/>
+                        <button name="action_draft" string="Reset To Draft" type="object" class="btn btn-secondary" attrs="{'invisible': [('state', 'not in', ('posted', 'cancel'))]}" groups="account.group_account_invoice" data-hotkey="w"/>
+                        <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('state', '!=', 'draft')]}" data-hotkey="z"/> -->
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted,cancel"/>
+                    </header>
                 <sheet>
                     <!-- <div class="oe_title">
                         <h1 attrs="{'invisible': [('state', '!=', 'draft')]}"><span>Draft</span></h1>
