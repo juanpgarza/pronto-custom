@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <form create="false" delete="false" edit="false">
             <header>
+                <button name="action_cancel" type="object" string="Cancelar" />
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,received" nolabel="1" />
             </header>
                 <sheet>

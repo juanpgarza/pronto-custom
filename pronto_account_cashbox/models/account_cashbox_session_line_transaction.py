@@ -80,9 +80,13 @@ class AccountCashboxSessionLineTransaction(models.Model):
         related='session_line_id.currency_id',
         )
 
-    # amount = fields.Monetary(currency_field='currency_id', compute='_compute_amount')
-    amount = fields.Monetary(string="Importe",
-                             currency_field='currency_id')
+    amount = fields.Monetary(string="Importe", 
+                             currency_field='currency_id', 
+                             compute='_compute_amount',
+                             store=True,)
+
+    # amount = fields.Monetary(string="Importe",
+    #                          currency_field='currency_id')
     amount_signed = fields.Monetary(string="Importe (con signo)",
                                     currency_field='currency_id', 
                                     compute='_compute_amount_signed',
@@ -95,6 +99,14 @@ class AccountCashboxSessionLineTransaction(models.Model):
 
     move_id = fields.Many2one('account.move', string="Asiento contable")
 
+    @api.depends('payment_id.amount', 'move_id.amount_total')
+    def _compute_amount(self):
+        # Por ahora solo en asientos directos y factura de prov
+        for transaction in self:
+            if transaction.payment_id:
+                transaction.amount = transaction.payment_id.amount
+            else:
+                transaction.amount = transaction.move_id.amount_total
 
     @api.depends('amount', 'transaction_type')
     def _compute_amount_signed(self):
@@ -192,7 +204,14 @@ class AccountCashboxSessionLineTransaction(models.Model):
     def _compute_ref(self):
         # Por ahora solo en asientos directos y factura de prov
         for transaction in self:
-            if transaction.transaction_group in ('asiento_contable_directo','factura_proveedor'):
+            # if transaction.transaction_group in ('asiento_contable_directo','factura_proveedor'):
+            #     transaction.ref = transaction.move_id.ref
+            # else:
+            #     transaction.ref = False
+
+            if transaction.move_id:
                 transaction.ref = transaction.move_id.ref
+            elif transaction.payment_id:
+                transaction.ref = transaction.payment_id.ref
             else:
                 transaction.ref = False

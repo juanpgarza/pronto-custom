@@ -5,6 +5,7 @@ TRANSFER_STATE = [
     ('draft', 'Borrador'),
     ('sent', 'Enviada'),
     ('received', 'Recibida'),
+    ('cancel', 'Cancelada'),
 ]
 
 class AccountCashboxTransfer(models.Model):
@@ -52,3 +53,11 @@ class AccountCashboxTransfer(models.Model):
         string='Sesión Destino',
         related='destination_payment_id.cashbox_session_id',
     )
+
+    def action_cancel(self):
+        for transfer in self:
+            if transfer.state == 'received':
+                raise ValidationError("La transferencia ya fue recibida y no puede ser cancelada")
+            else:
+                transfer.origin_payment_id.action_cancel()
+                transfer.state = 'cancel'

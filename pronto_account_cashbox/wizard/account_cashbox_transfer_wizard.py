@@ -31,6 +31,8 @@ class AccountCashboxTransferWizard(models.TransientModel):
 
     destination_cashbox_id = fields.Many2one('account.cashbox', string='Caja destino', required=True, domain="[('id','!=',cashbox_id)]")
 
+    ref = fields.Char(string='Referencia')
+
     @api.model
     def default_get(self, field_names):
         defaults = super(AccountCashboxTransferWizard, self).default_get(field_names)
@@ -60,7 +62,7 @@ class AccountCashboxTransferWizard(models.TransientModel):
             'partner_id': self.journal_id.company_id.partner_id.id,
             'payment_method_line_id': self.journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
             'cashbox_session_id': self.cashbox_session_id.id,
-            'ref': 'Transf. Interna - Enviada',
+            'ref': self.ref,
             'destination_journal_id': self.destination_cashbox_id.cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)[0].id,
         }
         payment = self.env['account.payment'].with_context(create_paired_payment=False).create(payment_vals)
