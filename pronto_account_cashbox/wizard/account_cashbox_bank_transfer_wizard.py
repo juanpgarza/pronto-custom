@@ -34,6 +34,9 @@ class AccountCashboxBankTransferWizard(models.TransientModel):
 
     def do_transfer(self):
 
+        if self.cashbox_session_id.state in ('draft','closed'):
+            raise UserError('Debe iniciar sesión de caja para realizar este movimiento.')
+
         if self.amount == 0:
             raise UserError('El importe no puede ser cero.')
 

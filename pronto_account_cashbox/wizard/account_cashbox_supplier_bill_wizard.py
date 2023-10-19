@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 
 class AccountCashboxSupllierBillWizard(models.TransientModel):
     _name = 'account.cashbox.supplier.bill.wizard'
@@ -130,6 +131,9 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
             self.price_total = res["price_total"]
 
     def do_cash_out(self):
+
+        if self.cashbox_session_id.state in ('draft','closed'):
+            raise UserError('Debe iniciar sesión de caja para realizar este movimiento.')
 
         if self.price_unit == 0:
             raise ValidationError('El importe no puede ser cero.')      
