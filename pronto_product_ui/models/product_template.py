@@ -1,11 +1,25 @@
 # Copyright 2022 juanpgarza - Juan Pablo Garza <juanp@juanpgarza.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api
+from odoo import models, api, fields
 from odoo.exceptions import ValidationError,UserError
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
+
+    pricelist_item_ids = fields.Many2many(
+        'product.pricelist.item', 'Item de Lista de Precios', compute='_get_pricelist_items')
+    
+    item_ids = fields.One2many('product.pricelist.item', 'product_tmpl_id', 'Pricelist Items')
+
+    def _get_pricelist_items(self):
+        for rec in self:
+            item = rec.env['product.pricelist.item'].search([('product_tmpl_id', '=', rec.id)])
+
+            if item:
+                rec.pricelist_item_ids = item[0]
+            else:
+                rec.pricelist_item_ids = False
 
     @api.model
     def default_get(self, fields):
