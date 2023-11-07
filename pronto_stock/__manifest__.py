@@ -4,7 +4,7 @@
 {
     "name": "pronto_stock",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.2.0.0",
+    "version": "15.0.3.0.0",
     "category": "Stock",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -17,6 +17,8 @@
     "data": [
             'security/pronto_stock_security.xml',
             'views/stock_picking_views.xml',
+            'wizard/update_inventory_product_views.xml',
+            'security/ir.model.access.csv',
         ],
     "installable": True,
 }

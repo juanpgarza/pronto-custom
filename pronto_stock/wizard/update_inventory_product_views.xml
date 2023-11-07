@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="update_inventory_product" model="ir.ui.view">
+        <field name="name">Actualización de productos del inventario</field>
+        <field name="model">update.inventory.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group><field name="excel_file_for_import" /></group>
+                </group>
+                <footer>
+                    <button type="object" name="do_update"
+                    string="Aceptar" class="oe_highlight" />
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_update_inventory_product" model="ir.actions.act_window">
+        <field name="name">Actualización de productos del inventario</field>
+        <field name="res_model">update.inventory.product</field>
+        <field name="binding_model_id" ref="stock_inventory.model_stock_inventory" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
