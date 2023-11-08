@@ -38,7 +38,7 @@ class AccountPayment(models.Model):
         Transaction = self.env['account.cashbox.session.line.transaction']
         for rec in self:
             # por si se canceló y se volvió a publicar
-            transaccion_ya_registrada = Transaction.search([('payment_id', '=', self.id)])
+            transaccion_ya_registrada = Transaction.search([('payment_id', '=', rec.id)])
             if rec.cashbox_session_id and not transaccion_ya_registrada:               
                 self.env['account.cashbox.session.line.transaction']._create_from_payment(rec)
                 
