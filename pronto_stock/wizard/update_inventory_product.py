@@ -32,8 +32,7 @@ class UpdateInventoryProduct(models.TransientModel):
 
         sheet = book.sheets()[0]
         
-        modificaciones = 0
-        altas = 0
+        Quant =self.env['stock.quant']
         product_ids = []
         for i in list(range(sheet.nrows)):
             default_code = sheet.cell(i, 0).value
@@ -47,18 +46,20 @@ class UpdateInventoryProduct(models.TransientModel):
             # import pdb; pdb.set_trace()
             product_ids.append(product.id)
             # product_ids = product_ids + product.id
+            for rec in self.inventory_id.location_ids:
+                if not Quant.search(['&',('product_id','=',product.id),('location_id','=',rec.id)]):                    
+                    # crear el quant
+                    new_quant = Quant.create({'product_id': product.id,
+                                            'location_id': rec.id,
+                                            'inventory_quantity': 0,
+                                            'user_id': self.env.user.id,
+                                            'inventory_quantity_set': True})
 
+                    # import pdb; pdb.set_trace()
         self.inventory_id.product_selection = 'manual'
-        # self.inventory_id.product_ids.unlink()
+
         self.inventory_id["product_ids"] = [(6, 0, product_ids)]
         
-        product = self.env['product.product'].browse(product_ids)
-        quant = self.env['stock.quant'].search([('location_id','in',self.inventory_id.location_ids.ids)])
-        product_quant_ids = quant.mapped('product_id')
-        productos_sin_quant = product.filtered(lambda x: x not in product_quant_ids)
-        if productos_sin_quant:
-            raise UserError('Existen productos sin inventario inicial en esta ubicación: {}'.format(productos_sin_quant.mapped('name')))
-        # import pdb; pdb.set_trace()
         return
 
     
