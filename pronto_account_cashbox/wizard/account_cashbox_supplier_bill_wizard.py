@@ -161,14 +161,14 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
         move_id.action_post()
 
         # Registro la transacción
-        vals = {
-            'session_line_id': self.cashbox_session_id.line_ids.filtered(lambda x: x.journal_id == self.journal_id).id,
-            'transaction_type': 'outbound',
-            'amount': self.price_total,
-            'move_id': move_id.id,
-        }
+        # vals = {
+        #     'session_line_id': self.cashbox_session_id.line_ids.filtered(lambda x: x.journal_id == self.journal_id).id,
+        #     'transaction_type': 'outbound',
+        #     'amount': self.price_total,
+        #     'move_id': move_id.id,
+        # }
 
-        self.env['account.cashbox.session.line.transaction'].create(vals)
+        # self.env['account.cashbox.session.line.transaction'].create(vals)
 
         if self.adjunto:
             nombre_adjunto = self.file_name

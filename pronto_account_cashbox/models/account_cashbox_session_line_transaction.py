@@ -61,7 +61,7 @@ class AccountCashboxSessionLineTransaction(models.Model):
     transaction_group = fields.Selection([
                         ('recibo', 'Recibo'),
                         ('orden_pago', 'Orden de Pago'),
-                        ('factura_proveedor', 'Factura de compra'),
+                        # ('factura_proveedor', 'Factura de compra'),
                         ('asiento_contable_directo', 'Asiento Directo'),
                         ('operacion_bancaria', 'Extracción/Depósito Bancario'),
                         ('transferencia_entre_cajas', 'Transferencia entre cajas'),
@@ -192,11 +192,11 @@ class AccountCashboxSessionLineTransaction(models.Model):
                         transaction.transaction_group = 'asiento_contable_directo'
                         transaction.partner_id = False
                         transaction.transaction_group_detail = transaction.transaction_reason.name
-                    else:
-                        if transaction.move_id.move_type == 'in_invoice':
-                            transaction.transaction_group = 'factura_proveedor'
-                            transaction.partner_id = transaction.move_id.partner_id
-                            transaction.transaction_group_detail = 'Factura de compra de {}'.format(transaction.partner_id.name)
+                    # else:
+                    #     if transaction.move_id.move_type == 'in_invoice':
+                    #         transaction.transaction_group = 'factura_proveedor'
+                    #         transaction.partner_id = transaction.move_id.partner_id
+                    #         transaction.transaction_group_detail = 'Factura de compra de {}'.format(transaction.partner_id.name)
                 else:
                     raise ValidationError("Transacción sin clasificar!!")
 
