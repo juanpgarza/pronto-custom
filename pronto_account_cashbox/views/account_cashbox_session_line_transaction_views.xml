@@ -76,8 +76,14 @@
         <field name="model">account.cashbox.session.line.transaction</field>
         <field name="arch" type="xml">
             <search>
+                <filter string="Caja"
+                        name="caja"
+                        context="{'group_by': 'cashbox_id'}"/>
+                <filter string="Sesión de Caja"
+                        name="sesion"
+                        context="{'group_by': 'cashbox_session_id'}"/>
                 <filter string="Diario"
-                        name="group_journal_id"
+                        name="diario"
                         context="{'group_by': 'journal_id'}"/>
             </search>
         </field>
@@ -101,5 +107,18 @@
         <field name="domain">[('session_line_id','in',active_ids),('state','=','posted')]</field>
         <!-- <field name="view_id" ref="view_account_payment_tree"/> -->
     </record>
+
+    <record id="action_account_cashbox_session_line_transaction_all" model="ir.actions.act_window">
+        <field name="name">Transacciones de caja</field>
+        <field name="res_model">account.cashbox.session.line.transaction</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_caja': 1,'search_default_sesion': 1,'search_default_diario': 1, }</field>
+    </record>
+
+    <menuitem id="menu_transacciones_caja"
+    name="Transacciones de caja"
+    action="action_account_cashbox_session_line_transaction_all"
+    parent="account_payment_group.menu_finance_bank_and_cash"
+    sequence="2"/>
 
 </odoo>

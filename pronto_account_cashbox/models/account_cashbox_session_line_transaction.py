@@ -32,11 +32,12 @@ class AccountCashboxSessionLineTransaction(models.Model):
         # 'account.cashbox.session', 
         # string='',
         related='session_line_id.cashbox_session_id',
+        store=True,
         )
 
     cashbox_id = fields.Many2one(
         related='cashbox_session_id.cashbox_id',
-        # store=True,
+        store=True,
     )
 
     partner_id = fields.Many2one('res.partner',
