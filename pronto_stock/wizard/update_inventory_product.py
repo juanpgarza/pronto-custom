@@ -43,19 +43,27 @@ class UpdateInventoryProduct(models.TransientModel):
             if not product:
                 raise UserError("El producto con código %s no existe. No se realizará ninguna actualización." % default_code)
 
+            cantidad_contada = sheet.cell(i, 1).value
+
             # import pdb; pdb.set_trace()
             product_ids.append(product.id)
             # product_ids = product_ids + product.id
             for rec in self.inventory_id.location_ids:
-                if not Quant.search(['&',('product_id','=',product.id),('location_id','=',rec.id)]):                    
+                quant = Quant.search(['&',('product_id','=',product.id),('location_id','=',rec.id)])
+                if not quant:
                     # crear el quant
                     new_quant = Quant.create({'product_id': product.id,
                                             'location_id': rec.id,
-                                            'inventory_quantity': 0,
+                                            'inventory_quantity': cantidad_contada,
                                             'user_id': self.env.user.id,
                                             'inventory_quantity_set': True})
 
                     # import pdb; pdb.set_trace()
+                else:
+                    # el quant ya existe. Lo tengo que actualizar con la cantidad contada
+                    quant.write({'inventory_quantity': cantidad_contada,
+                                 'inventory_quantity_set': True})
+
         self.inventory_id.product_selection = 'manual'
 
         self.inventory_id["product_ids"] = [(6, 0, product_ids)]
