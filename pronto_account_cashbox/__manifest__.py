@@ -3,7 +3,7 @@
 {
     "name": "pronto_account_cashbox",
     "summary": "",
-    "version": "15.0.2.0.0",
+    "version": "15.0.3.0.0",
     "category": "Accounting",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -31,6 +31,8 @@
             'wizard/account_cashbox_transfer_receive_wizard.xml',
             'wizard/account_cashbox_move_wizard.xml',
             'wizard/account_cashbox_supplier_bill_wizard.xml',
+            'wizard/account_payment_cancel_wizard.xml',
+            'views/account_cashbox_cancel_views.xml',
         ],
     "installable": True,
 }

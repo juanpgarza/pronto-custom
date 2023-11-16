@@ -30,9 +30,9 @@
                 <div><field name="current_session_user" /></div>
                 <div class="text-danger" t-if="record.transfer_in_pending_count_2.value > 0">Transf. Pendientes: <field name="transfer_in_pending_count_2" /></div>
             </xpath>
-            <xpath expr="/kanban//div[hasclass('o_kanban_manage_view')]//a[@name='action_open_cashbox']" position="after">
+            <!-- <xpath expr="/kanban//div[hasclass('o_kanban_manage_view')]//a[@name='action_open_cashbox']" position="after">
                 <a name="%(action_account_cashbox_session_detail)d" type="action">Detalle de sesiones</a>
-            </xpath>
+            </xpath> -->
         </field>
     </record>
 

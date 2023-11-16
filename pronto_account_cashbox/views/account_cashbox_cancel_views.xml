@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account_cashbox_cancel_view_form" model="ir.ui.view">
+        <field name="name">account.cashbox.cancel.form.view</field>
+        <field name="model">account.cashbox.cancel</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false" edit="true">
+            <header>
+                <!-- <button name="action_cancel" type="object" string="Cancelar" /> -->
+                <field name="state" widget="statusbar" statusbar_visible="new,pending,approved" nolabel="1" />
+            </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <!-- <field name="name"/> -->
+                            <field name="cancel_payment_group_id"/>
+                            <field name="origin_cashbox_session_id"/>
+                            <field name="origin_cashbox_id"/>
+                        </group>
+                        <group>
+                            <field name="new_payment_group_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>    
+
+    <record id="account_cashbox_cancel_view_tree" model="ir.ui.view">
+        <field name="name">account.cashbox.cancel.tree.view</field>
+        <field name="model">account.cashbox.cancel</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false" edit="false">                
+                <field name="id" invisible="1"/>
+                <field name="state"/>
+                <!-- <field name="name"/> -->
+                <field name="cancel_payment_group_id"/>
+                <field name="origin_cashbox_session_id"/>
+                <field name="origin_cashbox_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_cashbox_cancel_action" model="ir.actions.act_window">
+        <field name="name">Cancelaciones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.cashbox.cancel</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_cancelaciones"
+        name="Cancelaciones"
+        action="account_cashbox_cancel_action"
+        parent="account_payment_group.menu_finance_bank_and_cash"
+        sequence="2"/>
+
+</odoo>

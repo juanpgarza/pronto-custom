@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="cancelar_pago" model="ir.ui.view">
+        <field name="name">Cancelar pago</field>
+        <field name="model">account.payment.cancel.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="cancel_reason_note" />
+
+                </group>
+                <footer>
+                    <button type="object" name="do_cancel"
+                    string="Aceptar" class="oe_highlight" />
+                    <button special="cancel" string="Cancelar"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cancelar_pago_wizard" model="ir.actions.act_window">
+        <field name="name">Cancelar pago</field>
+        <field name="res_model">account.payment.cancel.wizard</field>
+        <field name="binding_model_id" ref="account_payment_group.model_account_payment_group" />
+        <!-- <field name="groups_id" eval="[(4, ref('product.group_sale_pricelist'))]" /> -->
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -6,3 +6,5 @@ from . import account_cashbox_payment_reason
 from . import account_cashbox_transfer
 from . import account_cashbox
 from . import account_cashbox_session_line_transaction
+from . import account_payment_group
+from . import account_cashbox_cancel

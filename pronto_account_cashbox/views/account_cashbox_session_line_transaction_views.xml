@@ -19,7 +19,8 @@
                         <h1 attrs="{'invisible': [('state', '=', 'draft')]}"><field name="name" readonly="1"/></h1>
                     </div> -->
                     <group>
-                        <group>
+                        <group>                             
+                            <field name="cashbox_session_id" />
                             <field name="transaction_group" />
                             <field name="transaction_group_detail" />
                             <field name="ref"/>
@@ -53,7 +54,8 @@
         <field name="model">account.cashbox.session.line.transaction</field>
         <field name="arch" type="xml">
             <tree>
-                <!-- <field name="ref" optional="hide"/>                -->                
+                <!-- <field name="ref" optional="hide"/>                -->
+                <field name="cashbox_session_id" optional="hide"/>                
                 <field name="id" optional="hide"/>
                 <field name="transaction_group" optional="show"/>
                 <field name="transaction_group_detail" optional="show"/>
@@ -76,6 +78,21 @@
         <field name="model">account.cashbox.session.line.transaction</field>
         <field name="arch" type="xml">
             <search>
+                <filter
+                    name="state_draft"
+                    string="Borrador"
+                    domain="[('state','=', 'draft')]"
+                />
+                <filter
+                    name="state_posted"
+                    string="Publicado"
+                    domain="[('state','=', 'posted')]"
+                />
+                <filter
+                    name="state_cancel"
+                    string="Cancelado"
+                    domain="[('state','=', 'cancel')]"
+                />            
                 <filter string="Caja"
                         name="caja"
                         context="{'group_by': 'cashbox_id'}"/>
@@ -95,7 +112,7 @@
         <field name="view_mode">tree,form</field>
         <!-- <field name="context">{'search_default_group_journal_id': 1}</field> -->
         <field name="context">{}</field>
-        <field name="domain">[('cashbox_session_id','in',active_ids),('state','=','posted')]</field>
+        <field name="domain">[('cashbox_session_id','in',active_ids)]</field>
         <!-- <field name="view_id" ref="view_account_payment_tree"/> -->
     </record>
 
@@ -104,7 +121,7 @@
         <field name="res_model">account.cashbox.session.line.transaction</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{}</field>
-        <field name="domain">[('session_line_id','in',active_ids),('state','=','posted')]</field>
+        <field name="domain">[('session_line_id','in',active_ids)]</field>
         <!-- <field name="view_id" ref="view_account_payment_tree"/> -->
     </record>
 

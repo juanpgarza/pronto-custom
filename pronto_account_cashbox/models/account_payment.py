@@ -44,4 +44,14 @@ class AccountPayment(models.Model):
                 
         return res
 
-        
+    # def action_cancel(self):
+    #     res = super().action_cancel()
+    #     Transaction = self.env['account.cashbox.session.line.transaction']
+    #     for rec in self:
+    #         if rec.cashbox_session_id and rec.cashbox_id.current_session_id != rec.cashbox_session_id:
+    #             # solo cuando lo que se cancela pertenece a una sesión anterior
+    #             # import pdb; pdb.set_trace()
+    #             self.env['account.cashbox.session.line.transaction']._create_from_payment(rec,rec.cashbox_id.current_session_id)
+                
+
+    #     return res        
