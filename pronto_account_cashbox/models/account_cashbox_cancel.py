@@ -20,28 +20,49 @@ class AccountCashboxCancel(models.Model):
         CANCEL_STATE, required=True, readonly=False,
         index=True, copy=False, default='new', string="Estado")
 
-    # origin_cashbox_id = fields.Many2one('account.cashbox', required=True, states={'draft': [('readonly', False)]}, readonly=True)
-    origin_cashbox_id = fields.Many2one(
+    cancel_cashbox_id = fields.Many2one(
         'account.cashbox', 
         string='Caja objetivo cancelación',
         related='cancel_payment_group_id.cashbox_id',
         )
 
-    origin_cashbox_session_id = fields.Many2one(
+    cancel_cashbox_session_id = fields.Many2one(
         'account.cashbox.session',
         string='Sesión objetivo cancelación',
         related='cancel_payment_group_id.cashbox_session_id',
     )
 
-    # amount = fields.Monetary('Importe', related='origin_payment_id.amount',)
-    # currency_id = fields.Many2one('res.currency', related='origin_payment_id.currency_id',)
-
     cancel_payment_group_id = fields.Many2one(
         comodel_name='account.payment.group',
         string="Pago cancelado", copy=False)
 
+    partner_id = fields.Many2one('res.partner', string="Cliente/Proveedor", related='cancel_payment_group_id.partner_id',)
+
+    currency_id = fields.Many2one(
+        'res.currency',
+        related='cancel_payment_group_id.currency_id',)
+
+    cancel_payments_amount = fields.Monetary(
+        string='Monto cancelado',
+        related='cancel_payment_group_id.payments_amount',
+    )
+
     new_payment_group_id = fields.Many2one(
         comodel_name='account.payment.group',
-        string="Pago nuevo", copy=False, domain="[('cashbox_session_id','=',origin_cashbox_session_id),('state','!=','cancel')]")
+        string="Pago nuevo", copy=False, domain="[('cashbox_session_id','=',cancel_cashbox_session_id),('state','!=','cancel')]")
     
+    new_payments_amount = fields.Monetary(
+        string='Monto pago nuevo',
+        related='new_payment_group_id.payments_amount',
+    )
 
+    matched_move_line_ids = fields.Many2many('account.move.line',
+                                             string='Comprobantes imputados del recibo cancelado')
+    
+    def action_enviar(self):
+        for rec in self:
+            rec.write({'state': 'pending',})
+
+    def action_aprobar(self):
+        for rec in self:
+            rec.write({'state': 'approved',})

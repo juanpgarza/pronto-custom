@@ -20,6 +20,10 @@ class AccountCashbox(models.Model):
         string="Transf. Pendientes 2", compute="_compute_transfers_2"
     )
 
+    cancel_in_pending_count = fields.Integer(
+        string="Cancelaciones Pendientes", compute="_compute_cancel"
+    )
+
     current_session_id_state = fields.Char("Estado", compute='_compute_current_session_id_state', store=True)
 
     current_session_user = fields.Char("Usuario", compute='_compute_current_session_user')
@@ -40,6 +44,11 @@ class AccountCashbox(models.Model):
         for rec in self:
             transferencias_pendientes = self.env['account.cashbox.transfer'].search([('state','=','sent'), ('destination_cashbox_id', '=', rec.id)])
             rec.transfer_in_pending_count_2 = len(transferencias_pendientes)
+
+    def _compute_cancel(self):
+        for rec in self:
+            cancelaciones_pendientes = self.env['account.cashbox.cancel'].search([('state','in',['new','pending']), '|',('cancel_cashbox_id', '=', rec.id),('cancel_cashbox_id', '=', False)])
+            rec.cancel_in_pending_count = len(cancelaciones_pendientes)
 
     def _compute_current_session_user(self):
         for rec in self:

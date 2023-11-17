@@ -29,10 +29,11 @@
                 <div class="badge badge-info o_kanban_inline_block"><field name="current_session_id_state" /></div>
                 <div><field name="current_session_user" /></div>
                 <div class="text-danger" t-if="record.transfer_in_pending_count_2.value > 0">Transf. Pendientes: <field name="transfer_in_pending_count_2" /></div>
+                <div class="text-danger" t-if="record.cancel_in_pending_count.value > 0">Cancelaciones Pendientes: <field name="cancel_in_pending_count" /></div>
             </xpath>
-            <!-- <xpath expr="/kanban//div[hasclass('o_kanban_manage_view')]//a[@name='action_open_cashbox']" position="after">
-                <a name="%(action_account_cashbox_session_detail)d" type="action">Detalle de sesiones</a>
-            </xpath> -->
+            <xpath expr="/kanban//div[hasclass('o_kanban_manage_view')]//a[@name='action_open_cashbox']" position="after">
+                <a name="%(account_cashbox_cancel_action)d" type="action" context="{'search_default_cancel_cashbox_id': active_id}">Cancelaciones pendientes</a>
+            </xpath>
         </field>
     </record>
 

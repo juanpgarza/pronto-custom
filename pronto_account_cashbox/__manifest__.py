@@ -15,6 +15,8 @@
         "hr_expense", # core
         ],
     "data": [
+            'security/security.xml',
+            'views/account_cashbox_cancel_views.xml',
             'wizard/account_cashbox_bank_transfer_wizard.xml',
             'views/account_cashbox_session_line_transaction_views.xml',
             'views/account_cashbox_session_views.xml',
@@ -32,7 +34,6 @@
             'wizard/account_cashbox_move_wizard.xml',
             'wizard/account_cashbox_supplier_bill_wizard.xml',
             'wizard/account_payment_cancel_wizard.xml',
-            'views/account_cashbox_cancel_views.xml',
         ],
     "installable": True,
 }
