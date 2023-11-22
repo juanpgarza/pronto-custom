@@ -7,8 +7,8 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="pago_con_sesion_informada" invisible="1" />
-                    <field name="cashbox_id" attrs="{'invisible': [('pago_con_sesion_informada', '=', True)], 'required': [('pago_con_sesion_informada', '=', False)]}"/>
+                    <!-- <field name="pago_con_sesion_informada" invisible="1" />
+                    <field name="cashbox_id" attrs="{'invisible': [('pago_con_sesion_informada', '=', True)], 'required': [('pago_con_sesion_informada', '=', False)]}"/> -->
                     <field name="cancel_reason_note" />
 
                 </group>

@@ -18,15 +18,17 @@
             </header>
                 <sheet>
                     <group>
-                        <group>
+                        <group>                            
+                            <field name="ccs_id" invisible="1"/>
                             <field name="partner_id"/>
                             <field name="cancel_payment_group_id"/>
                             <field name="cancel_payments_amount" options="{'currency_field': 'currency_id'}"/>
+                            <field name="cancel_reason_note"/>                            
                             <field name="cancel_cashbox_session_id"/>
                             <field name="cancel_cashbox_id"/>
                         </group>
                         <group>
-                            <field name="new_payment_group_id"/>
+                            <field name="new_payment_group_id" context="{'search_default_state_posted':1, 'default_cashbox_session_id': ccs_id}"/>
                             <field name="new_payments_amount" options="{'currency_field': 'currency_id'}"/>
                         </group>
                         <notebook>

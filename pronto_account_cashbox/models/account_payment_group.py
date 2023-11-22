@@ -24,3 +24,11 @@ class AccountPaymentGroup(models.Model):
                 rec.cashbox_session_id = rec.payment_ids[0].cashbox_session_id
             else:
                 rec.cashbox_session_id = False
+
+    def name_get(self):
+        """ Add check number to display_name on check_id m2o field """
+        res_names = super().name_get()
+        for i, (res_name, rec) in enumerate(zip(res_names, self)):
+            res_names[i] = (res_name[0], "%s %s" % (res_name[1], " - {}".format(rec.partner_id.name)))
+                
+        return res_names

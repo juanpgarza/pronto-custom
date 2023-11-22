@@ -32,9 +32,15 @@ class AccountCashboxCancel(models.Model):
         related='cancel_payment_group_id.cashbox_session_id',
     )
 
+    ccs_id = fields.Integer(related='cancel_cashbox_session_id.id')
+
     cancel_payment_group_id = fields.Many2one(
         comodel_name='account.payment.group',
         string="Pago cancelado", copy=False)
+
+    cancel_reason_note = fields.Char(
+        related='cancel_payment_group_id.cancel_reason_note',
+    )
 
     partner_id = fields.Many2one('res.partner', string="Cliente/Proveedor", related='cancel_payment_group_id.partner_id',)
 
@@ -49,8 +55,8 @@ class AccountCashboxCancel(models.Model):
 
     new_payment_group_id = fields.Many2one(
         comodel_name='account.payment.group',
-        string="Pago nuevo", copy=False, domain="[('cashbox_session_id','=',cancel_cashbox_session_id),('state','!=','cancel')]")
-    
+        string="Pago nuevo", copy=False, domain="[('state','=','posted'),('cashbox_session_id','=',cancel_cashbox_session_id)]")
+    # ('cashbox_session_id','=',cancel_cashbox_session_id),
     new_payments_amount = fields.Monetary(
         string='Monto pago nuevo',
         related='new_payment_group_id.payments_amount',

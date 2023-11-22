@@ -78,6 +78,7 @@
                                         <th>Ref.</th>
                                         <th>Socio</th>
                                         <th class="text-right">Importe</th>
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,6 +90,7 @@
                                             <span t-field="line.amount_signed"
                                                 t-field-options='{"widget": "monetary", "display_currency": "statement.currency_id"}'/>
                                         </td>
+                                        <td><span t-field="line.state"/></td>
                                     </tr>
                                 </tbody>
                             </table>
