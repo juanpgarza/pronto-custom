@@ -11,6 +11,7 @@ class AccountCashboxBankTransferWizard(models.TransientModel):
     ], string='Depósito / Extracción', default='outbound', required=True)
 
     session_line_id = fields.Many2one("account.cashbox.session.line", string="Línea de sesión")
+    cashbox_session_id = fields.Many2one('account.cashbox.session',string='Sesión',related='session_line_id.cashbox_session_id')
 
     cash_journal_id = fields.Many2one('account.journal',string='Diario Efectivo',related='session_line_id.journal_id')
 
