@@ -4,7 +4,7 @@
 {
     "name": "pronto_stock",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.3.0.0",
+    "version": "15.0.4.0.0",
     "category": "Stock",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
