@@ -213,6 +213,10 @@ class AccountCashboxSessionLineTransaction(models.Model):
             if transaction.move_id:
                 transaction.ref = transaction.move_id.ref
             elif transaction.payment_id:
-                transaction.ref = transaction.payment_id.ref
+                pago = transaction.payment_id
+                if pago.payment_method_line_id.code == 'new_third_party_checks' and pago.l10n_latam_check_bank_id and pago.l10n_latam_check_payment_date: 
+                    transaction.ref = "{} - {}".format(pago.l10n_latam_check_bank_id.name,pago.l10n_latam_check_payment_date.strftime("%d/%m/%Y"))
+                else:
+                    transaction.ref = transaction.payment_id.ref
             else:
                 transaction.ref = False
