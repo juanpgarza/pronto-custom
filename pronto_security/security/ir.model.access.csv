@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_stock_sale_user,access_stock_sale_user,stock.model_stock_scrap,pronto.group_stock_sale_user,1,0,0,0
+access_stock_inventory,access_stock_inventory,stock_inventory.model_stock_inventory,pronto_security.group_stock_ajuste_de_inventario,1,1,1,1
+access_stock_inventory_quant,access_stock_inventory_quant,stock.model_stock_quant,pronto_security.group_stock_ajuste_de_inventario,1,1,1,1

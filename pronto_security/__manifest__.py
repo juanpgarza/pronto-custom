@@ -4,7 +4,7 @@
 {
     "name": "pronto_security",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.1.0.0",
+    "version": "15.0.2.0.0",
     "category": "Sale",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -14,8 +14,9 @@
             "pronto",
         ],
     "data": [
+            'security/pronto_security.xml',
             'security/ir.model.access.csv',
-            'views/sale_order_views.xml',
+            'views/sale_order_views.xml',            
         ],
     "installable": True,
 }
