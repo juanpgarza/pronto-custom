@@ -20,4 +20,16 @@
         </field>
     </record>
 
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="name">stock.picking.internal.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="tag_ids"/>
+                <field name="state_detail_id"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
