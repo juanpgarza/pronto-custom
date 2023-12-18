@@ -108,6 +108,10 @@
                 <attribute name="invisible">1</attribute>
             </xpath> -->
 
+            <xpath expr="//tree/field[@name='balance_start']" position="attributes">
+                <attribute name="attrs">{'readonly': 1}</attribute>
+            </xpath>
+
             <xpath expr="//tree/field[@name='amount']" position="after">
                 <button name="%(action_account_cashbox_session_line_transaction)d" 
                         type="action" 
