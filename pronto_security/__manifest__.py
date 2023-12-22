@@ -4,7 +4,7 @@
 {
     "name": "pronto_security",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.2.0.0",
+    "version": "15.0.2.1.0",
     "category": "Sale",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
