@@ -3,7 +3,7 @@
 {
     "name": "pronto_account_cashbox",
     "summary": "",
-    "version": "15.0.3.2.0",
+    "version": "15.0.3.3.0",
     "category": "Accounting",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
