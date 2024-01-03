@@ -108,6 +108,14 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
         defaults['cashbox_session_id'] = self.env.context['active_id']
         return defaults
 
+    def _get_taxes(self):
+        if self.partner_id.l10n_ar_afip_responsibility_type_id == self.env.ref('l10n_ar.res_RM'):
+            # Monotributo
+            # l10n_ar_chart.1_ri_tax_vat_no_corresponde_compras
+            return self.env.ref('l10n_ar_chart.1_ri_tax_vat_no_corresponde_compras') # IVA NO CORRESPONDE
+        else:
+            return self.product_id.supplier_taxes_id        
+
     @api.onchange('price_unit', 'product_id')
     def _onchange_price_total(self):
 
@@ -123,7 +131,7 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
                 currency= self.currency_id,
                 product= self.product_id,
                 partner= self.partner_id,
-                taxes=self.product_id.supplier_taxes_id,
+                taxes=self._get_taxes(),
                 move_type='in_invoice',            
             )
 
@@ -153,7 +161,7 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
                 (0, 0, {
                     'product_id': self.product_id.id,
                     'price_unit': self.price_unit,
-                    'tax_ids': [(6, 0, self.product_id.supplier_taxes_id.ids)],
+                    'tax_ids': [(6, 0, self._get_taxes().ids)],
                     'product_uom_id':  self.product_id.uom_id.id,
                 }),
             ],
