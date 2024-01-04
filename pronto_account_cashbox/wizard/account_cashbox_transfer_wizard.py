@@ -29,9 +29,32 @@ class AccountCashboxTransferWizard(models.TransientModel):
     name = fields.Char(string='Descripción')
     unit_amount = fields.Float(string='Importe', digits=0, required=True)
 
-    destination_cashbox_id = fields.Many2one('account.cashbox', string='Caja destino', required=True, domain="[('id','!=',cashbox_id)]")
+    # destination_cashbox_id = fields.Many2one('account.cashbox', string='Caja destino', required=True, domain="[('id','!=',cashbox_id)]")
 
     ref = fields.Char(string='Referencia')
+
+    cashbox_search = fields.Char("Buscar caja destino")
+    cashbox_found = fields.Char("Caja destino")
+
+    def _get_destination_cashbox_id(self):
+        # self.destination_cashbox = 0
+        if self.cashbox_search and len(self.cashbox_search) >= 3:
+            # import pdb; pdb.set_trace()
+            Account_cashbox = self.env["account.cashbox"].sudo().search([('name','ilike',self.cashbox_search)])
+            if len(Account_cashbox) == 1:
+                self.cashbox_found = Account_cashbox.name
+                # self.destination_cashbox = Account_cashbox.id
+                # import pdb; pdb.set_trace()
+                return Account_cashbox
+            else:
+                self.cashbox_found = Account_cashbox.mapped("name")
+                return False
+        else:
+            return False
+
+    @api.onchange("cashbox_search")
+    def onchange_cashbox_search(self):
+        self._get_destination_cashbox_id()
 
     @api.model
     def default_get(self, field_names):
@@ -47,6 +70,10 @@ class AccountCashboxTransferWizard(models.TransientModel):
         if self.unit_amount == 0:
             raise UserError('El importe no puede ser cero.')
 
+        if not self._get_destination_cashbox_id():
+            self.cashbox_search = ""
+            raise UserError('Debe informar la caja destino.')
+        
         # if self.tipo_de_movimiento in ('pago','gasto'):
         #     partner_id = self.env.ref('pronto_account_cashbox.proveedor_no_habitual')
         #     payment_type = 'outbound'
@@ -66,17 +93,17 @@ class AccountCashboxTransferWizard(models.TransientModel):
             'payment_method_line_id': self.journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
             'cashbox_session_id': self.cashbox_session_id.id,
             'ref': self.ref,
-            'destination_journal_id': self.destination_cashbox_id.cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)[0].id,
+            'destination_journal_id': self._get_destination_cashbox_id().cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)[0].id,
         }
         payment = self.env['account.payment'].with_context(create_paired_payment=False).create(payment_vals)
 
         transfer_vals = {
             'state': 'sent',
             'origin_payment_id': payment.id,
-            'destination_cashbox_id': self.destination_cashbox_id.id,
+            'destination_cashbox_id': self._get_destination_cashbox_id().id,
         }
 
-        transfer = self.env['account.cashbox.transfer'].create(transfer_vals)
+        transfer = self.env['account.cashbox.transfer'].sudo().create(transfer_vals)
 
         payment.write({'cashbox_transfer_id': transfer.id })
         payment.action_post()

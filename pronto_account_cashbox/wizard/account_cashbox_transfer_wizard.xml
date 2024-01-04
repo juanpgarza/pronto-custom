@@ -17,7 +17,9 @@
                         <field name="ref" required="1" />
                     </group>
                     <group>
-                        <field name="destination_cashbox_id" required="1" />                    
+                        <!-- <field name="destination_cashbox_id" required="1" /> -->
+                        <field name="cashbox_search" />
+                        <field name="cashbox_found" readonly="1" />
                     </group>
                 </group>
                 <footer>
