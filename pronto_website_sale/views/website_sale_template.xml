@@ -85,4 +85,10 @@
         </xpath>
     </template>
 
+    <template id="sale_order_portal_content_inherit_website_sale" inherit_id="website_sale.sale_order_portal_content_inherit_website_sale">
+        <xpath expr="//a[@t-if='line.product_id.website_published']" position="attributes">
+            <attribute name="target">_BLANK</attribute>
+        </xpath>
+    </template>
+
 </odoo>

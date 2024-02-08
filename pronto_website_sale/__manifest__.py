@@ -4,7 +4,7 @@
 {
     "name": "pronto_website_sale",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.1.0",
     "category": "Sale",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
