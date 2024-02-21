@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="announcement_cumpleanio" model="announcement">
+            <field name="name">Configuración anuncio cumpleaños</field>
+            <field name="is_general_announcement" eval="True"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record forcecreate="True" id="announcement_aniversario" model="announcement">
+            <field name="name">Configuración anuncio aniversario</field>
+            <field name="is_general_announcement" eval="True"/>
+            <field name="active" eval="False"/>
+        </record>
+
+    </data>
+
+</odoo>
