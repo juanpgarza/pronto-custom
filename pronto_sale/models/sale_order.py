@@ -22,3 +22,11 @@ class SaleOrder(models.Model):
         res = super(SaleOrder, self).onchange_partner_id()
         self.update({'user_id': user_id.id})
         return res
+
+    @api.model
+    def default_get(self, fields):
+        rec = super(SaleOrder, self).default_get(fields)
+
+        rec['sale_order_template_id'] = False
+
+        return rec

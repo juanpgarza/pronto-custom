@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": [
             "sale",
+            "sale_management",
         ],
     "data": [
             'security/pronto_sale_security.xml',
