@@ -3,15 +3,17 @@
     <data noupdate="1">
 
         <record forcecreate="True" id="announcement_cumpleanio" model="announcement">
-            <field name="name">Configuración anuncio cumpleaños</field>
+            <field name="name">Hoy festejamos un cumple!</field>
             <field name="is_general_announcement" eval="True"/>
             <field name="active" eval="False"/>
+            <field name="content">Hoy {} es el Cumple de {}!</field>
         </record>
 
         <record forcecreate="True" id="announcement_aniversario" model="announcement">
-            <field name="name">Configuración anuncio aniversario</field>
+            <field name="name">Hoy tenemos un aniversario!</field>
             <field name="is_general_announcement" eval="True"/>
             <field name="active" eval="False"/>
+            <field name="content">Hoy {} es el aniversario de ingreso de {}!</field>
         </record>
 
     </data>

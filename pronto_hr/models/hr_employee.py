@@ -22,7 +22,8 @@ class HrEmployee(models.Model):
             mes_cumple = rec.birthday.month
 
             if dia_cumple == dia_hoy and mes_cumple == mes_hoy:
-                values = {  'name': 'Hoy {} es el Cumple de {}!'.format(fecha_hoy.strftime('%d/%m/%Y'), rec.name),
+                values = {  'name': anuncio_cumpleanio.name,
+                            'content': anuncio_cumpleanio.content.format(fecha_hoy.strftime('%d/%m/%Y'), rec.name),
                             'is_general_announcement': True,
                             'notification_date': datetime.now(),
                             'notification_expiry_date': datetime.now() + timedelta(days=1),
@@ -38,7 +39,8 @@ class HrEmployee(models.Model):
             mes_aniversario = rec.fecha_ingreso.month
 
             if dia_aniversario == dia_hoy and mes_aniversario == mes_hoy:
-                values = {  'name': 'Hoy {} es el aniversario de ingreso de {}!'.format(fecha_hoy.strftime('%d/%m/%Y'), rec.name),
+                values = {  'name': anuncio_aniversario.name,
+                            'content': anuncio_aniversario.content.format(fecha_hoy.strftime('%d/%m/%Y'), rec.name),
                             'is_general_announcement': True,
                             'notification_date': datetime.now(),
                             'notification_expiry_date': datetime.now() + timedelta(days=1),
