@@ -12,6 +12,7 @@
     "depends": [
             "sale",
             "sale_management",
+            "sale_coupon",
         ],
     "data": [
             'security/pronto_sale_security.xml',
