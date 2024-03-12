@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    fecha_ingreso = fields.Date("Fecha de Ingreso")
+    fecha_ingreso = fields.Date("Fecha de Ingreso", groups="hr.group_hr_user")
 
     def _anuncio_de_cumpleanios_aniversario(self):
 
