@@ -1,9 +1,34 @@
-from odoo import models, api, _
+from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import formatLang
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    fecha_compromiso_vencida = fields.Boolean(string = 'Fecha de Compromiso Vencida', compute = '_compute_vencida', search = '_search_vencida')
+
+    def _compute_vencida(self):
+        now = fields.Datetime.now()
+        # import pdb; pdb.set_trace()
+        for rec in self:
+            if rec.state in ('sale','done') and rec.delivery_status == 'to deliver' and rec.commitment_date:
+                rec.fecha_compromiso_vencida = now > rec.commitment_date
+            else:
+                rec.fecha_compromiso_vencida = False
+            
+    def _search_vencida(self, operator, value):
+        now = fields.Datetime.now()
+        # import pdb; pdb.set_trace()
+        facturas = self.env['sale.order'].search([])        
+        ids = facturas.filtered(lambda x: x.state in ('sale','done') and x.delivery_status == 'to deliver' and x.commitment_date and now > x.commitment_date).mapped('id')
+        return [('id', 'in', ids)]
+
+    @api.model
+    def pedidos_fecha_compromiso_vencida(self):
+        res = self.search([('fecha_compromiso_vencida','=',True)])
+        # import pdb; pdb.set_trace()
+        # len(self.env['sale.order'].pedidos_fecha_compromiso_vencida())
+        return res
+    
     def action_cancel(self):        
         # solo para pedidos de venta. NO incluye presupuestos
         for rec in self.filtered(lambda x:x.state in ('done','sale') and x.state != 'cancel'):
