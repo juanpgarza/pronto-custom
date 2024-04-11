@@ -1,5 +1,6 @@
 from odoo import models, api, fields
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -28,3 +29,13 @@ class StockPicking(models.Model):
     def _compute_hide_pickign_type(self):
         super(StockPicking,self)._compute_hide_pickign_type()
         self.hide_picking_type = False
+
+    def _dias_atraso(self):
+        return (datetime.now().date() - self.scheduled_date.date()).days
+    
+    @api.model
+    def entregas_atrasadas(self, dias_atraso = 0):
+        # self.env['stock.picking'].entregas_atrasadas()
+        return self.search([]).filtered(lambda x: x.state not in ('draft', 'done', 'cancel') 
+                                        and x.picking_type_id.code == 'outgoing'
+                                        and x._dias_atraso() > dias_atraso)
