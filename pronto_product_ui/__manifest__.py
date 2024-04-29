@@ -4,7 +4,7 @@
 {
     "name": "pronto_product_ui",
     "summary": "Mejoras a la UI solicitadas por el cliente",
-    "version": "15.0.1.1.0",
+    "version": "15.0.1.2.0",
     "category": "Product",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -14,7 +14,8 @@
         "stock",
         "pronto",
         ],
-    "data": [        
-        ],
+    'data': [
+        'views/product_template_views.xml',
+    ],
     "installable": True,
 }

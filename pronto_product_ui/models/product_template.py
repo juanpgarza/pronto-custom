@@ -12,6 +12,13 @@ class ProductTemplate(models.Model):
     
     item_ids = fields.One2many('product.pricelist.item', 'product_tmpl_id', 'Pricelist Items')
 
+    meses_de_stock = fields.Float("Meses de stock", compute="_compute_meses_de_stock", store=True)
+
+    @api.depends('sales_count', 'virtual_available')
+    def _compute_meses_de_stock(self):
+        for rec in self:
+            rec.meses_de_stock = rec.sales_count and rec.virtual_available / rec.sales_count * 12
+
     def _get_pricelist_items(self):
         for rec in self:
             item = rec.env['product.pricelist.item'].search([('product_tmpl_id', '=', rec.id)])
