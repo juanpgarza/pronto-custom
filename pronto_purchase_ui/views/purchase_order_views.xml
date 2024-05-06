@@ -12,8 +12,10 @@
                 </div>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
-                <field name="qty_available" attrs="{'invisible': [('state', 'in', ['purchase', 'done', 'cancel'])]}"/>
-                <field name="virtual_available" attrs="{'invisible': [('state', 'in', ['purchase', 'done', 'cancel'])]}"/>
+                <field name="qty_available" attrs="{'column_invisible': [('parent.state', 'in', ('purchase', 'done'))]}" optional="show"/>
+                <field name="virtual_available" attrs="{'column_invisible': [('parent.state', 'in', ('purchase', 'done'))]}" optional="show"/>
+                <field name="qty_available_static" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}" optional="show"/>
+                <field name="virtual_available_static" attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}" optional="show"/>
                 <field name="vendor_invoice_price_unit" />
                 <field name="cost_price_unit" />
                 <field name="sales_count" />

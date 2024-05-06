@@ -10,6 +10,9 @@ class PurchaseOrderLine(models.Model):
     qty_available = fields.Float("Cantidad a mano", related='product_id.qty_available')
     virtual_available = fields.Float("Cantidad prevista", related='product_id.virtual_available')
 
+    qty_available_static = fields.Float("Cantidad a mano al confirmar la PO")
+    virtual_available_static = fields.Float("Cantidad prevista al confirmar la PO")
+
     vendor_invoice_price_unit = fields.Float("Precio Unitario Facturado", compute="_compute_invoice_price_unit")
     cost_price_unit = fields.Char("Precio de costo", compute="_compute_invoice_price_unit")
 
