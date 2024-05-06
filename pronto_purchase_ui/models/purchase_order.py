@@ -14,6 +14,9 @@ class PurchaseOrder(models.Model):
         for order in self:
             if not order.date_planned_reconfirmed:
                 raise ValidationError("Debe re-confirmar la fecha prevista para poder confirmar el pedido de compra")
+            for line in order.order_line:
+                line.qty_available_static = line.product_id.qty_available
+                line.virtual_available_static = line.product_id.virtual_available
 
         return super(PurchaseOrder, self).button_confirm()
 
