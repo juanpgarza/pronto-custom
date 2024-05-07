@@ -18,6 +18,10 @@
                 <attribute name="attrs">{'required': True}</attribute>
             </field>
 
+            <field name="sale_order_template_id" position="after">
+                <field name="tiene_promociones" readonly="True" style="background-color:Red;" attrs="{'invisible': [('tiene_promociones','==', False)]}" />
+            </field>
+
         </field>
     </record>
 

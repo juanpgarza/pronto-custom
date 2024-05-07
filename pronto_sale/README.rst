@@ -9,4 +9,5 @@ Detalle de cambios:
 #. Que obligue a informar la plantilla de presupuestos antes de informar los productos
 #. pronto_sale: Que tome la descripción de venta de las líneas de promociones desde el campo 'descripción de venta' del producto
 #. Agrego campo 'Precio unitario con descuento' a las líneas de presupuestos
+#. Muestra un aviso (campo Bool) indicando que hay promos para aplicar al presupuesto
 

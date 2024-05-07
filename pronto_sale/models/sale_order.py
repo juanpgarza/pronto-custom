@@ -6,6 +6,17 @@ class SaleOrder(models.Model):
 
     fecha_compromiso_vencida = fields.Boolean(string = 'Fecha de Compromiso Vencida', compute = '_compute_vencida', search = '_search_vencida')
 
+    tiene_promociones = fields.Boolean(string="Tiene promociones para aplicar", compute = '_compute_promociones')
+
+    def _compute_promociones(self):
+        for rec in self:
+            if rec._get_applicable_no_code_promo_program():
+            # if rec.no_code_promo_program_ids:
+            # if rec._get_applied_programs():
+                rec.tiene_promociones = True
+            else:
+                rec.tiene_promociones = False
+
     def _compute_vencida(self):
         now = fields.Datetime.now()
         # import pdb; pdb.set_trace()
