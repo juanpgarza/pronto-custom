@@ -166,8 +166,9 @@ class AccountCashboxSessionLineTransaction(models.Model):
                     # es una transferencia entre cajas
                         transaction.transaction_group = 'transferencia_entre_cajas'
                         cashbox_id = transaction.payment_id.cashbox_transfer_id.destination_cashbox_id
+                        origin_cashbox_id = transaction.payment_id.cashbox_transfer_id.origin_cashbox_id
                         if transaction.transaction_type == 'inbound':
-                            transaction.transaction_group_detail = 'Recepción desde caja {}'.format(cashbox_id.name)
+                            transaction.transaction_group_detail = 'Recepción desde caja {}'.format(origin_cashbox_id.name)
                         else:
                             transaction.transaction_group_detail = 'Envío a caja {}'.format(cashbox_id.name)
                     else:
