@@ -3,7 +3,8 @@ from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta, date
 
 class AccountMove(models.Model):
-    _inherit = 'account.move'
+    _name = "account.move"    
+    _inherit = ['account.move', 'tier.validation']
 
     vencida = fields.Boolean(string = 'Is Expired', compute = '_compute_vencida', search = '_search_vencida')
 
@@ -32,3 +33,14 @@ class AccountMove(models.Model):
         # import pdb; pdb.set_trace()
         # len(self.env['account.move'].facturas_atrasadas(90))
         return res.filtered(lambda x: x._dias_atraso() > dias_atraso)
+
+    @api.model
+    def _get_under_validation_exceptions(self):
+        res = super(AccountMove,self)._get_under_validation_exceptions()
+        # estos campos no los va a tener en cuenta para la validación
+        res.append('line_ids')
+        res.append('tax_country_id')
+        res.append('payment_reference')
+        res.append('invoice_date_due')
+        res.append('invoice_date')
+        return res
