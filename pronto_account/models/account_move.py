@@ -43,4 +43,10 @@ class AccountMove(models.Model):
         res.append('payment_reference')
         res.append('invoice_date_due')
         res.append('invoice_date')
+        res.append('l10n_ar_afip_auth_mode')
+        res.append('l10n_ar_afip_auth_code')
+        res.append('l10n_ar_afip_auth_code_due')
+        res.append('l10n_ar_afip_result')
+        res.append('date')        
+        #
         return res
