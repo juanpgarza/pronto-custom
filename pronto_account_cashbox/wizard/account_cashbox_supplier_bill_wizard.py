@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from odoo.exceptions import UserError
+from datetime import date
 
 class AccountCashboxSupllierBillWizard(models.TransientModel):
     _name = 'account.cashbox.supplier.bill.wizard'
@@ -151,7 +152,7 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
             'invoice_date': self.invoice_date,
             'partner_id': self.partner_id.id,
             'journal_id': self.purchase_journal_id.id,
-            'pay_now_journal_id': self.journal_id.id,
+            # 'pay_now_journal_id': self.journal_id.id,
             'l10n_latam_document_type_id': self.l10n_latam_document_type_id.id,
             'l10n_latam_document_number': self.l10n_latam_document_number,
             'ref': self.ref,
@@ -167,6 +168,29 @@ class AccountCashboxSupllierBillWizard(models.TransientModel):
             ],
         })
         move_id.action_post()
+
+        payment_vals = {
+            "date": date.today(),
+            "partner_id": self.partner_id.id,
+            "journal_id": self.journal_id.id,
+            "payment_type": "outbound",
+            "amount": move_id.amount_total,
+            "partner_type": "supplier",
+            "payment_method_id": 1,
+            "cashbox_session_id": self.cashbox_session_id.id
+        }
+
+        payment_id = self.env['account.payment'].create(payment_vals)
+        payment_id.action_post()
+
+        # Cuenta "Proveedores"
+        proveedores_account_id = self.env.ref('l10n_ar_chart.1_base_proveedores').id
+        move_line = self.env['account.move.line'].search([('payment_id', '=', payment_id.id),('account_id','=',proveedores_account_id)])
+        move_id.js_assign_outstanding_line(move_line.id)
+
+        # lo anterior no me terminaba de funcionar porque no me conciliaba
+        # La otra opción era copiar toda la lógica de método pay_now de adhoc: 
+        # sh/adhoc/account-payment/account_payment_group/models/account_move.py:96
 
         # Registro la transacción
         # vals = {
