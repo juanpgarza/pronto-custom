@@ -48,6 +48,7 @@ class AccountMove(models.Model):
         res.append('l10n_ar_afip_auth_code_due')
         res.append('l10n_ar_afip_result')
         res.append('date')
-        res.append('l10n_ar_afip_xml_request')                
+        res.append('l10n_ar_afip_xml_request')
+        res.append('l10n_ar_afip_xml_response')
         #
         return res
