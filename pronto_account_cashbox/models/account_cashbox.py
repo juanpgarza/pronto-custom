@@ -47,7 +47,7 @@ class AccountCashbox(models.Model):
 
     def _compute_cancel(self):
         for rec in self:
-            cancelaciones_pendientes = self.env['account.cashbox.cancel'].search([('state','in',['new','pending']), '|',('cancel_cashbox_id', '=', rec.id),('cancel_cashbox_id', '=', False)])
+            cancelaciones_pendientes = self.env['account.cashbox.cancel'].search([('state','in',['new','pending']), ('cancel_cashbox_id', '=', rec.id), '|',('cancel_cashbox_id', '=', rec.id),('cancel_cashbox_id', '=', False)])
             rec.cancel_in_pending_count = len(cancelaciones_pendientes)
 
     def _compute_current_session_user(self):
