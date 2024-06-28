@@ -11,6 +11,11 @@
                     <field name="date_planned_reconfirmed"/>    
                 </div>
             </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+                <field name="precio_unitario_con_descuento" readonly="True" force_save="True" optional="hide"/>
+            </xpath>
+            
             <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
                 <field name="qty_available" attrs="{'column_invisible': [('parent.state', 'in', ('purchase', 'done'))]}" optional="show"/>
                 <field name="virtual_available" attrs="{'column_invisible': [('parent.state', 'in', ('purchase', 'done'))]}" optional="show"/>

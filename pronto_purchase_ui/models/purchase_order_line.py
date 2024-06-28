@@ -18,6 +18,8 @@ class PurchaseOrderLine(models.Model):
 
     sales_count = fields.Float("Vendido", related='product_id.sales_count')
 
+    precio_unitario_con_descuento = fields.Float('Precio unitario con descuento', compute="_compute_precio_unitario_con_descuento")
+
     @api.depends('order_id.invoice_ids.invoice_line_ids.price_unit')
     def _compute_invoice_price_unit(self):
         for rec in self:
@@ -34,3 +36,10 @@ class PurchaseOrderLine(models.Model):
             else:
                 rec.cost_price_unit = 0
 
+    @api.depends('product_id', 'price_unit', 'discount')
+    def _compute_precio_unitario_con_descuento(self):
+        for line in self:            
+            if line.discount > 0:
+                line.precio_unitario_con_descuento = line.price_unit * (1 - (line.discount/100))
+            else:
+                line.precio_unitario_con_descuento = line.price_unit
