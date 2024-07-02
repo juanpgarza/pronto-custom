@@ -38,8 +38,5 @@ class PurchaseOrderLine(models.Model):
 
     @api.depends('product_id', 'price_unit', 'discount')
     def _compute_precio_unitario_con_descuento(self):
-        for line in self:            
-            if line.discount > 0:
-                line.precio_unitario_con_descuento = line.price_unit * (1 - (line.discount/100))
-            else:
-                line.precio_unitario_con_descuento = line.price_unit
+        for line in self:
+            line.precio_unitario_con_descuento = line.price_unit * (1 - (line.discount/100))
