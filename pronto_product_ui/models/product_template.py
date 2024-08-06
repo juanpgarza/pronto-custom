@@ -105,3 +105,8 @@ class ProductTemplate(models.Model):
                                                     rec.default_code,
                                                     detalle_mensaje
                                             ))
+
+    @api.depends('type')
+    def _compute_tracking(self):
+        super(ProductTemplate, self)._compute_tracking()
+        self.tracking = False        
