@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- action="action_product_pf_family"  -->
+    <menuitem id="menu_product_pf_family" 
+    parent="sale.menu_sale_config" name="Familia de productos" sequence="20" />
+
+    <!-- FAMILIA -->
+    <record id="product_pf_family_form_view" model="ir.ui.view">
+        <field name="name">Familia</field>
+        <field name="model">product.pf.family</field>
+        <field name="arch" type="xml">
+            <form string="Familia">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_family_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.family.tree</field>
+        <field name="model">product.pf.family</field>
+        <field name="arch" type="xml">
+        <tree string="Familia" >
+            <field name="name" />
+        </tree>
+        </field>
+    </record>
+
+    <record id="product_pf_family_search_view" model="ir.ui.view">
+        <field name="model">product.pf.family</field>
+        <field name="arch" type="xml">
+            <search>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_family" model="ir.actions.act_window">
+        <field name="name">Familia</field>
+        <field name="res_model">product.pf.family</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_family" id="menu_product_pf_family_family" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Familia" sequence="10" />
+
+    <!-- FORMATO -->
+    <record id="product_pf_format_form_view" model="ir.ui.view">
+        <field name="name">Formato</field>
+        <field name="model">product.pf.format</field>
+        <field name="arch" type="xml">
+            <form string="Formato">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="pf_family_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_format_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.format.tree</field>
+        <field name="model">product.pf.format</field>
+        <field name="arch" type="xml">
+		<tree string="Formato" >
+            <field name="pf_family_id"/>
+			<field name="name" />
+		</tree>
+	    </field>
+	</record>
+
+    <record id="product_pf_format_search_view" model="ir.ui.view">
+        <field name="model">product.pf.format</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pf_family_id"/>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_format" model="ir.actions.act_window">
+        <field name="name">Formato</field>
+        <field name="res_model">product.pf.format</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_format" id="menu_product_pf_format" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Formato" sequence="20" />
+
+    <!-- Tecnología -->
+    <record id="product_pf_tech_form_view" model="ir.ui.view">
+        <field name="name">Tecnología</field>
+        <field name="model">product.pf.tech</field>
+        <field name="arch" type="xml">
+            <form string="Tecnología">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="pf_family_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_tech_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.tech.tree</field>
+        <field name="model">product.pf.tech</field>
+        <field name="arch" type="xml">
+        <tree string="Tecnología" >
+            <field name="pf_family_id"/>
+            <field name="name" />
+        </tree>
+        </field>
+    </record>
+
+    <record id="product_pf_tech_search_view" model="ir.ui.view">
+        <field name="model">product.pf.tech</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pf_family_id"/>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_tech" model="ir.actions.act_window">
+        <field name="name">Tecnología</field>
+        <field name="res_model">product.pf.tech</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_tech" id="menu_product_pf_tech" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Tecnología" sequence="21" />
+
+    <!-- POTENCIA -->
+    <record id="product_pf_power_form_view" model="ir.ui.view">
+        <field name="name">Potencia</field>
+        <field name="model">product.pf.power</field>
+        <field name="arch" type="xml">
+            <form string="Potencia">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="pf_family_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_power_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.power.tree</field>
+        <field name="model">product.pf.power</field>
+        <field name="arch" type="xml">
+        <tree string="Potencia" >
+            <field name="pf_family_id"/>
+            <field name="name" />
+        </tree>
+        </field>
+    </record>
+
+    <record id="product_pf_power_search_view" model="ir.ui.view">
+        <field name="model">product.pf.power</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pf_family_id"/>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_power" model="ir.actions.act_window">
+        <field name="name">Potencia</field>
+        <field name="res_model">product.pf.power</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_power" id="menu_product_pf_power" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Potencia" sequence="22" />
+
+    <!-- CAPACIDAD -->
+    <record id="product_pf_capacity_form_view" model="ir.ui.view">
+        <field name="name">Capacidad</field>
+        <field name="model">product.pf.capacity</field>
+        <field name="arch" type="xml">
+            <form string="Capacidad">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="pf_family_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_capacity_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.capacity.tree</field>
+        <field name="model">product.pf.capacity</field>
+        <field name="arch" type="xml">
+        <tree string="Capacidad" >
+            <field name="pf_family_id"/>
+            <field name="name" />
+        </tree>
+        </field>
+    </record>
+
+    <record id="product_pf_capacity_search_view" model="ir.ui.view">
+        <field name="model">product.pf.capacity</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pf_family_id"/>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_capacity" model="ir.actions.act_window">
+        <field name="name">Capacidad</field>
+        <field name="res_model">product.pf.capacity</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_capacity" id="menu_product_pf_capacity" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Capacidad" sequence="23" />
+
+    <!-- MARCA -->
+    <record id="product_pf_brand_form_view" model="ir.ui.view">
+        <field name="name">Marca</field>
+        <field name="model">product.pf.brand</field>
+        <field name="arch" type="xml">
+            <form string="Marca">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="pf_family_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_brand_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.brand.tree</field>
+        <field name="model">product.pf.brand</field>
+        <field name="arch" type="xml">
+        <tree string="Marca" >
+            <field name="pf_family_id"/>
+            <field name="name" />
+        </tree>
+        </field>
+    </record>
+
+    <record id="product_pf_brand_search_view" model="ir.ui.view">
+        <field name="model">product.pf.brand</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pf_family_id"/>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_brand" model="ir.actions.act_window">
+        <field name="name">Marca</field>
+        <field name="res_model">product.pf.brand</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_brand" id="menu_product_pf_brand" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Marca" sequence="24" />    
+
+    <!-- COLOR -->
+    <record id="product_pf_color_form_view" model="ir.ui.view">
+        <field name="name">Color</field>
+        <field name="model">product.pf.color</field>
+        <field name="arch" type="xml">
+            <form string="Color">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="active_button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="pf_family_id"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_pf_color_tree_view" model="ir.ui.view">
+        <field name="name">product.pf.color.tree</field>
+        <field name="model">product.pf.color</field>
+        <field name="arch" type="xml">
+        <tree string="Color" >
+            <field name="pf_family_id"/>
+            <field name="name" />
+        </tree>
+        </field>
+    </record>
+
+    <record id="product_pf_color_search_view" model="ir.ui.view">
+        <field name="model">product.pf.color</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pf_family_id"/>
+
+                <filter string="Archivado" name="archivado" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>  
+
+    <record id="action_product_pf_color" model="ir.actions.act_window">
+        <field name="name">Color</field>
+        <field name="res_model">product.pf.color</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_product_pf_color" id="menu_product_pf_color" 
+    parent="pronto_product_ui.menu_product_pf_family" name="Color" sequence="25" />
+
+
+</odoo>

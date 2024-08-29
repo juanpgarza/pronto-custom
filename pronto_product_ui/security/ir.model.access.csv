@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+pronto_product_ui.access_product_pf_power,access_product_pf_power,pronto_product_ui.model_product_pf_power,base.group_user,1,1,1,1
+pronto_product_ui.access_product_pf_family,access_product_pf_family,pronto_product_ui.model_product_pf_family,base.group_user,1,1,1,1
+pronto_product_ui.access_product_pf_format,access_product_pf_format,pronto_product_ui.model_product_pf_format,base.group_user,1,1,1,1
+pronto_product_ui.access_product_pf_tech,access_product_pf_tech,pronto_product_ui.model_product_pf_tech,base.group_user,1,1,1,1
+pronto_product_ui.access_product_pf_capacity,access_product_pf_capacity,pronto_product_ui.model_product_pf_capacity,base.group_user,1,1,1,1
+pronto_product_ui.access_product_pf_brand,access_product_pf_brand,pronto_product_ui.model_product_pf_brand,base.group_user,1,1,1,1
+pronto_product_ui.access_product_pf_color,access_product_pf_color,pronto_product_ui.model_product_pf_color,base.group_user,1,1,1,1

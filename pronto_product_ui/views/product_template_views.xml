@@ -6,10 +6,61 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="stock.view_stock_product_template_tree"></field>
         <field name="arch" type="xml">
+            <field name="standard_price" position="before">
+                <field name="pf_family_id" optional="show"/>
+                <field name="pf_format_id" optional="show"/>
+                <field name="pf_tech_id" optional="show"/>
+                <field name="pf_power_id" optional="show"/>
+                <field name="pf_capacity_id" optional="show"/>
+                <field name="pf_brand_id" optional="show"/>
+                <field name="pf_color_id" optional="show"/>
+            </field>            
             <field name="virtual_available" position="after">
                 <field name="meses_de_stock" groups="base.group_user" optional="show"/>
             </field>
         </field>
     </record>
 
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.family.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page
+                    name="page_family"
+                    string="Familia de productos"
+                >
+                    <group name="group_family">
+                        <group colspan="2" col="2">
+                            <field name="pf_family_id" options="{'no_create': True}"/>
+                            <field name="pf_format_id" options="{'no_create': True}"/>
+                            <field name="pf_tech_id" options="{'no_create': True}"/>
+                            <field name="pf_power_id" options="{'no_create': True}"/>
+                            <field name="pf_capacity_id" options="{'no_create': True}"/>
+                            <field name="pf_brand_id" options="{'no_create': True}"/>
+                            <field name="pf_color_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="product_custom_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="pf_family_id"/>
+                <field name="pf_format_id"/>
+                <field name="pf_tech_id"/>
+                <field name="pf_power_id"/>
+                <field name="pf_capacity_id"/>
+                <field name="pf_brand_id"/>
+                <field name="pf_color_id"/>
+            </field>
+        </field>
+    </record>
+    
 </odoo>
