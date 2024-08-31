@@ -84,6 +84,12 @@ class AccountCashboxTransferWizard(models.TransientModel):
         #     payment_type = 'inbound'
         #     partner_type = 'customer'
 
+        ccj = self._get_destination_cashbox_id().cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)
+        if ccj:
+            destination_journal_id = ccj[0]
+        else:
+            raise UserError("No existe diario destino con control de cierre en esta moneda")
+
         payment_vals = {
             'amount': self.unit_amount,
             'payment_type': 'outbound',
@@ -93,7 +99,7 @@ class AccountCashboxTransferWizard(models.TransientModel):
             'payment_method_line_id': self.journal_id._get_available_payment_method_lines('outbound').filtered(lambda x: x.code == 'manual').id,
             'cashbox_session_id': self.cashbox_session_id.id,
             'ref': self.ref,
-            'destination_journal_id': self._get_destination_cashbox_id().cash_control_journal_ids.filtered(lambda x: x.currency_id == self.journal_id.currency_id)[0].id,
+            'destination_journal_id': destination_journal_id.id,
         }
         payment = self.env['account.payment'].with_context(create_paired_payment=False).create(payment_vals)
 
