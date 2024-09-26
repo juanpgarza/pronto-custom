@@ -39,3 +39,8 @@ class StockPicking(models.Model):
         return self.search([]).filtered(lambda x: x.state not in ('draft', 'done', 'cancel') 
                                         and x.picking_type_id.code == 'outgoing'
                                         and x._dias_atraso() > dias_atraso)
+
+    def _check_product(self, product, qty=1.0):
+        res = super(StockPicking, self).action_cancel(product,qty)
+        raise ValidationError("OK")
+        # return super(StockPicking, self).action_cancel(product,qty)
