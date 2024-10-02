@@ -15,6 +15,8 @@
             "stock_picking_invoice_link",
             "stock_inventory",
             "stock_barcode",
+            "account",
+            "account_payment_group",
         ],
     "data": [
             'security/pronto_stock_security.xml',
