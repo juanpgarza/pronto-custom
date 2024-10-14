@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <odoo>
+        <record id="view_pronto_sale_report_form" model="ir.ui.view">
+            <field name="name">pronto.sale.report.form</field>
+            <field name="model">pronto.sale.report</field>
+            <field name="arch" type="xml">
+                <form string="Analisis de ventas Pronto">
+                    <sheet>
+                        <group>
+                            <field name="order_id" />
+                            <field name="date" />
+                            <field name="partner_id" />
+                            <field name="pricelist_id" />
+                            <field name="name" />
+                            <field name="product_id" />
+                            <field name="product_uom_qty" />
+                            <field name="price_unit" />
+                            <field name="subtotal" />
+                            <field name="discount" />
+                            <field name="precio_costo_unitario" />
+                            <field name="precio_costo_total" />
+                            <field name="margin" />
+                            <field name="margin_percent" />
+                            <field name="user_id" />
+                            <field name="categ_id" />
+                            <field name="categ_name" />
+                            <field name="currency_id" />
+                            <field name="cotizacion" />
+                            <field name="opportunity_id" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </odoo>
+
+    <odoo>
+        <record id="view_pronto_sale_report_tree" model="ir.ui.view">
+            <field name="name">pronto.sale.report.tree</field>
+            <field name="model">pronto.sale.report</field>
+            <field name="arch" type="xml">
+                <tree string="Analisis de ventas Pronto">
+                    <field name="date" optional="show"/>
+                    <field name="partner_id" optional="show"/>
+                    <field name="pricelist_id" optional="show"/>
+                    <field name="name" optional="show"/>
+                    <field name="product_id" optional="show"/>
+                    <field name="product_uom_qty" optional="show"/>
+                    <field name="price_unit" optional="show"/>
+                    <field name="subtotal" optional="show"/>
+                    <field name="discount" optional="show"/>
+                    <field name="precio_costo_unitario" optional="show"/>
+                    <field name="precio_costo_total" optional="show"/>
+                    <field name="margin" optional="show"/>
+                    <field name="margin_percent" optional="show"/>
+                    <field name="user_id" optional="show"/>
+                    <field name="categ_id" optional="show"/>
+                    <field name="categ_name" optional="show"/>
+                    <field name="currency_id" optional="show"/>
+                    <field name="cotizacion" optional="show"/>
+                    <field name="opportunity_id" optional="show"/>
+                </tree>
+            </field>
+        </record>
+    </odoo>
+    
+    <record id="view_pronto_sale_report_pivot" model="ir.ui.view">
+        <field name="name">pronto.sale.report.pivot</field>
+        <field name="model">pronto.sale.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Analisis de ventas Pronto">
+                <!-- <field name="agent_id" type="row" /> -->
+                <field name="date" interval="month" type="col" />
+                <field name="price_unit" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="pronto_sale_report_view_search" model="ir.ui.view">
+        <field name="name">pronto.sale.report.search.view</field>
+        <field name="model">pronto.sale.report</field>
+        <field name="arch" type="xml">
+            <search string="Analisis de ventas Pronto">
+                <field name="name"/>
+                <field name="categ_name"/>
+                <separator/>
+                <filter string="Fecha" name="date_filter_1" date="date" default_period="last_month"/>
+                <group expand="0" string="Group By">
+                    <filter string="Cliente" name="group_partner" domain="[]"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Categoría" name="group_categoria" domain="[]"
+                            context="{'group_by':'categ_id'}"/>
+                    <filter string="Nombre Categ." name="group_nombre_categoria" domain="[]"
+                            context="{'group_by':'categ_name'}"/>
+                    <filter string="Producto (Variante)" name="group_producto" domain="[]"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Tarifa" name="group_tarifa" domain="[]"
+                            context="{'group_by':'pricelist_id'}"/>                            
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- <record id="view_invoice_commission_analysis_graph" model="ir.ui.view">
+        <field name="name">invoice.commission.analysis.graph</field>
+        <field name="model">invoice.commission.analysis.report</field>
+        <field name="arch" type="xml">
+            <graph string="invoice Commission Analysis">
+                <field name="agent_id" />
+                <field name="amount" type="measure" />
+            </graph>
+        </field>
+    </record>
+    <record id="view_invoice_commission_analysis_search" model="ir.ui.view">
+        <field name="name">invoice.commission.analysis.search</field>
+        <field name="model">invoice.commission.analysis.report</field>
+        <field name="arch" type="xml">
+            <search string="invoices Commission Analysis">
+                <field name="date_invoice" />
+                <filter
+                    string="This Year"
+                    name="year"
+                    domain="[('date_invoice','&lt;=', time.strftime('%%Y-12-31')),('date_invoice','&gt;=',time.strftime('%%Y-01-01'))]"
+                />
+                <filter
+                    string="Settled"
+                    name="settled"
+                    domain="[('settled','=',True)]"
+                />
+                <filter
+                    string="Not Settled"
+                    name="settled"
+                    domain="[('settled','=',False)]"
+                />
+                <filter
+                    name="Draft"
+                    string="Draft"
+                    domain="[('invoice_state','=','draft')]"
+                />
+                <filter
+                    name="Invoiced"
+                    string="Invoiced"
+                    domain="[('invoice_state','not in',('draft', 'cancel'))]"
+                />
+                <separator />
+                <field name="agent_id" />
+                <field name="partner_id" />
+                <field name="product_id" />
+                <group expand="0" string="Extended Filters">
+                    <field
+                        name="categ_id"
+                        filter_domain="[('categ_id', 'child_of', self)]"
+                    />
+                    <field name="company_id" groups="base.group_multi_company" />
+                </group>
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Agent"
+                        name="Agent"
+                        context="{'group_by':'agent_id'}"
+                    />
+                    <filter
+                        string="Customer"
+                        name="Customer"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        string="Category of Product"
+                        name="Category"
+                        context="{'group_by':'categ_id'}"
+                    />
+                    <filter
+                        string="Status"
+                        name="group_by_status"
+                        context="{'group_by':'invoice_state'}"
+                    />
+                    <filter
+                        string="Company"
+                        name="group_by_company"
+                        groups="base.group_multi_company"
+                        context="{'group_by':'company_id'}"
+                    />
+                    <separator />
+                    <filter
+                        string="Invoice Month"
+                        name="group_by_invoice_month"
+                        context="{'group_by':'date_invoice:month'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+    <record
+        id="action_pronto_sale_report"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Ventas Pronto</field>
+        <field name="res_model">pronto.sale.report</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+    <menuitem
+        action="action_pronto_sale_report"
+        id="menu_pronto_sale_report"
+        parent="base.menu_board_root"
+        sequence="15"
+    />
+</odoo>
