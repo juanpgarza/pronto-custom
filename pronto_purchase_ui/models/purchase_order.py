@@ -10,6 +10,13 @@ class PurchaseOrder(models.Model):
 
     date_planned_reconfirmed = fields.Boolean('Fecha prevista re-confirmada')
 
+    proveedor_entrega_a = fields.Many2one("res.partner",string="Proveedor entrega a",domain=lambda self: self._get_dynamic_domain())
+
+    def _get_dynamic_domain(self):
+        # import pdb; pdb.set_trace()
+        # self.env.user.company_id.partner_id.child_ids.mapped("id")
+        return [('id', 'in', self.env.user.company_id.partner_id.child_ids.mapped("id"))]
+    
     def button_confirm(self):
         for order in self:
             if not order.date_planned_reconfirmed:

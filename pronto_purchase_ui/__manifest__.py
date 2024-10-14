@@ -17,6 +17,7 @@
         ],
     "data": [
         "views/purchase_order_views.xml",
+        'views/purchase_report_templates.xml',
         ],
     "installable": True,
 }
