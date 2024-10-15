@@ -1,18 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <odoo>
+        <record id="view_pronto_sale_report_form" model="ir.ui.view">
+            <field name="name">pronto.sale.report.form</field>
+            <field name="model">pronto.sale.report</field>
+            <field name="arch" type="xml">
+                <form string="Analisis de ventas Pronto">
+                    <sheet>
+                        <group>
+                            <field name="order_id" />
+                            <field name="date" />
+                            <field name="partner_id" />
+                            <field name="pricelist_id" />
+                            <field name="name" />
+                            <field name="product_id" />
+                            <field name="product_uom_qty" />
+                            <field name="price_unit" />
+                            <field name="subtotal" />
+                            <field name="discount" />
+                            <field name="precio_costo_unitario" />
+                            <field name="precio_costo_total" />
+                            <field name="margin" />
+                            <field name="margin_percent" />
+                            <field name="user_id" />
+                            <field name="categ_id" />
+                            <field name="categ_name" />
+                            <field name="currency_id" />
+                            <field name="cotizacion" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </odoo>
 
-    <!-- <record id="view_invoice_commission_analysis_pivot" model="ir.ui.view">
-        <field name="name">invoice.commission.analysis.pivot</field>
-        <field name="model">invoice.commission.analysis.report</field>
+    <odoo>
+        <record id="view_pronto_sale_report_tree" model="ir.ui.view">
+            <field name="name">pronto.sale.report.tree</field>
+            <field name="model">pronto.sale.report</field>
+            <field name="arch" type="xml">
+                <tree string="Analisis de ventas Pronto">
+                    <field name="date" optional="show"/>
+                    <field name="partner_id" optional="show"/>
+                    <field name="pricelist_id" optional="show"/>
+                    <field name="name" optional="show"/>
+                    <field name="product_id" optional="show"/>
+                    <field name="product_uom_qty" optional="show"/>
+                    <field name="price_unit" optional="show"/>
+                    <field name="subtotal" optional="show"/>
+                    <field name="discount" optional="show"/>
+                    <field name="precio_costo_unitario" optional="show"/>
+                    <field name="precio_costo_total" optional="show"/>
+                    <field name="margin" optional="show"/>
+                    <field name="margin_percent" optional="show"/>
+                    <field name="user_id" optional="show"/>
+                    <field name="categ_id" optional="show"/>
+                    <field name="categ_name" optional="show"/>
+                    <field name="currency_id" optional="show"/>
+                    <field name="cotizacion" optional="show"/>
+                </tree>
+            </field>
+        </record>
+    </odoo>
+    
+    <record id="view_pronto_sale_report_pivot" model="ir.ui.view">
+        <field name="name">pronto.sale.report.pivot</field>
+        <field name="model">pronto.sale.report</field>
         <field name="arch" type="xml">
-            <pivot string="invoice Commission Analysis">
-                <field name="agent_id" type="row" />
-                <field name="date_invoice" interval="month" type="col" />
-                <field name="amount" type="measure" />
+            <pivot string="Analisis de ventas Pronto">
+                <!-- <field name="agent_id" type="row" /> -->
+                <field name="date" interval="month" type="col" />
+                <field name="price_unit" type="measure" />
             </pivot>
         </field>
     </record>
-    <record id="view_invoice_commission_analysis_graph" model="ir.ui.view">
+
+    <record id="pronto_sale_report_view_search" model="ir.ui.view">
+        <field name="name">pronto.sale.report.search.view</field>
+        <field name="model">pronto.sale.report</field>
+        <field name="arch" type="xml">
+            <search string="Analisis de ventas Pronto">
+                <field name="name"/>
+                <separator/>
+                <filter string="Fecha" name="date_filter_1" date="date" default_period="last_month"/>
+                <group expand="0" string="Group By">
+                    <filter string="Cliente" name="group_partner" domain="[]"
+                            context="{'group_by':'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- <record id="view_invoice_commission_analysis_graph" model="ir.ui.view">
         <field name="name">invoice.commission.analysis.graph</field>
         <field name="model">invoice.commission.analysis.report</field>
         <field name="arch" type="xml">
@@ -108,9 +187,7 @@
     >
         <field name="name">Ventas Pronto</field>
         <field name="res_model">pronto.sale.report</field>
-        <field name="view_mode">tree,pivot,graph</field>
-        <!-- <field name="search_view_id" ref="view_invoice_commission_analysis_search" />
-        <field name="view_id" ref="view_invoice_commission_analysis_graph" /> -->
+        <field name="view_mode">tree,form,pivot</field>
     </record>
     <menuitem
         action="action_pronto_sale_report"
