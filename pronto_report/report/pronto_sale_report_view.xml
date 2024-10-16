@@ -27,6 +27,7 @@
                             <field name="categ_name" />
                             <field name="currency_id" />
                             <field name="cotizacion" />
+                            <field name="opportunity_id" />
                         </group>
                     </sheet>
                 </form>
@@ -58,6 +59,7 @@
                     <field name="categ_name" optional="show"/>
                     <field name="currency_id" optional="show"/>
                     <field name="cotizacion" optional="show"/>
+                    <field name="opportunity_id" optional="show"/>
                 </tree>
             </field>
         </record>
@@ -81,11 +83,20 @@
         <field name="arch" type="xml">
             <search string="Analisis de ventas Pronto">
                 <field name="name"/>
+                <field name="categ_name"/>
                 <separator/>
                 <filter string="Fecha" name="date_filter_1" date="date" default_period="last_month"/>
                 <group expand="0" string="Group By">
                     <filter string="Cliente" name="group_partner" domain="[]"
                             context="{'group_by':'partner_id'}"/>
+                    <filter string="Categoría" name="group_categoria" domain="[]"
+                            context="{'group_by':'categ_id'}"/>
+                    <filter string="Nombre Categ." name="group_nombre_categoria" domain="[]"
+                            context="{'group_by':'categ_name'}"/>
+                    <filter string="Producto (Variante)" name="group_producto" domain="[]"
+                            context="{'group_by':'product_id'}"/>
+                    <filter string="Tarifa" name="group_tarifa" domain="[]"
+                            context="{'group_by':'pricelist_id'}"/>                            
                 </group>
             </search>
         </field>

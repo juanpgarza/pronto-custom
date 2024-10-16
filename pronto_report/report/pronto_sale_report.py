@@ -29,6 +29,7 @@ class ProntoSaleReport(models.Model):
     categ_name = fields.Char("Nombre Cat.")
     currency_id = fields.Many2one('res.currency', 'Moneda', readonly=True)
     cotizacion = fields.Float('Cotizacion', readonly=True)
+    opportunity_id = fields.Many2one('crm.lead', 'Oportunidad', readonly=True)
 
     def _select(self):
         select_str = """
@@ -52,7 +53,8 @@ class ProntoSaleReport(models.Model):
             t.categ_id as categ_id,
             pc.name as categ_name,
             s.currency_id as currency_id,
-            s.cotizacion as cotizacion          
+            s.cotizacion as cotizacion,
+            s.opportunity_id as opportunity_id
 
         """
         return select_str
