@@ -83,7 +83,25 @@
         <field name="arch" type="xml">
             <search string="Analisis de ventas Pronto">
                 <field name="name"/>
-                <field name="categ_name"/>
+                <field name="order_id" />
+                <field name="date" />
+                <field name="partner_id" />
+                <field name="pricelist_id" />
+                <field name="product_id" />
+                <field name="product_uom_qty" />
+                <field name="price_unit" />
+                <field name="subtotal" />
+                <field name="discount" />
+                <field name="precio_costo_unitario" />
+                <field name="precio_costo_total" />
+                <field name="margin" />
+                <field name="margin_percent" />
+                <field name="user_id" />
+                <field name="categ_id" />
+                <field name="categ_name" />
+                <field name="currency_id" />
+                <field name="cotizacion" />
+                <field name="opportunity_id" />                
                 <separator/>
                 <filter string="Fecha" name="date_filter_1" date="date" default_period="last_month"/>
                 <group expand="0" string="Group By">
