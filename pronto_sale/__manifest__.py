@@ -18,6 +18,8 @@
             'security/pronto_sale_security.xml',
             'views/sale_order_views.xml',
             'data/pronto_data.xml',
+            # 'views/report_saleorder_inherit.xml',
+            # 'views/sale_portal_templates.xml',
         ],
     "installable": True,
 }

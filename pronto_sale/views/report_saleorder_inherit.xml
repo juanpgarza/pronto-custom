@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale_management.report_saleorder_document_inherit_sale_management">
+        <xpath expr="//table//tr/th[@name='th_option_price_unit']" position="replace">
+            <th></th>
+        </xpath>
+        <xpath expr="//td[@name='td_option_price_unit']" position="replace">
+            <td></td>
+        </xpath>
+    </template>
+</odoo>

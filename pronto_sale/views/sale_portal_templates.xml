@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_sale_order_inherit" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//section[@id='signature']" position="after">
+            <t t-if="sale_order.sale_order_option_ids)">
+                <section>
+                    <h3>Options</h3>
+                    <t t-set="display_discount" t-value="True in [option.discount > 0 for option in sale_order.sale_order_option_ids]"/>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="sale_order.sale_order_option_ids" t-as="option">
+                                <td>
+                                    <!-- <div t-field="option.name"/> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </t>
+        </xpath>        
+    </template>
+
+    
+</odoo>

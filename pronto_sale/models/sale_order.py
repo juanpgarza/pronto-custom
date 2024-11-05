@@ -1,6 +1,8 @@
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import formatLang
+from odoo.tools.safe_eval import safe_eval
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -138,3 +140,54 @@ class SaleOrder(models.Model):
                 if reward_dict[val]["price_unit"] == 0:
                     del reward_dict[val]
         return reward_dict.values()
+
+    @api.onchange('pricelist_id')
+    def _onchange_pricelist_id(self):
+        super(SaleOrder, self)._onchange_pricelist_id()
+        
+        # Configuración para actualizar precios automáticamente
+        update_prices_automatically = safe_eval(
+            self.env['ir.config_parameter'].sudo().get_param(
+                'sale_ux.update_prices_automatically', 'False')
+        )
+        
+        # Si hay productos opcionales y se permite la actualización automática
+        if self.sale_order_option_ids and update_prices_automatically:
+            optional_lines_to_update = []
+            
+            for line in self.sale_order_option_ids:
+                # product = line.product_id.with_context(
+                #     partner=self.partner_id,
+                #     quantity=line.quantity,
+                #     date=self.date_order,
+                #     pricelist=self.pricelist_id.id,
+                #     uom=line.uom_id.id
+                # )
+                
+                # price_unit = self.env['account.tax']._fix_tax_included_price_company(
+                #     product.list_price,
+                #     line.product_id.taxes_id,
+                #     line.tax_id,
+                #     line.company_id
+                # )
+
+                price = self.env['product.product'].browse(
+                    line.product_id.id).with_context(pricelist=self.pricelist_id.id).price
+
+                price_unit = price
+
+                # if self.pricelist_id.discount_policy == 'without_discount' and price_unit:
+                #     discount = max(0, (price_unit - product.price) * 100 / price_unit)
+                # else:
+                #     discount = 0
+                
+                optional_lines_to_update.append((1, line.id, {
+                    'price_unit': price_unit,
+                    # 'discount': discount,
+                }))
+            
+            # import pdb; pdb.set_trace()
+            # Actualizar los precios y descuentos en las líneas de productos opcionales
+            self.update({
+                'sale_order_option_ids': optional_lines_to_update,
+            })
