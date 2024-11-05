@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 pronto_stock.access_update_inventory_product,access_update_inventory_product,pronto_stock.model_update_inventory_product,base.group_user,1,1,1,1
+pronto_stock.access_report_customer_delivery,access_report_customer_delivery,pronto_stock.model_report_customer_delivery,base.group_user,1,1,1,1
+pronto_stock.access_report_customer_delivery_wizard,access_report_customer_delivery_wizard,pronto_stock.model_report_customer_delivery_wizard,base.group_user,1,1,1,1

@@ -20,6 +20,8 @@
             'views/stock_picking_views.xml',
             'wizard/update_inventory_product_views.xml',
             'security/ir.model.access.csv',
+            'views/report_customer_delivery_views.xml',
+            'wizard/report_customer_delivery_wizard_views.xml',
         ],
     "installable": True,
 }
