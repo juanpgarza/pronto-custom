@@ -10,4 +10,7 @@ Detalle de cambios:
 #. pronto_sale: Que tome la descripción de venta de las líneas de promociones desde el campo 'descripción de venta' del producto
 #. Agrego campo 'Precio unitario con descuento' a las líneas de presupuestos
 #. Muestra un aviso (campo Bool) indicando que hay promos para aplicar al presupuesto
+#. Fecha de compromiso vencida. Tipo de actividad nueva. Define métodos que se usan desde un cron.
+#. Definición de Grupo de seguridad y control para impedir que usuarios que no están en el grupo puedan cancelar pedidos de venta
+
 
