@@ -17,7 +17,7 @@
         "views/website_sale_template.xml",
     ],
     "qweb": ["static/src/xml/website_sale_templates.xml"],
-    "installable": True,
+    "installable": False,
     "assets": {
         "web.assets_frontend": [
             "/website_sale_hide_price_pronto/static/src/js/website_sale_hide_price.js"

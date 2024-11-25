@@ -19,5 +19,5 @@
             'security/ir.model.access.csv',
             "report/pronto_sale_report_view.xml",            
         ],
-    "installable": True,
+    "installable": False,
 }

@@ -15,5 +15,5 @@
     "data": [
         'data/pronto_data.xml',
         ],
-    "installable": True,
+    "installable": False,
 }

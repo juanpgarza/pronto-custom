@@ -17,5 +17,5 @@
             # 'security/pronto_sale_security.xml',
             'views/website_sale_template.xml',
         ],
-    "installable": True,
+    "installable": False,
 }

@@ -35,5 +35,5 @@
             'wizard/account_cashbox_supplier_bill_wizard.xml',
             'wizard/account_payment_cancel_wizard.xml',
         ],
-    "installable": True,
+    "installable": False,
 }
