@@ -11,8 +11,7 @@
                     name="web_ribbon"
                     title="Archived"
                     bg_color="bg-danger"
-                    attrs="{'invisible': [('active', '=', True)]}"
-                />
+                    invisible="active"/>
             </xpath>
             <xpath expr="//sheet">
                 <field name="active" invisible="1" />
@@ -20,7 +19,7 @@
         </field>
     </record>
 
-    <record id="view_account_cashbox_kanban" model="ir.ui.view">
+    <!-- <record id="view_account_cashbox_kanban" model="ir.ui.view">
         <field name="name">account.cashbox.kanban</field>
         <field name="model">account.cashbox</field>
         <field name="inherit_id" ref="account_cashbox.view_account_cashbox_kanban"/>
@@ -35,6 +34,6 @@
                 <a name="%(account_cashbox_cancel_action)d" type="action" context="{'search_default_cancel_cashbox_id': active_id}">Cancelaciones pendientes</a>
             </xpath>
         </field>
-    </record>
+    </record> -->
 
 </odoo>

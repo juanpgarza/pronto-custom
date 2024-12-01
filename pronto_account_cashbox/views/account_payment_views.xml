@@ -9,9 +9,8 @@
             <field name="journal_id" position="before">
                 <field
                     name="cashbox_transfer_id"
-                    readonly="1"                    
-                    attrs="{'invisible': [('cashbox_transfer_id', '=', False)]}"
-                />
+                    readonly="1"
+                    invisible="not cashbox_transfer_id"/>
             </field>
         </field>
     </record>

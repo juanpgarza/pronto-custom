@@ -24,9 +24,15 @@ class AccountCashbox(models.Model):
         string="Cancelaciones Pendientes", compute="_compute_cancel"
     )
 
-    current_session_id_state = fields.Char("Estado", compute='_compute_current_session_id_state', store=True)
+    # current_session_id_state = fields.Char("Estado", compute='_compute_current_session_id_state', store=True)
 
     current_session_user = fields.Char("Usuario", compute='_compute_current_session_user')
+
+    current_session_id = fields.Many2one(
+        'account.cashbox.session',
+        string='Current Session',
+        index=True
+    )
 
     def toggle_active(self):
         # Agregar validaciones!!

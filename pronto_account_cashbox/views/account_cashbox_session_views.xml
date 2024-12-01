@@ -20,8 +20,7 @@
                         type="action" 
                         class="oe_stat_button" 
                         icon="fa-money"
-                        attrs="{'invisible': [('state', '=', 'draft')]}"
-                        >
+                        invisible="state == 'draft'">
                     <span>Detalle de sesión</span>
                 </button>
                 <!-- <button name="action_session_payments" type="object" class="oe_stat_button" icon="fa-money" invisible="1">
@@ -31,20 +30,16 @@
                         class="oe_stat_button"
                         icon="fa-level-down"
                         string="Cobrar en Efectivo"
-                        type="object"                        
-                        attrs="{'invisible': [('state', '!=', 'opened')]}"
-                        invisible="1"
-                        >
+                        type="object"
+                        invisible="1">
                 </button>
 
                 <button name="action_cashbox_pago"
                         class="oe_stat_button"
                         icon="fa-level-up"
                         string="Pagar en Efectivo"
-                        type="object"                        
-                        attrs="{'invisible': [('state', '!=', 'opened')]}"
-                        invisible="1"
-                        >
+                        type="object"
+                        invisible="1">
                 </button>
 
                 <!-- <button name="action_cashbox_move"
@@ -60,10 +55,8 @@
                         class="oe_stat_button"
                         icon="fa-user"
                         string="Gasto en efectivo"
-                        type="object"                        
-                        attrs="{'invisible': [('state', '!=', 'opened')]}"
-                        invisible="1"
-                        >
+                        type="object"
+                        invisible="1">
                 </button>
 
                 <button 
@@ -71,8 +64,7 @@
                     type="object" 
                     class="oe_stat_button" 
                     icon="fa-arrow-up"
-                    attrs="{'invisible': [('transfer_out_count', '=', 0)]}"
-                >
+                    invisible="transfer_out_count == 0">
                     <field name="transfer_out_count" widget="statinfo" string="Transf. Enviadas" />
                 </button>
 
@@ -81,8 +73,7 @@
                     type="object" 
                     class="oe_stat_button" 
                     icon="fa-arrow-down"
-                    attrs="{'invisible': [('transfer_in_count', '=', 0)]}"
-                >
+                    invisible="transfer_in_count == 0">
                     <field name="transfer_in_count" widget="statinfo" string="Transf. Recibidas" />
                 </button>
 
@@ -91,16 +82,15 @@
                     type="object" 
                     class="oe_stat_button" 
                     icon="fa-money"
-                    attrs="{'invisible': [('transfer_in_pending_count', '=', 0)]}"
-                    decoration-danger="transfer_in_pending_count > 0"
-                >
+                    invisible="transfer_in_pending_count == 0"
+                    decoration-danger="transfer_in_pending_count > 0">
                     <field name="transfer_in_pending_count" widget="statinfo" decoration-danger="transfer_in_pending_count > 0" string="Transf. Pendientes" />
                 </button>
                
             </xpath>
             
             <field name="user_ids" position="after">
-                <field name="arqueo_inicial_realizado" attrs="{'invisible' : [('state', '!=', 'draft')]}"/>
+                <field name="arqueo_inicial_realizado" invisible="state != 'draft'"/>
             </field>
 
             <!-- esto no me funciona! -->
@@ -109,7 +99,7 @@
             </xpath> -->
 
             <xpath expr="//tree/field[@name='balance_start']" position="attributes">
-                <attribute name="attrs">{'readonly': 1}</attribute>
+                <attribute name="readonly">1</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
 
@@ -126,8 +116,7 @@
                         type="action" 
                         title="Depósito/Extracción" 
                         icon="fa-money"         
-                        attrs="{'invisible': [('require_cash_control', '=', False)]}"               
-                        ></button>
+                        invisible="not require_cash_control"></button>
             </xpath>
 
         </field>

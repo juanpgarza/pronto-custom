@@ -132,10 +132,10 @@
         <field name="context">{'search_default_caja': 1,'search_default_sesion': 1,'search_default_diario': 1, }</field>
     </record>
 
-    <menuitem id="menu_transacciones_caja"
+    <!-- <menuitem id="menu_transacciones_caja"
     name="Transacciones de caja"
     action="action_account_cashbox_session_line_transaction_all"
     parent="account_payment_group.menu_finance_bank_and_cash"
-    sequence="2"/>
+    sequence="2"/> -->
 
 </odoo>

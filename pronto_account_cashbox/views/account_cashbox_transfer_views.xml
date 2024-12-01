@@ -12,8 +12,8 @@
             </header>
                 <sheet>
                     <div class="oe_title">
-                        <h1 attrs="{'invisible': [('state', '!=', 'draft')]}"><span>Draft</span></h1>
-                        <h1 attrs="{'invisible': [('state', '=', 'draft')]}"><field name="name" readonly="1"/></h1>
+                        <h1 invisible="state != 'draft'"><span>Draft</span></h1>
+                        <h1 invisible="state == 'draft'"><field name="name" readonly="1"/></h1>
                     </div>
                     <group>
                         <group>
@@ -47,7 +47,7 @@
         <field name="model">account.cashbox.transfer</field>
         <field name="arch" type="xml">
             <tree>                
-                <field name="id" invisible="1"/>
+                <field name="id" column_invisible="True"/>
                 <field name="state"/>
                 <field name="name"/>
                 <field name="origin_cashbox_id"/>
