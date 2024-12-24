@@ -221,7 +221,7 @@
     <menuitem
         action="action_pronto_sale_report"
         id="menu_pronto_sale_report"
-        parent="base.menu_board_root"
+        parent="spreadsheet_dashboard.spreadsheet_dashboard_menu_root"
         sequence="15"
     />
 </odoo>

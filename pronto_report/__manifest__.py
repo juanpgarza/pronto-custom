@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": [
             "sale",
+            "spreadsheet_dashboard",
         ],
     "data": [
             # 'security/pronto_stock_security.xml',
