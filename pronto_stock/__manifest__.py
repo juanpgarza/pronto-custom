@@ -4,7 +4,7 @@
 {
     "name": "pronto_stock",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "15.0.6.0.0",
+    "version": "17.0.1.0.0",
     "category": "Stock",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -23,5 +23,5 @@
             'views/report_customer_delivery_views.xml',
             'wizard/report_customer_delivery_wizard_views.xml',
         ],
-    "installable": False,
+    "installable": True,
 }

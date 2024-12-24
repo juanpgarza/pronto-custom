@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Website Sale Hide Price - Pronto",
-    "version": "15.0.1.3.0",
+    "version": "17.0.1.0.0",
     "category": "Website",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/e-commerce",
@@ -17,7 +17,7 @@
         "views/website_sale_template.xml",
     ],
     "qweb": ["static/src/xml/website_sale_templates.xml"],
-    "installable": False,
+    "installable": True,
     "assets": {
         "web.assets_frontend": [
             "/website_sale_hide_price_pronto/static/src/js/website_sale_hide_price.js"

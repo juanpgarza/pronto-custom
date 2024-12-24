@@ -2,7 +2,7 @@
     'name': 'Website Sale Observations',
     'summary': 'Allow introduce customers observations in web orders',
     'category': 'Website',
-    'version': '15.0.1.0.0',
+    'version': "17.0.1.0.0",
     'author': 'Trey (www.trey.es)',
     'website': 'https://www.trey.es',
     'license': 'AGPL-3',
@@ -13,5 +13,5 @@
     'data': [
         'views/website_sale.xml',
     ],
-    'installable': False,
+    'installable': True,
 }
