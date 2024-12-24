@@ -13,7 +13,6 @@
         "purchase",
         "sale",
         "pronto",
-        "purchase_discount",
         ],
     "data": [
         "views/purchase_order_views.xml",
