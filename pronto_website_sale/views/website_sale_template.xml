@@ -28,11 +28,11 @@
         </xpath>
 
         <!-- oculta agregar cantidad si el usuario no inició sesión -->
-        <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+        <!-- <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
             <attribute name="t-if">
                 user_id != website.user_id
             </attribute>
-        </xpath>
+        </xpath> -->
 
         <!-- agrega leyenda si el usuario no inició sesión -->
         <xpath expr="//a[@id='add_to_cart']" position="after">
