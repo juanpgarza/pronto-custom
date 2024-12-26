@@ -14,6 +14,8 @@
             "sale_stock", # CORE. por el campo sale_id de stock.picking
             "stock_picking_invoice_link",
             "stock_inventory",
+            "stock_picking_tag",
+            "stock_picking_state_assigned",
         ],
     "data": [
             'security/pronto_stock_security.xml',
