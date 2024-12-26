@@ -12,6 +12,7 @@
     "depends": [
             "sale",
             "pronto",
+            "stock_inventory",
         ],
     "data": [
             'security/pronto_security.xml',
