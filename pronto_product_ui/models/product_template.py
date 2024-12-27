@@ -40,37 +40,37 @@ class ProductTemplate(models.Model):
 
         return rec
 
-    @api.model
-    def create(self,values):
+    @api.model_create_multi
+    def create(self, vals_list):
+        for values in vals_list:
+            if not values['tracking']:
+                # este campo es obligatorio a nivel de base de datos
+                # hay que informarlo aunque no se marque el producto como vendible
+                if values['detailed_type'] == 'product':
+                    raise ValidationError("Debe informar el campo Seguimiento (Inventario/Trazabilidad)")
+                else:
+                    values['tracking'] = 'none'
 
-        if not values['tracking']:
-            # este campo es obligatorio a nivel de base de datos
-            # hay que informarlo aunque no se marque el producto como vendible
-            if values['detailed_type'] == 'product':
-                raise ValidationError("Debe informar el campo Seguimiento (Inventario/Trazabilidad)")
-            else:
-                values['tracking'] = 'none'
+            if not self.user_has_groups('pronto.group_no_exigir_campos_producto_vendible'):
+                mensaje_validacion = ""
+                if values['sale_ok'] and values['type'] == 'product':
 
-        if not self.user_has_groups('pronto.group_no_exigir_campos_producto_vendible'):
-            mensaje_validacion = ""
-            if values['sale_ok'] and values['type'] == 'product':
+                    if not values['excluir_calculo_markup']:
+                        mensaje_validacion += "- Excluir del cálculo del markup \n"
 
-                if not values['excluir_calculo_markup']:
-                    mensaje_validacion += "- Excluir del cálculo del markup \n"
+                    if not values['route_ids']:
+                        mensaje_validacion += "- Rutas \n"
 
-                if not values['route_ids']:
-                    mensaje_validacion += "- Rutas \n"
+                    if not self.taxes_id:
+                        mensaje_validacion += "- Impuestos cliente \n"
 
-                if not self.taxes_id:
-                    mensaje_validacion += "- Impuestos cliente \n"
+                    if not self.supplier_taxes_id:
+                        mensaje_validacion += "- Impuestos de proveedor \n"
 
-                if not self.supplier_taxes_id:
-                    mensaje_validacion += "- Impuestos de proveedor \n"
+                if mensaje_validacion:
+                    raise ValidationError("Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n" + mensaje_validacion)
 
-            if mensaje_validacion:
-                raise ValidationError("Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n" + mensaje_validacion)
-
-        res = super(ProductTemplate,self).create(values)
+        res = super(ProductTemplate,self).create(vals_list)
 
         return res
 
