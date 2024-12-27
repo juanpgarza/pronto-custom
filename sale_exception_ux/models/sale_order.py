@@ -54,8 +54,8 @@ class SaleOrder(models.Model):
                     pricelist=line.order_id.pricelist_id.id,
                     uom=line.product_uom.id,
                     fiscal_position=line.env.context.get('fiscal_position')
-                )
-                precio_unitario_actual = round(self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(product), 
+                )    
+                precio_unitario_actual = round(self.env['account.tax']._fix_tax_included_price_company(line._get_display_price(), 
                                                 product.taxes_id, line.tax_id, line.company_id),2)
 
                 precio_unitario = round(line.price_unit,2)

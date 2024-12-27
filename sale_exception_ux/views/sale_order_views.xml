@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
 
             <field name="type_id" position="attributes">                
-                <attribute name="attrs">{'readonly':[('state','==','done')]}</attribute>
+                <attribute name="readonly">state == 'done'</attribute>
             </field>
 
         </field>
