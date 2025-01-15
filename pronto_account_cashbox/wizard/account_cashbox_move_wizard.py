@@ -34,11 +34,11 @@ class AccountCashboxMoveWizard(models.TransientModel):
     amount = fields.Monetary(string='Importe', currency_field='currency_id', required=True)
 
     company_id = fields.Many2one(
-        related="journal_id.company_id", readonly=True
+        related="journal_id.company_id", readonly=True,string="Moneda"
     )
 
     company_currency_id = fields.Many2one(
-        related="company_id.currency_id", readonly=True
+        related="company_id.currency_id", readonly=True,string="Moneda Companía"
     )
 
     amount_company_currency = fields.Monetary(
@@ -82,7 +82,7 @@ class AccountCashboxMoveWizard(models.TransientModel):
 
     ref = fields.Char(string='Referencia')
 
-    en_clima = fields.Boolean("En clima")
+    # en_clima = fields.Boolean("En clima")
 
     # def _compute_reason_id(self):
     #     if self.transaction_type == '':
@@ -139,12 +139,12 @@ class AccountCashboxMoveWizard(models.TransientModel):
                rec.company_currency_id != rec.currency_id:
                 rec.other_currency = True
 
-    @api.onchange('reason_id_in', 'reason_id_in')
-    def _onchange_price_total(self):
-        if self.transaction_type == 'outbound':
-            self.en_clima = self.reason_id_out.en_clima
-        else:
-            self.en_clima = self.reason_id_in.en_clima
+    # @api.onchange('reason_id_in', 'reason_id_in')
+    # def _onchange_price_total(self):
+    #     if self.transaction_type == 'outbound':
+    #         self.en_clima = self.reason_id_out.en_clima
+    #     else:
+    #         self.en_clima = self.reason_id_in.en_clima
 
     @api.depends('journal_id')
     def _compute_curency(self):
@@ -187,9 +187,9 @@ class AccountCashboxMoveWizard(models.TransientModel):
         })
         move_id.action_post()
 
-        clima_enable = 'en_clima' in self.env['account.move']._fields
-        if clima_enable:
-            move_id.en_clima = self.en_clima
+        # clima_enable = 'en_clima' in self.env['account.move']._fields
+        # if clima_enable:
+        #     move_id.en_clima = self.en_clima
 
         # Registro la transacción
         vals = {

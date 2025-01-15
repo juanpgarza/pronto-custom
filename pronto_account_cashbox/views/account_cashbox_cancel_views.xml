@@ -93,7 +93,7 @@
         </field>
     </record>
 
-    <record id="account_cashbox_cancel_action" model="ir.actions.act_window">
+    <!-- <record id="account_cashbox_cancel_action" model="ir.actions.act_window">
         <field name="name">Cancelaciones</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.cashbox.cancel</field>
@@ -105,6 +105,6 @@
         name="Cancelaciones"
         action="account_cashbox_cancel_action"
         parent="account_payment_group.menu_finance_bank_and_cash"
-        sequence="2"/>
+        sequence="2"/> -->
 
 </odoo>

@@ -14,3 +14,6 @@ Adaptaciones solicitadas por Pronto:
 #. Integración con Cobros y Pagos
 #. Motivos de Recibos y Pagos desde caja
 #. Transferencias de efectivo entre cajas
+[to-do] La transferencia de efectivo entre caja genera asientos contables para los payments origen y destino.
+Estos payments tienen asociados asientos contables. Se necesita poder marcar las transferencias para que los asientos generados
+los marque como "En clima". Por ahora se lo resolví con una AS a nivel de sesion de caja.

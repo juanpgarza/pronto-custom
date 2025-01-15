@@ -146,8 +146,9 @@ class AccountCashboxSessionLineTransaction(models.Model):
             if transaction.payment_id:
             # es un pago. y puede ser:
             # Todo menos un 'asiento_contable_directo'
-                if transaction.payment_id.payment_group_id:                
-                    transaction.partner_id = transaction.payment_id.payment_group_id.partner_id
+                if not transaction.payment_id.is_internal_transfer:
+                    # Viene de un recibo/OP (esto lo tengo que cambiar)
+                    transaction.partner_id = transaction.payment_id.partner_id
                     if transaction.transaction_type == 'inbound':
                     # tiene un payment group y es inbound
                         transaction.transaction_group = 'recibo'
