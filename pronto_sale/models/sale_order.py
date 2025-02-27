@@ -62,10 +62,16 @@ class SaleOrder(models.Model):
     @api.model
     def default_get(self, fields):
         rec = super(SaleOrder, self).default_get(fields)
-
+        # import pdb; pdb.set_trace()
         rec['sale_order_template_id'] = False
 
         return rec
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        """Asegurar que sale_order_template_id quede vacío al cambiar partner_id o al crear"""
+        if not self.id:  # Solo al crear un nuevo presupuesto
+            self.sale_order_template_id = False
 
     def _get_reward_values_percentage_amount(self, program):
         # Invalidate multiline fixed_price discount line as they should apply after % discount
