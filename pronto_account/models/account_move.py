@@ -52,3 +52,12 @@ class AccountMove(models.Model):
         res.append('l10n_ar_afip_xml_response')
         #
         return res
+
+    @api.model
+    def _get_after_validation_exceptions(self):
+        # ESTO ES PARA CUANDO SE MODIFICAN CAMPOS DESDE OTRO MODELO (ej payment)
+        # Y LA FACTURA TIENE UNA EXCEPCION VALIDADA
+        res = super(AccountMove,self)._get_after_validation_exceptions()
+        # estos campos no los va a tener en cuenta para la validación
+        res.append('needed_terms_dirty')
+        return res
