@@ -28,3 +28,9 @@ class PurchaseOrder(models.Model):
         res.append('notes')
         res.append('internal_notes')
         return res
+
+    def _get_tier_validation_readonly_domain(self):
+        # 
+        # tengo que sobre-escribir este metodo porque sino, cuando tiene validaciones aprobadas,
+        #  no me deja editar los campos por más que el pedido este desbloqueda
+        return "False"
