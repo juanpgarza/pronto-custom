@@ -4,7 +4,7 @@
 {
     "name": "pronto_stock",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Stock",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -16,6 +16,7 @@
             "stock_inventory",
             "stock_picking_tag",
             "stock_picking_state_assigned",
+            "stock_voucher", # adhoc --> para valor declarado
         ],
     "data": [
             'security/pronto_stock_security.xml',
