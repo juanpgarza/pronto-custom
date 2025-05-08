@@ -49,15 +49,15 @@ class SaleOrder(models.Model):
                 raise ValidationError("Opción habilitada solo para los miembros del grupo: \n\n'{} / {}'".format(group_id.sudo().category_id.name,group_id.name))
         return super(SaleOrder, self).action_cancel()
 
-    # @api.onchange('partner_id')
-    # def onchange_partner_id(self):
+    @api.onchange('partner_id')
+    def _compute_user_id(self):
     #     # Tarea #974
     #     # Se anula la funcion que hace que tome el comercial asignado al cliente
     #     # Lo informan a mano         
-    #     user_id = self.user_id
-    #     res = super(SaleOrder, self).onchange_partner_id()
-    #     self.update({'user_id': user_id.id})
-    #     return res
+        res = super(SaleOrder, self)._compute_user_id()
+        for rec in self:
+            rec.user_id = self.env.user        
+        return res
 
     @api.model
     def default_get(self, fields):
