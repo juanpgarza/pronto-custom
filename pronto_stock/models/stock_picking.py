@@ -11,6 +11,11 @@ class StockPicking(models.Model):
                 compute='_compute_sale_invoice_ids',
     )
 
+    @api.depends('state')
+    def _compute_hide_picking_type(self):
+        for picking in self:
+            picking.hide_picking_type = False
+
     def action_cancel(self):        
         for rec in self.filtered(lambda x: x.state != 'cancel'):
             group = "pronto_stock.group_cancel_picking"
