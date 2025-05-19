@@ -29,6 +29,10 @@
                 <field name="tag_ids"/>
                 <field name="state_detail_id"/>
             </field>
+            <xpath expr="//filter[@name='available']" position="after">
+                <filter domain="[('state', '=', 'done')]" name="filter_hecho" string="Hecho"/>
+                <filter domain="[('state', '=', 'cancel')]" name="filter_cancel" string="Cancelado"/>
+            </xpath>
         </field>
     </record>
 
