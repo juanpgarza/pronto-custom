@@ -26,5 +26,5 @@
             'views/report_customer_delivery_views.xml',
             'wizard/report_customer_delivery_wizard_views.xml',
         ],
-    "installable": True,
+    "installable": False,
 }

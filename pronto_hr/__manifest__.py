@@ -17,5 +17,5 @@
         "data/pronto_hr_data.xml",
         "views/hr_employee_views.xml",
         ],
-    "installable": True,
+    "installable": False,
 }

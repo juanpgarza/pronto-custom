@@ -17,5 +17,5 @@
             "views/account_payment_batch_st_views.xml",
             'data/config_parameter.xml',
         ],
-    "installable": True,
+    "installable": False,
 }

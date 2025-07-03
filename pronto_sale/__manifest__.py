@@ -19,5 +19,5 @@
             'views/sale_order_views.xml',
             'data/pronto_data.xml',
         ],
-    "installable": True,
+    "installable": False,
 }
