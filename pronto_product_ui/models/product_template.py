@@ -51,7 +51,7 @@ class ProductTemplate(models.Model):
                 else:
                     values['tracking'] = 'none'
 
-            if not self.user_has_groups('pronto.group_no_exigir_campos_producto_vendible'):
+            if not self.env.user.has_group('pronto.group_no_exigir_campos_producto_vendible'):
                 mensaje_validacion = ""
                 if values['sale_ok'] and values['type'] == 'product':
 
@@ -80,7 +80,7 @@ class ProductTemplate(models.Model):
         controlar_requeridos = self.env.context.get('controlar_requeridos', True)
 
         if controlar_requeridos:
-            if not self.user_has_groups('pronto.group_no_exigir_campos_producto_vendible'):
+            if not self.env.user.has_group('pronto.group_no_exigir_campos_producto_vendible'):
                 for rec in self:
                     mensaje_validacion = ""
 
