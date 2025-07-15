@@ -4,7 +4,7 @@
 {
     "name": "pronto_sale",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sale",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -12,12 +12,12 @@
     "depends": [
             "sale",
             "sale_management",
-            "sale_loyalty",
+            # "sale_loyalty",
         ],
     "data": [
             'security/pronto_sale_security.xml',
             'views/sale_order_views.xml',
             'data/pronto_data.xml',
         ],
-    "installable": False,
+    "installable": True,
 }
