@@ -32,7 +32,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+            <xpath expr="//field[@name='order_line']/list//field[@name='price_unit']" position="after">
                 <field name="precio_unitario_con_descuento" readonly="True" force_save="True" optional="hide"/>
             </xpath>
 
