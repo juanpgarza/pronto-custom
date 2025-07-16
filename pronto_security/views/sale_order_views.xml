@@ -6,6 +6,10 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
+                <!-- Sin este permiso pronto.group_stock_sale_user, un usuario que es vendedor pero
+                 no tiene permisos en la App inventario, no puede navegar (no le muestra el boton
+                 a la orden de entrega
+                 -->
                 <xpath expr="//button[@name='action_view_delivery']" position="attributes">
                     <attribute name="groups">stock.group_stock_user,pronto.group_stock_sale_user</attribute>
                 </xpath>

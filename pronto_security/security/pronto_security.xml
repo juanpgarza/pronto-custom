@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!--
+        
+        esto define un grupo nuevo que permite hacer inventarios a los usuarios dentro del grupo.
+        ver archivo: ir.model.access.csv
+        El nivel "Usuario" del inventario no debe poder hacer ajustes
+    -->
     <record id="group_stock_ajuste_de_inventario" model="res.groups">
         <field name="name">Ajustes de inventario (Solo Carga)</field>
         <field name="category_id" ref="base.module_category_warehouse_management"/>
