@@ -23,12 +23,15 @@ class PurchaseOrderLine(models.Model):
     @api.depends('order_id.invoice_ids.invoice_line_ids.price_unit')
     def _compute_invoice_price_unit(self):
         for rec in self:
+            # vendor_invoice_price_unit: el precio que el proveedor informa en la factura
             rec.vendor_invoice_price_unit = 0
             # los items de una PO pueden estar incluidos en distintas facturas
             for invoice in rec.order_id.invoice_ids:
                 linea_factura = invoice.invoice_line_ids.filtered(lambda x: x.purchase_line_id.id == rec.id)
                 if linea_factura:
                     rec.vendor_invoice_price_unit = linea_factura.price_unit
+            
+            # cost_price_unit: Precio de costo segun lista de costo rec.company_id.product_pricelist_cost_id
             cost_pricelist_id = rec.company_id.product_pricelist_cost_id
             cost_price_unit = cost_pricelist_id.item_ids.filtered(lambda x: x.product_tmpl_id.id == rec.product_id.product_tmpl_id.id)       
             if cost_price_unit:
