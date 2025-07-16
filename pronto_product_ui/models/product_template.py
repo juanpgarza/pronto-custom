@@ -28,85 +28,85 @@ class ProductTemplate(models.Model):
             else:
                 rec.pricelist_item_ids = False
 
-    @api.model
-    def default_get(self, fields):
-        rec = super(ProductTemplate, self).default_get(fields)
+    # @api.model
+    # def default_get(self, fields):
+    #     rec = super(ProductTemplate, self).default_get(fields)
+    #     rec['excluir_calculo_markup'] = False        
+    #     rec['route_ids'] = False        
+    #     rec['tracking'] = False
+    #     rec['taxes_id'] = False
+    #     rec['supplier_taxes_id'] = False
 
-        rec['excluir_calculo_markup'] = False        
-        rec['route_ids'] = False        
-        rec['tracking'] = False
-        rec['taxes_id'] = False
-        rec['supplier_taxes_id'] = False
+    #     return rec
 
-        return rec
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     for values in vals_list:
+    #         if not values['tracking']:
+    #             # este campo es obligatorio a nivel de base de datos
+    #             # hay que informarlo aunque no se marque el producto como vendible
+    #             if values['type'] == 'consu' and values['is_storable']:
+    #                 raise ValidationError("Debe informar el campo Seguimiento (Inventario/Trazabilidad)")
+    #             else:
+    #                 values['tracking'] = 'none'
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for values in vals_list:
-            if not values['tracking']:
-                # este campo es obligatorio a nivel de base de datos
-                # hay que informarlo aunque no se marque el producto como vendible
-                if values['detailed_type'] == 'product':
-                    raise ValidationError("Debe informar el campo Seguimiento (Inventario/Trazabilidad)")
-                else:
-                    values['tracking'] = 'none'
+    #         if not self.env.user.has_group('pronto.group_no_exigir_campos_producto_vendible'):
+    #             mensaje_validacion = ""
+    #             # import pdb; pdb.set_trace()
+    #             if values['sale_ok'] and values['type'] == 'consu':
 
-            if not self.env.user.has_group('pronto.group_no_exigir_campos_producto_vendible'):
-                mensaje_validacion = ""
-                if values['sale_ok'] and values['type'] == 'product':
+    #                 if not values['excluir_calculo_markup']:
+    #                     mensaje_validacion += "- Excluir del cálculo del markup \n"
 
-                    if not values['excluir_calculo_markup']:
-                        mensaje_validacion += "- Excluir del cálculo del markup \n"
+    #                 if not values['route_ids']:
+    #                     mensaje_validacion += "- Rutas \n"
 
-                    if not values['route_ids']:
-                        mensaje_validacion += "- Rutas \n"
+    #                 # if not values['taxes_id']:
+    #                 #     mensaje_validacion += "- Impuestos cliente \n"
 
-                    if not self.taxes_id:
-                        mensaje_validacion += "- Impuestos cliente \n"
+    #                 # if not values['supplier_taxes_id']:
+    #                 #     mensaje_validacion += "- Impuestos de proveedor \n"
 
-                    if not self.supplier_taxes_id:
-                        mensaje_validacion += "- Impuestos de proveedor \n"
+    #             if mensaje_validacion:
+    #                 raise ValidationError("Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n" + mensaje_validacion)
 
-                if mensaje_validacion:
-                    raise ValidationError("Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n" + mensaje_validacion)
+    #     res = super(ProductTemplate,self).create(vals_list)
 
-        res = super(ProductTemplate,self).create(vals_list)
+    #     return res
 
-        return res
-
-    def write(self, values):
-        super(ProductTemplate,self).write(values)        
+    # def write(self, values):
+    #     super(ProductTemplate,self).write(values)        
         
-        controlar_requeridos = self.env.context.get('controlar_requeridos', True)
+    #     controlar_requeridos = self.env.context.get('controlar_requeridos', True)
 
-        if controlar_requeridos:
-            if not self.env.user.has_group('pronto.group_no_exigir_campos_producto_vendible'):
-                for rec in self:
-                    mensaje_validacion = ""
+    #     if controlar_requeridos:
+    #         if not self.env.user.has_group('pronto.group_no_exigir_campos_producto_vendible'):
+    #             for rec in self:
+    #                 mensaje_validacion = ""
 
-                    if rec.type == 'product' and rec.sale_ok:
+    #                 if rec.type == 'product' and rec.sale_ok:
 
-                        if not rec.excluir_calculo_markup:
-                            mensaje_validacion += "- Excluir del cálculo del markup \n"
+    #                     if not rec.excluir_calculo_markup:
+    #                         mensaje_validacion += "- Excluir del cálculo del markup \n"
 
-                        if not rec.route_ids:
-                            mensaje_validacion += "- Rutas \n"
+    #                     if not rec.route_ids:
+    #                         mensaje_validacion += "- Rutas \n"
 
-                        if not self.taxes_id:
-                            mensaje_validacion += "- Impuestos cliente \n"
+    #                     if not self.taxes_id:
+    #                         mensaje_validacion += "- Impuestos cliente \n"
 
-                        if not self.supplier_taxes_id:
-                            mensaje_validacion += "- Impuestos de proveedor \n"
+    #                     if not self.supplier_taxes_id:
+    #                         mensaje_validacion += "- Impuestos de proveedor \n"
 
-                    if mensaje_validacion:
-                        detalle_mensaje = mensaje_validacion
-                        mensaje_validacion = ""
-                        raise ValidationError("Ref. Interna: {} \n\n Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n {}".format(
-                                                    rec.default_code,
-                                                    detalle_mensaje
-                                            ))
+    #                 if mensaje_validacion:
+    #                     detalle_mensaje = mensaje_validacion
+    #                     mensaje_validacion = ""
+    #                     raise ValidationError("Ref. Interna: {} \n\n Debe completar los siguientes campos para que el producto pueda ser vendido: \n\n {}".format(
+    #                                                 rec.default_code,
+    #                                                 detalle_mensaje
+    #                                         ))
 
-    @api.depends('type')
-    def _compute_tracking(self):
-        super(ProductTemplate, self)._compute_tracking()
-        self.tracking = False        
+    # @api.depends('type')
+    # def _compute_tracking(self):
+    #     super(ProductTemplate, self)._compute_tracking()
+    #     self.tracking = False        
