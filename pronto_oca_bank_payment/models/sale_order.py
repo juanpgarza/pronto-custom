@@ -14,6 +14,7 @@ class SaleOrder(models.Model):
     #         if not rec.payment_mode_id:
     #             raise ValidationError("Debe informar el modo de pago ")
 
+    # Buscar "Modos de pago" (Contabilidad/Configuracion/Gestion) para la tabla relacionada con payment_mode_id
     def write(self, values):
         # if self.user_has_groups('pronto.group_commitment_date_required'):
         if ('state' in values and self.state != 'done' and values['state'] == 'sale') or 'user_requesting_review' in values:
