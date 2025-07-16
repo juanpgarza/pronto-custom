@@ -4,7 +4,7 @@
 {
     "name": "pronto_account",
     "summary": "Mejoras solicitadas por el cliente",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sale",
     "website": "https://github.com/juanpgarza/pronto-custom",
     "author": "juanpgarza",
@@ -16,5 +16,5 @@
     "data": [
         'data/pronto_data.xml',
         ],
-    "installable": False,
+    "installable": True,
 }
