@@ -24,8 +24,9 @@ class UpdateInventoryProduct(models.TransientModel):
                 raise UserError('El inventario debe estar en el estado Borrador')
             if not self.inventory_id.location_ids:
                 raise UserError('Debe informar una ubicación')
+            # Tiene que ser .xls (xlsx no soporta)
             inputx = BytesIO()
-            inputx.write(base64.decodestring(self.excel_file_for_import))
+            inputx.write(base64.decodebytes(self.excel_file_for_import))
             book = open_workbook(file_contents=inputx.getvalue())
         except TypeError as e:
             raise UserError(u'ERROR: {}'.format(e))

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- el modulo de adhoc tiene otro permiso, pero te oculta el boton
+      stock_ux.allow_picking_cancellation -->
     <record id="group_cancel_picking" model="res.groups">
         <field name="name">Permiso para cancelar movimiento de stock (entrega)</field>
         <field name="category_id" ref="base.module_category_warehouse_management"/>
