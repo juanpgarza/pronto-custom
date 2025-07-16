@@ -20,6 +20,20 @@ class PurchaseOrder(models.Model):
 
         return super(PurchaseOrder, self).button_confirm()
 
+    # https://odoo-community.org/shop/base-tier-validation-703#attr=942627
+    # To configure Tier Validation Exceptions, you need to:
+
+    # Go to Settings > Technical > Tier Validations > Tier Validation Exceptions.
+    # Create as many tiers validation exceptions as you want for any model having tier validation functionality.
+    # Add desired fields to be checked in Fields.
+    # Add desired groups that can use this Exception in Groups.
+    # You must check Write under Validation, Write after Validation or both.
+    # Note:
+
+    # If you don't create any exception, the Validated record will be readonly and cannot be modified.
+    # If check Write under Validation, records will be able to be modified only in the defined fields when the Validation process is ongoing.
+    # If check Write after Validation, records will be able to be modified only in the defined fields when the Validation process is finished.
+    # If check Write after Validation and Write under Validation, records will be able to be modified defined fields always.
     @api.model
     def _get_under_validation_exceptions(self):
         res = super(PurchaseOrder,self)._get_under_validation_exceptions()
