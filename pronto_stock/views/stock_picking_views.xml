@@ -10,10 +10,10 @@
 
             <field name="origin" position="after">
                 <field name="sale_invoice_ids" widget="one2many_list">
-                    <tree create="false" edit="false" delete="false">
+                    <list create="false" edit="false" delete="false">
                         <field name="display_name" string="Factura"/>
                         <field name="payment_state"/>
-                    </tree>
+                    </list>
                 </field>
             </field>
 

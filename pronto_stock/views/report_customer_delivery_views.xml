@@ -2,17 +2,17 @@
 <odoo>
 
     <record id="view_report_customer_delivery_tree" model="ir.ui.view">
-        <field name="name">report.customer.delivery.tree</field>
+        <field name="name">report.customer.delivery.list</field>
         <field name="model">report.customer.delivery</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="product_id"/>
                 <field name="location_id"/>
                 <field name="warehouse_id"/> <!-- Campo de almacén -->
                 <field name="quantity"/>
                 <field name="forecasted_quantity"/> <!-- Cantidad pronosticada -->
                 <field name="meses_stock"/>
-            </tree>
+            </list>
         </field>
     </record>
 

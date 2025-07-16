@@ -13,6 +13,6 @@ class ReportCustomerDeliveryWizard(models.TransientModel):
             'type': 'ir.actions.act_window',
             'name': 'Entregas a cliente por ubicación (meses de stock)',
             'res_model': 'report.customer.delivery',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
         }
