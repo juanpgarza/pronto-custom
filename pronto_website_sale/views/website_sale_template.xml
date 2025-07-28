@@ -28,14 +28,15 @@
         </xpath>
 
         <!-- oculta agregar cantidad si el usuario no inició sesión -->
-        <!-- <xpath expr="//div[hasclass('css_quantity')]" position="attributes">
+        <!-- <xpath expr="//div[hasclass('css_quantity')]" position="attributes"> -->
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="attributes">
             <attribute name="t-if">
                 user_id != website.user_id
             </attribute>
-        </xpath> -->
+        </xpath>
 
         <!-- agrega leyenda si el usuario no inició sesión -->
-        <xpath expr="//a[@id='add_to_cart']" position="after">
+        <xpath expr="//div[@id='o_product_terms_and_share']" position="before">
             <t t-if="user_id == website.user_id">
                 <p><span><a href="/web/login">Inicie sesión</a> o <a href="/contactus">contacte</a> con pronto para obtener su cuenta. Si usted es un consumidor final puede comprar en <a href="http://tienda.prontodistribuidora.com.ar">http://tienda.prontodistribuidora.com.ar</a></span></p>
             </t>
